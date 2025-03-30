@@ -29,12 +29,9 @@ function analyzePageContent() {
   checkForSuspiciousContent();
 }
 
-// Check login form for security issues
 function checkLoginFormSecurity(form) {
-  // Check if form submits over HTTPS
   const action = form.getAttribute('action');
   if (action && action.startsWith('http:')) {
-    // Form submits over insecure HTTP
     reportSecurityIssue('Login form submits data over insecure HTTP');
   }
 
@@ -53,7 +50,6 @@ function checkLoginFormSecurity(form) {
   }
 }
 
-// Check for suspicious content on the page
 function checkForSuspiciousContent() {
   const pageText = document.body.innerText.toLowerCase();
 
@@ -97,7 +93,6 @@ function checkForSuspiciousContent() {
   }
 }
 
-// Report a security issue to the background script
 function reportSecurityIssue(issue) {
   chrome.runtime.sendMessage({
     action: 'reportSecurityIssue',
@@ -106,7 +101,6 @@ function reportSecurityIssue(issue) {
   });
 }
 
-// Set up observer to detect dynamic changes to the DOM
 function setupMutationObserver() {
   const observer = new MutationObserver((mutations) => {
     // Check if significant changes were made that warrant re-analysis
@@ -139,9 +133,7 @@ function setupMutationObserver() {
   });
 }
 
-// Show a warning banner when a phishing site is detected
 function showPhishingWarning(data) {
-  // Remove any existing banner
   removePhishingWarning();
 
   // Create warning banner
@@ -203,7 +195,6 @@ function showPhishingWarning(data) {
   });
 }
 
-// Remove the phishing warning banner
 function removePhishingWarning() {
   const banner = document.getElementById(DOM_IDS.warningBanner);
   if (banner) {
@@ -211,7 +202,6 @@ function removePhishingWarning() {
   }
 }
 
-// Show a training simulation
 function showTrainingSimulation(simulation) {
   // Don't show simulation if one is already active
   if (simulationActive) return;

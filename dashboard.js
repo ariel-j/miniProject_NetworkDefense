@@ -15,15 +15,9 @@ const elements = {
     learnFinancial: document.getElementById('learn-financial')
   };
   
-  // User stats data
-  let userStats = null;
-  
-  // Initialize dashboard
+  let userStats = null;  
   function initialize() {
-    // Load user stats
     loadUserStats();
-    
-    // Set up event listeners
     setupEventListeners();
   }
   
