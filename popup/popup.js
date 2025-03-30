@@ -182,7 +182,7 @@ const elements = {
     
     // View dashboard button
     elements.viewDashboardBtn.addEventListener('click', function() {
-      chrome.tabs.create({ url: chrome.runtime.getURL('dashboard.html') });
+      chrome.tabs.create({ url: chrome.runtime.getURL('dashboard/index.html') });
     });
   }
   
