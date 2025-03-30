@@ -1,6 +1,3 @@
-// PhishGuard popup.js
-
-// DOM elements
 const elements = {
     currentStatus: document.getElementById('current-status'),
     simulationsShown: document.getElementById('simulations-shown'),
@@ -26,11 +23,9 @@ const elements = {
         const stats = result.userStats;
         
         // Update count displays
-        elements.simulationsShown.textContent = stats.simulationsShown;
-        
+        elements.simulationsShown.textContent = stats.simulationsShown;   
         const passedCount = stats.simulationsShown - stats.simulationsFallen;
-        elements.simulationsPassed.textContent = passedCount;
-        
+        elements.simulationsPassed.textContent = passedCount;       
         elements.threatsBlocked.textContent = stats.phishingSitesBlocked;
         
         // Calculate and update protection score
@@ -56,7 +51,6 @@ const elements = {
     });
   }
   
-  // Update the vulnerability chart
   function updateVulnerabilityChart(vulnerabilityAreas) {
     // Clear existing content
     elements.vulnerabilityContainer.innerHTML = '';
@@ -147,14 +141,12 @@ const elements = {
     });
   }
   
-  // Update the status display
   function updateStatusDisplay(status) {
-    // Set background color based on status
-    let bgColor = '#e8f0fe'; // default blue
+    let bgColor = '#e8f0fe'; 
     if (status.safe === false) {
-      bgColor = '#fce8e6'; // red
+      bgColor = '#fce8e6'; 
     } else if (status.safe === 'warning') {
-      bgColor = '#fef7e0'; // yellow
+      bgColor = '#fef7e0'; 
     }
     
     elements.currentStatus.style.backgroundColor = bgColor;
@@ -169,9 +161,7 @@ const elements = {
     `;
   }
   
-  // Set up event listeners
   function setupEventListeners() {
-    // Training mode toggle
     elements.trainingToggle.addEventListener('change', function() {
       const isEnabled = this.checked;
       chrome.storage.local.set({ trainingEnabled: isEnabled });
@@ -185,7 +175,7 @@ const elements = {
             action: 'runManualSimulation',
             tabId: tabs[0].id
           });
-          window.close(); // Close the popup
+          window.close(); 
         }
       });
     });

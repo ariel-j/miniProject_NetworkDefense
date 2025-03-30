@@ -74,11 +74,9 @@ const elements = {
       financialBait: 'Financial Bait'
     };
     
-    // Sort vulnerabilities by score (highest first)
     const sortedVulnerabilities = Object.entries(vulnerabilityAreas)
       .sort((a, b) => b[1] - a[1]);
     
-    // Add each vulnerability to the chart
     for (const [key, score] of sortedVulnerabilities) {
       const percentage = (score / maxScore) * 100;
       const label = vulnerabilityLabels[key] || key;
@@ -155,9 +153,7 @@ const elements = {
   
   // Generate progress chart
   function generateProgressChart(history) {
-    // We'll use a simple placeholder for now
-    // In a real implementation, you'd use a charting library like Chart.js
-    
+
     elements.progressChart.innerHTML = `
       <div style="padding: 20px; text-align: center;">
         <p style="margin-bottom: 15px; color: #5f6368;">Success rate over time:</p>
@@ -228,9 +224,7 @@ const elements = {
     `;
   }
   
-  // Set up event listeners
   function setupEventListeners() {
-    // Learning resource links
     elements.learnUrgency.addEventListener('click', function(e) {
       e.preventDefault();
       openLearningResource('urgencyTactics');
@@ -252,12 +246,10 @@ const elements = {
     });
   }
   
-  // Open a learning resource page
   function openLearningResource(resourceType) {
     chrome.tabs.create({ 
       url: chrome.runtime.getURL(`learning/${resourceType}.html`) 
     });
   }
   
-  // Initialize when DOM is loaded
   document.addEventListener('DOMContentLoaded', initialize);
