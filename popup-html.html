@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishGuard Training</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <header>
+      <div class="logo">
+        <img src="../assets/icons/icon48.png" alt="PhishGuard Logo">
+        <h1>PhishGuard Training</h1>
+      </div>
+      <div class="toggle-container">
+        <label class="switch">
+          <input type="checkbox" id="extensionToggle" checked>
+          <span class="slider round"></span>
+        </label>
+        <span class="toggle-label">Protection</span>
+      </div>
+    </header>
+    
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-title">Phishing Attempts Blocked</div>
+        <div class="stat-value" id="blockedCount">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-title">Training Simulations</div>
+        <div class="stat-value" id="simulationCount">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-title">Success Rate</div>
+        <div class="stat-value" id="successRate">0%</div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-header">
+        <h2>Training Mode</h2>
+        <div class="toggle-container">
+          <label class="switch">
+            <input type="checkbox" id="trainingToggle">
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <div class="training-settings" id="trainingSettings">
+        <div class="setting-row">
+          <label for="frequencySelect">Frequency:</label>
+          <select id="frequencySelect">
+            <option value="daily">Daily</option>
+            <option value="weekly" selected>Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
+        </div>
+        <div class="setting-row">
+          <label for="difficultySelect">Difficulty:</label>
+          <select id="difficultySelect">
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <div class="setting-row">
+          <label>Simulation Types:</label>
+          <div class="checkbox-group">
+            <label class="checkbox-container">
+              <input type="checkbox" value="fake_login" checked>
+              <span class="checkmark"></span>
+              Fake Login
+            </label>
+            <label class="checkbox-container">
+              <input type="checkbox" value="lookalike_domain" checked>
+              <span class="checkmark"></span>
+              Lookalike Domain
+            </label>
+            <label class="checkbox-container">
+              <input type="checkbox" value="suspicious_attachment">
+              <span class="checkmark"></span>
+              Suspicious Attachment
+            </label>
+            <label class="checkbox-container">
+              <input type="checkbox" value="urgent_action">
+              <span class="checkmark"></span>
+              Urgent Action
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-header">
+        <h2>URL Check</h2>
+      </div>
+      <div class="url-check">
+        <input type="text" id="urlCheckInput" placeholder="Enter a URL to check">
+        <button id="urlCheckButton">Check</button>
+      </div>
+      <div id="urlCheckResult" class="url-check-result"></div>
+    </div>
+    
+    <div class="section">
+      <div class="action-buttons">
+        <button id="viewDashboardButton" class="btn primary">View Dashboard</button>
+        <button id="startSimulationButton" class="btn secondary">Run Test Simulation</button>
+      </div>
+    </div>
+    
+    <footer>
+      <div class="last-check">
+        Last scan: <span id="lastCheckTime">Never</span>
+      </div>
+      <div class="credits">
+        PhishGuard Training &copy; 2025
+      </div>
+    </footer>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
