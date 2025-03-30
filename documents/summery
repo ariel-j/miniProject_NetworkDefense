@@ -1,0 +1,126 @@
+# PhishGuard - Anti-Phishing Browser Extension with Training Mode
+
+## Project Overview
+
+PhishGuard is a browser extension designed to protect users from phishing attacks while simultaneously training them to recognize and avoid such threats. By combining real phishing detection with simulated phishing scenarios, it creates a comprehensive security solution that addresses both the technical and human aspects of cybersecurity.
+
+## Key Features
+
+1. **Real-time Phishing Detection**
+   - URL analysis against known phishing domains
+   - Content analysis for suspicious patterns
+   - Alerts for potentially dangerous websites
+
+2. **Simulated Phishing Training**
+   - Safe simulations of common phishing tactics
+   - Personalized training based on user vulnerabilities
+   - Immediate feedback when users interact with simulations
+
+3. **Vulnerability Analysis & Tracking**
+   - Identifies user-specific vulnerability areas
+   - Tracks improvement over time
+   - Provides personalized learning resources
+
+4. **Educational Resources**
+   - Detailed guides on different phishing techniques
+   - Interactive quizzes to test knowledge
+   - Performance tracking for learning progress
+
+## Project Structure
+
+### Core Components
+
+1. **Background Service Worker** (`background.js`)
+   - Manages extension state and user data
+   - Analyzes URLs for phishing indicators
+   - Schedules and generates training simulations
+   - Tracks user interactions and progress
+
+2. **Content Script** (`content.js`)
+   - Runs in the context of web pages
+   - Analyzes page content for phishing indicators
+   - Displays warnings for dangerous sites
+   - Shows training simulations and feedback
+
+3. **User Interface**
+   - Popup interface (`popup.html`, `popup.js`) for quick access to stats and controls
+   - Full dashboard (`dashboard.html`, `dashboard.js`) for detailed analytics
+   - Educational resources (`learning/*.html`) for in-depth training
+
+### Phishing Detection Methods
+
+1. **URL Analysis**
+   - Checking against known phishing domains
+   - Detecting typosquatting and domain spoofing
+   - Identifying suspicious URL patterns
+
+2. **Content Analysis**
+   - Scanning for login forms with security issues
+   - Detecting urgency language and suspicious claims
+   - Identifying common phishing content patterns
+
+### Training Simulation Types
+
+1. **Urgency Tactics**
+   - Simulates messages with false urgency to pressure immediate action
+   - Examples: "Account suspension", "Immediate action required"
+
+2. **Login Form Spoofing**
+   - Simulates fake login forms designed to steal credentials
+   - Professional-looking but fraudulent login interfaces
+
+3. **Misspelled Domains**
+   - Simulates typosquatting attacks (e.g., "amaz0n.com")
+   - Teaches users to verify domain names carefully
+
+4. **Security False Claims**
+   - Simulates messages claiming security issues need verification
+   - Teaches users to be skeptical of unsolicited security alerts
+
+5. **Financial Bait**
+   - Simulates "too good to be true" offers and rewards
+   - Teaches users to be wary of unexpected financial incentives
+
+## Implementation Details
+
+### User Statistics & Tracking
+
+The extension stores and tracks:
+- Number of simulations shown and passed/failed
+- Real phishing threats blocked
+- Vulnerability scores by category
+- Training history and performance trends
+- Quiz results and learning progress
+
+### Educational Approach
+
+- **Progressive Learning**: Training focuses on user's weakest areas first
+- **Immediate Feedback**: Users learn instantly when they fall for a simulation
+- **Practical Application**: Simulations reflect real-world phishing tactics
+- **Comprehensive Resources**: Detailed guides explain the psychology behind attacks
+
+## Technical Implementation
+
+- Built with JavaScript, HTML, and CSS
+- Uses Chrome Extension Manifest V3
+- No external dependencies required
+- Designed for cross-browser compatibility
+- Responsive UI that works across different screen sizes
+
+## Getting Started
+
+1. Clone the repository
+2. Load the extension in developer mode:
+   - Open Chrome and navigate to `chrome://extensions`
+   - Enable "Developer mode"
+   - Click "Load unpacked" and select the extension directory
+3. The extension will immediately begin monitoring browsing activity
+4. Training simulations will appear periodically based on settings
+
+## Future Enhancements
+
+- Machine learning for improved phishing detection
+- More sophisticated simulation scenarios
+- Integration with organizational security training programs
+- Support for additional languages
+- Enhanced reporting capabilities for security teams
