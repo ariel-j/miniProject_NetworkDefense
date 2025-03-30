@@ -1,47 +1,48 @@
 {
-    "manifest_version": 3,
-    "name": "PhishGuard Training",
-    "version": "1.0",
-    "description": "Anti-phishing extension with simulated attack training mode",
-    "permissions": [
-      "activeTab",
-      "webNavigation",
-      "storage",
-      "scripting",
-      "tabs",
-      "alarms"
-    ],
-    "host_permissions": [
-      "http://*/*",
-      "https://*/*"
-    ],
-    "background": {
-      "service_worker": "background.js"
-    },
-    "action": {
-      "default_popup": "popup.html",
-      "default_icon": {
-        "16": "icons/icon16.png",
-        "48": "icons/icon48.png",
-        "128": "icons/icon128.png"
-      }
-    },
-    "icons": {
-      "16": "icons/icon16.png",
-      "48": "icons/icon48.png",
-      "128": "icons/icon128.png"
-    },
-    "content_scripts": [
-      {
-        "matches": ["http://*/*", "https://*/*"],
-        "js": ["content.js"],
-        "run_at": "document_idle"
-      }
-    ],
-    "web_accessible_resources": [
-      {
-        "resources": ["training/*.html", "images/*"],
-        "matches": ["<all_urls>"]
-      }
-    ]
-  }
+  "manifest_version": 3,
+  "name": "PhishGuard",
+  "version": "1.0",
+  "description": "Anti-Phishing Training Tool",
+  "icons": {
+    "16": "icons/Logo.png",
+    "48": "icons/Logo.png",
+    "128": "icons/Logo.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": "icons/Logo.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "content-styles.js",
+        "content-templates.js", 
+        "content-script.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "images/*",
+        "icons/*",
+        "learning/*"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "permissions": [
+    "storage",
+    "tabs",
+    "webNavigation",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ]
+}
