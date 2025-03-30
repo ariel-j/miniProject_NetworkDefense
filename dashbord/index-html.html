@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishGuard Training Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-content">
+      <span class="logo">🛡️</span>
+      <h1>PhishGuard Training Dashboard</h1>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="dashboard-grid">
+      <div class="card">
+        <h2 class="card-title">
+          <span class="card-title-icon">📊</span>
+          Training Overview
+        </h2>
+        <div class="stats-summary">
+          <div class="stat-item">
+            <div class="stat-value" id="simulations-shown">0</div>
+            <div class="stat-label">Simulations Shown</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="simulations-passed">0</div>
+            <div class="stat-label">Simulations Passed</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="threats-blocked">0</div>
+            <div class="stat-label">Threats Blocked</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="protection-score">0%</div>
+            <div class="stat-label">Protection Score</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <h2 class="card-title">
+          <span class="card-title-icon">📈</span>
+          Progress Over Time
+        </h2>
+        <div class="chart-container" id="progress-chart">
+          <!-- Chart will be rendered here -->
+          <p style="text-align: center; padding-top: 130px; color: #5f6368;">
+            Progress chart will appear here as you complete more training simulations
+          </p>
+        </div>
+      </div>
+      
+      <div class="card">
+        <h2 class="card-title">
+          <span class="card-title-icon">🎯</span>
+          Vulnerability Areas
+        </h2>
+        <ul class="vulnerability-ranking" id="vulnerability-container">
+          <!-- Will be populated dynamically -->
+          <li class="vulnerability-item">
+            <div class="vulnerability-label">Loading vulnerabilities...</div>
+            <div class="vulnerability-bar-container">
+              <div class="vulnerability-bar" style="width: 0%"></div>
+            </div>
+            <div class="vulnerability-score">0</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="training-history">
+      <h2 class="history-title">Training History</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Simulation Type</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody id="history-table-body">
+            <!-- Will be populated dynamically -->
+            <tr>
+              <td colspan="3" style="text-align: center; color: #5f6368;">No training history yet</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div class="learning-resources">
+      <h2 class="history-title">Learning Resources</h2>
+      
+      <div class="resource-card">
+        <h3>Recognizing Urgency Tactics</h3>
+        <p>Learn how to identify phishing attempts that try to create a false sense of urgency to make you take immediate action.</p>
+        <a href="#" id="learn-urgency">Read more →</a>
+      </div>
+      
+      <div class="resource-card">
+        <h3>Spotting Fake Login Forms</h3>
+        <p>Discover techniques to identify spoofed login forms designed to steal your credentials.</p>
+        <a href="#" id="learn-login">Read more →</a>
+      </div>
+      
+      <div class="resource-card">
+        <h3>Detecting URL Manipulation</h3>
+        <p>Learn how attackers use misspelled domains and URL tricks to make fraudulent websites appear legitimate.</p>
+        <a href="#" id="learn-url">Read more →</a>
+      </div>
+      
+      <div class="resource-card">
+        <h3>Avoiding Financial Scams</h3>
+        <p>Understand common financial bait tactics used in phishing attempts and how to protect yourself.</p>
+        <a href="#" id="learn-financial">Read more →</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    PhishGuard Training v1.0 | Built for better security awareness
+  </div>
+  
+  <script src="dashboard.js"></script>
+</body>
+</html>
