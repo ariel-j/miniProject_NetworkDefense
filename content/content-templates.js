@@ -1,160 +1,8 @@
-// PhishGuard content script
-// This runs in the context of web pages
+// PhishGuard HTML Templates for Content Script
 
-// Global state
-let simulationActive = false;
-let currentSimulation = null;
-const DOM_IDS = {
-  warningBanner: 'phishguard-warning-banner',
-  simulationBanner: 'phishguard-simulation-banner',
-  simulationOverlay: 'phishguard-simulation-overlay'
-};
-
-function initialize() {
-  console.log('PhishGuard content script initialized');
-  analyzePageContent();
-  setupMutationObserver();
-}
-
-function analyzePageContent() {
-  const forms = document.querySelectorAll('form');
-  forms.forEach(form => {
-    const passwordFields = form.querySelectorAll('input[type="password"]');
-    const emailFields = form.querySelectorAll('input[type="email"], input[name*="email"], input[id*="email"]');
-
-    if (passwordFields.length > 0 && emailFields.length > 0) {
-      checkLoginFormSecurity(form);
-    }
-  });
-  checkForSuspiciousContent();
-}
-
-function checkLoginFormSecurity(form) {
-  const action = form.getAttribute('action');
-  if (action && action.startsWith('http:')) {
-    reportSecurityIssue('Login form submits data over insecure HTTP');
-  }
-
-  // Check if the form goes to a different domain
-  if (action && action.includes('://')) {
-    try {
-      const actionUrl = new URL(action);
-      const currentUrl = new URL(window.location.href);
-
-      if (actionUrl.hostname !== currentUrl.hostname) {
-        reportSecurityIssue('Login form submits to a different domain');
-      }
-    } catch (e) {
-      console.error('Error parsing form action URL:', e);
-    }
-  }
-}
-
-function checkForSuspiciousContent() {
-  const pageText = document.body.innerText.toLowerCase();
-
-  // Check for urgency keywords
-  const urgencyKeywords = [
-    'urgent', 'immediately', 'alert', 'warning', 'limited time',
-    'account suspended', 'unauthorized', 'suspicious activity'
-  ];
-
-  for (const keyword of urgencyKeywords) {
-    if (pageText.includes(keyword)) {
-      reportSecurityIssue(`Page contains urgency language: "${keyword}"`);
-      break;
-    }
-  }
-
-  // Check for security claim keywords
-  const securityKeywords = [
-    'verify your account', 'confirm your identity', 'security check',
-    'secure your account', 'update your information', 'validation required'
-  ];
-
-  for (const keyword of securityKeywords) {
-    if (pageText.includes(keyword)) {
-      reportSecurityIssue(`Page contains security claims: "${keyword}"`);
-      break;
-    }
-  }
-
-  // Check for financial bait keywords
-  const financialKeywords = [
-    'you won', 'congratulations', 'claim your prize', 'free offer',
-    'lottery', 'winner', 'reward', 'gift card', 'discount'
-  ];
-
-  for (const keyword of financialKeywords) {
-    if (pageText.includes(keyword)) {
-      reportSecurityIssue(`Page contains financial bait: "${keyword}"`);
-      break;
-    }
-  }
-}
-
-function reportSecurityIssue(issue) {
-  chrome.runtime.sendMessage({
-    action: 'reportSecurityIssue',
-    url: window.location.href,
-    issue: issue
-  });
-}
-
-function setupMutationObserver() {
-  const observer = new MutationObserver((mutations) => {
-    // Check if significant changes were made that warrant re-analysis
-    let shouldReanalyze = false;
-
-    for (const mutation of mutations) {
-      if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-        for (const node of mutation.addedNodes) {
-          if (node.nodeType === Node.ELEMENT_NODE) {
-            // Check if the added element is a form or contains a form
-            if (node.tagName === 'FORM' || node.querySelector('form')) {
-              shouldReanalyze = true;
-              break;
-            }
-          }
-        }
-      }
-
-      if (shouldReanalyze) break;
-    }
-
-    if (shouldReanalyze) {
-      analyzePageContent();
-    }
-  });
-
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  });
-}
-
-function showPhishingWarning(data) {
-  removePhishingWarning();
-
-  // Create warning banner
-  const banner = document.createElement('div');
-  banner.id = DOM_IDS.warningBanner;
-  banner.style.cssText = `
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: #ff3b30;
-    color: white;
-    padding: 15px;
-    text-align: center;
-    z-index: 9999;
-    font-family: Arial, sans-serif;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  `;
-
-  const content = document.createElement('div');
-  content.innerHTML = `
+const templates = {
+  // Phishing warning template
+  phishingWarning: (data) => `
     <h2 style="margin: 0; font-size: 18px;">⚠️ Potential Phishing Site Detected</h2>
     <p style="margin: 10px 0; font-size: 14px;">
       ${data.reason} (Confidence: ${Math.round(data.confidence * 100)}%)
@@ -180,85 +28,46 @@ function showPhishingWarning(data) {
         font-weight: bold;
       ">Go Back to Safety</button>
     </div>
-  `;
+  `,
 
-  banner.appendChild(content);
-  document.body.prepend(banner);
+  // Simulation feedback template
+  simulationFeedback: (fellForIt, simulationType) => `
+    <h2 style="margin: 0; font-size: 18px;">
+      ${fellForIt ? '⚠️ Phishing Simulation - You Clicked!' : '✓ Good Job! You Avoided the Phishing Attempt'}
+    </h2>
+    <p style="margin: 10px 0; font-size: 14px;">
+      ${fellForIt
+      ? 'This was a training simulation by PhishGuard. In a real phishing attempt, your information could have been stolen.'
+      : 'This was a training simulation by PhishGuard. You correctly avoided interacting with suspicious content.'}
+    </p>
+    <p style="margin: 5px 0; font-size: 14px;">
+      <strong>Simulation type:</strong> ${simulationType}
+    </p>
+    <div>
+      <button id="phishguard-simulation-learn" style="
+        background-color: white;
+        color: ${fellForIt ? '#ff3b30' : '#34c759'};
+        border: none;
+        padding: 8px 15px;
+        margin-right: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+      ">Learn More</button>
+      <button id="phishguard-simulation-dismiss" style="
+        background-color: transparent;
+        color: white;
+        border: 1px solid white;
+        padding: 8px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+      ">Dismiss</button>
+    </div>
+  `,
 
-  // Add event listeners to buttons
-  document.getElementById('phishguard-warning-continue').addEventListener('click', () => {
-    removePhishingWarning();
-  });
-
-  document.getElementById('phishguard-warning-back').addEventListener('click', () => {
-    window.history.back();
-  });
-}
-
-function removePhishingWarning() {
-  const banner = document.getElementById(DOM_IDS.warningBanner);
-  if (banner) {
-    banner.remove();
-  }
-}
-
-function showTrainingSimulation(simulation) {
-  // Don't show simulation if one is already active
-  if (simulationActive) return;
-
-  simulationActive = true;
-  currentSimulation = simulation;
-
-  // Create simulation overlay
-  const overlay = document.createElement('div');
-  overlay.id = DOM_IDS.simulationOverlay;
-  overlay.style.cssText = `
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 9998;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  `;
-
-  // Choose a simulation template based on the type
-  let simulationContent = '';
-
-  switch (simulation.type) {
-    case 'urgencyTactics':
-      simulationContent = createUrgencySimulation();
-      break;
-    case 'loginFormSpoofing':
-      simulationContent = createLoginFormSimulation();
-      break;
-    case 'misspelledDomains':
-      simulationContent = createMisspelledDomainSimulation();
-      break;
-    case 'securityFalseClaims':
-      simulationContent = createSecurityClaimsSimulation();
-      break;
-    case 'financialBait':
-      simulationContent = createFinancialBaitSimulation();
-      break;
-    default:
-      simulationContent = createGenericSimulation();
-      break;
-  }
-
-  overlay.innerHTML = simulationContent;
-  document.body.appendChild(overlay);
-
-  // Add event listeners to simulation elements
-  setupSimulationEventListeners(simulation.type);
-}
-
-// Create a simulation for urgency tactics
-function createUrgencySimulation() {
-  return `
+  // Simulation templates
+  urgencySimulation: () => `
     <div class="phishguard-simulation-container" style="
       background-color: white;
       max-width: 500px;
@@ -308,12 +117,9 @@ function createUrgencySimulation() {
         </div>
       </div>
     </div>
-  `;
-}
+  `,
 
-// Create a simulation for login form spoofing
-function createLoginFormSimulation() {
-  return `
+  loginFormSimulation: () => `
     <div class="phishguard-simulation-container" style="
       background-color: white;
       max-width: 400px;
@@ -392,12 +198,9 @@ function createLoginFormSimulation() {
         </form>
       </div>
     </div>
-  `;
-}
+  `,
 
-// Create a simulation for misspelled domains
-function createMisspelledDomainSimulation() {
-  return `
+  misspelledDomainSimulation: () => `
     <div class="phishguard-simulation-container" style="
       background-color: white;
       max-width: 450px;
@@ -474,12 +277,9 @@ function createMisspelledDomainSimulation() {
         </div>
       </div>
     </div>
-  `;
-}
+  `,
 
-// Create a simulation for security false claims
-function createSecurityClaimsSimulation() {
-  return `
+  securityClaimsSimulation: () => `
     <div class="phishguard-simulation-container" style="
       background-color: white;
       max-width: 450px;
@@ -558,12 +358,9 @@ function createSecurityClaimsSimulation() {
         </div>
       </div>
     </div>
-  `;
-}
+  `,
 
-// Create a simulation for financial bait
-function createFinancialBaitSimulation() {
-  return `
+  financialBaitSimulation: () => `
     <div class="phishguard-simulation-container" style="
       background-color: white;
       max-width: 450px;
@@ -652,12 +449,9 @@ function createFinancialBaitSimulation() {
         </div>
       </div>
     </div>
-  `;
-}
+  `,
 
-// Create a generic simulation as fallback
-function createGenericSimulation() {
-  return `
+  genericSimulation: () => `
     <div class="phishguard-simulation-container" style="
       background-color: white;
       max-width: 450px;
@@ -702,150 +496,5 @@ function createGenericSimulation() {
         </div>
       </div>
     </div>
-  `;
-}
-
-// Set up event listeners for the simulation
-function setupSimulationEventListeners(simulationType) {
-  // Add overlay click event to close it if clicked outside the container
-  document.getElementById(DOM_IDS.simulationOverlay).addEventListener('click', (event) => {
-    if (event.target.id === DOM_IDS.simulationOverlay) {
-      endSimulation(false);
-    }
-  });
-
-  // Add click events to all action buttons in the simulation
-  const actionButtons = document.querySelectorAll('.phishguard-simulation-action-button');
-  actionButtons.forEach(button => {
-    button.addEventListener('click', (event) => {
-      event.preventDefault();
-      endSimulation(true);
-    });
-  });
-
-  // For login form simulations, add form submit handler
-  const loginForm = document.getElementById('phishguard-simulation-login-form');
-  if (loginForm) {
-    loginForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      endSimulation(true);
-    });
-  }
-}
-
-// End the simulation and show feedback
-function endSimulation(fellForIt) {
-  // Remove the simulation overlay
-  const overlay = document.getElementById(DOM_IDS.simulationOverlay);
-  if (overlay) {
-    overlay.remove();
-  }
-
-  // Create feedback banner
-  const banner = document.createElement('div');
-  banner.id = DOM_IDS.simulationBanner;
-  banner.style.cssText = `
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: ${fellForIt ? '#ff3b30' : '#34c759'};
-    color: white;
-    padding: 15px;
-    text-align: center;
-    z-index: 9999;
-    font-family: Arial, sans-serif;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  `;
-
-  const content = document.createElement('div');
-  content.innerHTML = `
-    <h2 style="margin: 0; font-size: 18px;">
-      ${fellForIt ? '⚠️ Phishing Simulation - You Clicked!' : '✓ Good Job! You Avoided the Phishing Attempt'}
-    </h2>
-    <p style="margin: 10px 0; font-size: 14px;">
-      ${fellForIt
-      ? 'This was a training simulation by PhishGuard. In a real phishing attempt, your information could have been stolen.'
-      : 'This was a training simulation by PhishGuard. You correctly avoided interacting with suspicious content.'}
-    </p>
-    <p style="margin: 5px 0; font-size: 14px;">
-      <strong>Simulation type:</strong> ${currentSimulation.type}
-    </p>
-    <div>
-      <button id="phishguard-simulation-learn" style="
-        background-color: white;
-        color: ${fellForIt ? '#ff3b30' : '#34c759'};
-        border: none;
-        padding: 8px 15px;
-        margin-right: 10px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: bold;
-      ">Learn More</button>
-      <button id="phishguard-simulation-dismiss" style="
-        background-color: transparent;
-        color: white;
-        border: 1px solid white;
-        padding: 8px 15px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: bold;
-      ">Dismiss</button>
-    </div>
-  `;
-
-  banner.appendChild(content);
-  document.body.prepend(banner);
-
-  // Add event listeners to buttons
-  document.getElementById('phishguard-simulation-learn').addEventListener('click', () => {
-    chrome.runtime.sendMessage({
-      action: 'openLearningResource',
-      simulationType: currentSimulation.type
-    });
-    removeFeedbackBanner();
-  });
-
-  document.getElementById('phishguard-simulation-dismiss').addEventListener('click', () => {
-    removeFeedbackBanner();
-  });
-
-  // Report the result to the background script
-  chrome.runtime.sendMessage({
-    action: 'trainingResult',
-    simulationType: currentSimulation.type,
-    fell: fellForIt
-  });
-
-  // Reset simulation state
-  simulationActive = false;
-  currentSimulation = null;
-}
-
-// Remove the feedback banner
-function removeFeedbackBanner() {
-  const banner = document.getElementById(DOM_IDS.simulationBanner);
-  if (banner) {
-    banner.remove();
-  }
-}
-
-// Listen for messages from the background script
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === 'showWarning') {
-    showPhishingWarning(message.data);
-    sendResponse({ success: true });
-  } else if (message.action === 'showTrainingSimulation') {
-    showTrainingSimulation(message.data);
-    sendResponse({ success: true });
-  }
-
-  return true; // Required for async sendResponse
-});
-
-// Initialize content script when the DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initialize);
-} else {
-  initialize();
-}
+  `
+};
