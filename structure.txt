@@ -1,0 +1,20 @@
+phishguard/
+├── manifest.json       # Extension configuration
+├── background.js       # Background service worker
+├── content.js          # Content scripts for web pages
+├── popup.html          # Extension popup interface
+├── popup.js            # Popup functionality
+├── dashboard.html      # Full analytics dashboard
+├── dashboard.js        # Dashboard functionality
+├── icons/              # Extension icons
+│   ├── icon16.png
+│   ├── icon48.png
+│   └── icon128.png
+├── images/             # Images used in the extension
+│   └── generic_logo.png
+└── learning/           # Educational resources
+    ├── urgencyTactics.html
+    ├── loginFormSpoofing.html
+    ├── misspelledDomains.html
+    ├── securityFalseClaims.html
+    └── financialBait.html
