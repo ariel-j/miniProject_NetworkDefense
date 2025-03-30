@@ -12,9 +12,9 @@ This document outlines the steps to complete the PhishGuard anti-phishing browse
 - [x] Design dashboard interface
 
 ### Create Directory Structure
-- [ ] Create icons directory
-- [ ] Create learning resources directory
-- [ ] Organize project files
+- [x] Create icons directory
+- [x] Create learning resources directory
+- [x] Organize project files
 
 ### Create Extension Icons
 - [ ] Design 16x16, 48x48, and 128x128 extension icons

@@ -15,17 +15,11 @@ const elements = {
   
   // Initialize popup
   function initialize() {
-    // Load user stats
     loadUserStats();
-    
-    // Check current tab safety status
-    checkCurrentTabStatus();
-    
-    // Set up event listeners
+    checkCurrentTabStatus();    
     setupEventListeners();
   }
   
-  // Load and display user stats
   function loadUserStats() {
     chrome.storage.local.get(['userStats'], function(result) {
       if (result.userStats) {
