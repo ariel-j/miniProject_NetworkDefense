@@ -3,126 +3,274 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PhishGuard - Anti-Phishing Training</title>
+  <title>PhishGuard - Cyber Defense</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Dark Cyber Theme for Popup */
+    :root {
+      --primary-bg: #0a0a0a;
+      --secondary-bg: #1a1a1a;
+      --card-bg: #1e1e1e;
+      --accent-green: #00ff41;
+      --accent-blue: #00d4ff;
+      --accent-red: #ff0040;
+      --accent-yellow: #ffff00;
+      --text-primary: #ffffff;
+      --text-secondary: #b0b0b0;
+      --text-muted: #707070;
+      --border-color: #333333;
+      --shadow: 0 4px 20px rgba(0, 255, 65, 0.1);
+      --glow: 0 0 15px rgba(0, 255, 65, 0.3);
+    }
+
+    * {
       margin: 0;
       padding: 0;
-      width: 320px;
-      color: #333;
+      box-sizing: border-box;
     }
-    
+
+    body {
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 0;
+      width: 360px;
+      background: var(--primary-bg);
+      color: var(--text-primary);
+      min-height: 500px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated Background */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 65, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.03) 0%, transparent 50%);
+      z-index: -1;
+      animation: bgShift 15s ease-in-out infinite;
+    }
+
+    @keyframes bgShift {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(90deg) scale(1.05); }
+    }
+
+    /* Header */
     .header {
-      background-color: #4285f4;
-      color: white;
+      background: linear-gradient(135deg, var(--secondary-bg) 0%, var(--card-bg) 100%);
+      border-bottom: 2px solid var(--accent-green);
       padding: 15px;
       text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      box-shadow: var(--shadow);
+      position: relative;
     }
-    
+
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-blue), var(--accent-green));
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
     .logo {
       font-size: 24px;
       margin-right: 8px;
+      text-shadow: 0 0 10px var(--accent-green);
+      animation: glow 3s ease-in-out infinite alternate;
     }
-    
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px var(--accent-green); }
+      to { text-shadow: 0 0 15px var(--accent-green), 0 0 25px var(--accent-green); }
+    }
+
     .header h1 {
-      margin: 0;
       font-size: 18px;
-      font-weight: 500;
+      font-weight: bold;
+      color: var(--accent-green);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0;
     }
-    
+
+    .header .subtitle {
+      color: var(--text-secondary);
+      font-size: 10px;
+      margin-top: 3px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Content */
     .content {
       padding: 15px;
     }
-    
+
+    /* Status */
     .status {
       display: flex;
       align-items: center;
       margin-bottom: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      background-color: #e8f0fe;
+      padding: 12px;
+      border-radius: 8px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
     }
-    
+
+    .status::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
+      opacity: 0.8;
+    }
+
     .status-icon {
       font-size: 20px;
-      margin-right: 10px;
+      margin-right: 12px;
+      text-shadow: 0 0 8px currentColor;
     }
-    
+
     .status-text h2 {
-      margin: 0 0 5px 0;
+      margin: 0 0 3px 0;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: bold;
+      color: var(--accent-green);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    
+
     .status-text p {
       margin: 0;
-      font-size: 12px;
-      color: #5f6368;
+      font-size: 11px;
+      color: var(--text-secondary);
     }
-    
+
+    /* Stats */
     .stats {
       margin-bottom: 15px;
     }
-    
+
     .stats h2 {
       font-size: 14px;
-      font-weight: 600;
-      margin: 0 0 10px 0;
-      color: #3c4043;
+      font-weight: bold;
+      margin: 0 0 12px 0;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
-    
+
     .stat-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 8px;
     }
-    
+
     .stat-card {
-      background-color: #f8f9fa;
-      border-radius: 4px;
-      padding: 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 12px;
       text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
     }
-    
+
+    .stat-card:hover {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+    }
+
     .stat-value {
-      font-size: 18px;
-      font-weight: 600;
-      color: #4285f4;
-      margin-bottom: 5px;
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--accent-blue);
+      margin-bottom: 4px;
+      text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
     }
-    
+
     .stat-label {
-      font-size: 12px;
-      color: #5f6368;
+      font-size: 10px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    
+
+    /* Training Mode */
     .training-mode {
       display: flex;
       align-items: center;
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      background-color: #f8f9fa;
+      margin: 15px 0;
+      padding: 12px;
+      border-radius: 8px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      position: relative;
     }
-    
+
+    .training-mode::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent-yellow);
+      opacity: 0.8;
+    }
+
+    .training-info {
+      flex: 1;
+    }
+
+    .training-info h3 {
+      margin: 0;
+      font-size: 12px;
+      color: var(--accent-yellow);
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .training-info p {
+      margin: 3px 0 0 0;
+      font-size: 10px;
+      color: var(--text-secondary);
+      line-height: 1.3;
+    }
+
+    /* Toggle Switch */
     .training-toggle {
       position: relative;
       display: inline-block;
-      width: 40px;
-      height: 20px;
-      margin-left: auto;
+      width: 44px;
+      height: 24px;
     }
-    
+
     .training-toggle input {
       opacity: 0;
       width: 0;
       height: 0;
     }
-    
+
     .toggle-slider {
       position: absolute;
       cursor: pointer;
@@ -130,120 +278,221 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: #ccc;
+      background-color: var(--secondary-bg);
       transition: .4s;
-      border-radius: 20px;
+      border-radius: 24px;
+      border: 1px solid var(--border-color);
     }
-    
+
     .toggle-slider:before {
       position: absolute;
       content: "";
-      height: 16px;
-      width: 16px;
+      height: 18px;
+      width: 18px;
       left: 2px;
       bottom: 2px;
-      background-color: white;
+      background-color: var(--text-muted);
       transition: .4s;
       border-radius: 50%;
     }
-    
+
     input:checked + .toggle-slider {
-      background-color: #4285f4;
+      background-color: var(--accent-green);
+      border-color: var(--accent-green);
+      box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
     }
-    
+
     input:checked + .toggle-slider:before {
       transform: translateX(20px);
+      background-color: white;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     }
-    
+
+    /* Buttons */
     .actions {
       margin-top: 15px;
     }
-    
-    .button {
+
+    .cyber-button {
       display: block;
       width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
+      padding: 12px;
+      margin-bottom: 8px;
       text-align: center;
-      border-radius: 4px;
+      border-radius: 6px;
       border: none;
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       cursor: pointer;
-      transition: background-color 0.2s;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      position: relative;
+      overflow: hidden;
     }
-    
-    .button-primary {
-      background-color: #4285f4;
-      color: white;
+
+    .cyber-button-primary {
+      background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+      color: var(--primary-bg);
     }
-    
-    .button-primary:hover {
-      background-color: #3367d6;
+
+    .cyber-button-secondary {
+      background: var(--card-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
     }
-    
-    .button-secondary {
-      background-color: #f8f9fa;
-      color: #3c4043;
-      border: 1px solid #dadce0;
+
+    .cyber-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
     }
-    
-    .button-secondary:hover {
-      background-color: #f1f3f4;
+
+    .cyber-button:hover::before {
+      left: 100%;
     }
-    
+
+    .cyber-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .cyber-button-primary:hover {
+      box-shadow: 0 4px 15px rgba(0, 255, 65, 0.3);
+    }
+
+    .cyber-button-secondary:hover {
+      border-color: var(--accent-blue);
+      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+    }
+
+    .cyber-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .cyber-button:disabled:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Terminal Status */
+    .terminal {
+      background: #000;
+      border: 1px solid var(--accent-green);
+      border-radius: 6px;
+      padding: 10px;
+      font-family: 'Courier New', monospace;
+      color: var(--accent-green);
+      margin: 15px 0;
+      font-size: 10px;
+    }
+
+    .terminal-line {
+      margin: 2px 0;
+      opacity: 0;
+      animation: typeIn 0.5s ease-in-out forwards;
+    }
+
+    .terminal-line:nth-child(1) { animation-delay: 0.1s; }
+    .terminal-line:nth-child(2) { animation-delay: 0.3s; }
+    .terminal-line:nth-child(3) { animation-delay: 0.5s; }
+
+    @keyframes typeIn {
+      from { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Footer */
     .footer {
-      padding: 10px 15px;
-      font-size: 11px;
-      color: #5f6368;
+      padding: 8px 15px;
+      font-size: 9px;
+      color: var(--text-muted);
       text-align: center;
-      border-top: 1px solid #dadce0;
+      border-top: 1px solid var(--border-color);
+      background: var(--secondary-bg);
+      letter-spacing: 0.5px;
+    }
+
+    /* Status Variants */
+    .status.safe::before {
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
+    }
+
+    .status.warning::before {
+      background: linear-gradient(90deg, var(--accent-yellow), #ff6600);
+    }
+
+    .status.danger::before {
+      background: linear-gradient(90deg, var(--accent-red), #ff6600);
+    }
+
+    .status.safe .status-icon { color: var(--accent-green); }
+    .status.warning .status-icon { color: var(--accent-yellow); }
+    .status.danger .status-icon { color: var(--accent-red); }
+
+    /* Disabled state */
+    .training-mode.disabled {
+      opacity: 0.6;
+    }
+
+    .training-mode.disabled::before {
+      background: var(--text-muted);
+    }
+
+    .training-mode.disabled .training-info h3 {
+      color: var(--text-muted);
     }
   </style>
 </head>
 <body>
   <div class="header">
     <span class="logo">🛡️</span>
-    <h1>PhishGuard Training</h1>
+    <h1>PhishGuard</h1>
+    <div class="subtitle">Cyber Defense Active</div>
   </div>
   
   <div class="content">
-    <div class="status" id="current-status">
+    <div class="status safe" id="current-status">
       <div class="status-icon">✓</div>
       <div class="status-text">
         <h2>Protection Active</h2>
-        <p>This site is currently being monitored</p>
+        <p>Real-time monitoring enabled</p>
       </div>
     </div>
     
     <div class="stats">
-      <h2>Your Training Stats</h2>
+      <h2>Combat Statistics</h2>
       <div class="stat-grid">
         <div class="stat-card">
           <div class="stat-value" id="simulations-shown">0</div>
-          <div class="stat-label">Simulations Shown</div>
+          <div class="stat-label">Simulations</div>
         </div>
         <div class="stat-card">
           <div class="stat-value" id="simulations-passed">0</div>
-          <div class="stat-label">Simulations Passed</div>
+          <div class="stat-label">Defended</div>
         </div>
         <div class="stat-card">
           <div class="stat-value" id="threats-blocked">0</div>
-          <div class="stat-label">Threats Blocked</div>
+          <div class="stat-label">Blocked</div>
         </div>
         <div class="stat-card">
           <div class="stat-value" id="protection-score">0%</div>
-          <div class="stat-label">Protection Score</div>
+          <div class="stat-label">Defense Rate</div>
         </div>
       </div>
     </div>
     
-    <div class="training-mode">
-      <div>
-        <h3 style="margin: 0; font-size: 14px;">Training Mode</h3>
-        <p style="margin: 2px 0 0 0; font-size: 12px; color: #5f6368;">
-          Enables phishing simulations to help you recognize threats
-        </p>
+    <div class="training-mode" id="training-mode-section">
+      <div class="training-info">
+        <h3>Training Protocol</h3>
+        <p id="training-status">Advanced threat simulation enabled</p>
       </div>
       <label class="training-toggle">
         <input type="checkbox" id="training-toggle-checkbox" checked>
@@ -251,14 +500,96 @@
       </label>
     </div>
     
+    <div class="terminal">
+      <div class="terminal-line">[SYSTEM] Defense matrix online</div>
+      <div class="terminal-line">[STATUS] <span id="training-mode-status">Training active</span></div>
+      <div class="terminal-line">[READY] Awaiting threat vectors</div>
+    </div>
+    
     <div class="actions">
-      <button id="run-simulation-btn" class="button button-primary">Run Practice Simulation</button>
-      <button id="view-dashboard-btn" class="button button-secondary">View Full Dashboard</button>
+      <button id="run-simulation-btn" class="cyber-button cyber-button-primary">Execute Training Simulation</button>
+      <button id="view-dashboard-btn" class="cyber-button cyber-button-secondary">Access Command Center</button>
     </div>
   </div>
   
   <div class="footer">
-    PhishGuard Training v1.3 | Built for better security awareness
+    PhishGuard v2.0 | Cyber Defense Protocol Active
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>training-mode.disabled::before {
+      background: var(--text-muted);
+    }
+
+    .training-mode.disabled .training-info h3 {
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="logo">🛡️</span>
+    <h1>PhishGuard</h1>
+    <div class="subtitle">Cyber Defense Active</div>
+  </div>
+  
+  <div class="content">
+    <div class="status safe" id="current-status">
+      <div class="status-icon">✓</div>
+      <div class="status-text">
+        <h2>Protection Active</h2>
+        <p>Real-time monitoring enabled</p>
+      </div>
+    </div>
+    
+    <div class="stats">
+      <h2>Combat Statistics</h2>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="simulations-shown">0</div>
+          <div class="stat-label">Simulations</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="simulations-passed">0</div>
+          <div class="stat-label">Defended</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="threats-blocked">0</div>
+          <div class="stat-label">Blocked</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="protection-score">0%</div>
+          <div class="stat-label">Defense Rate</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="training-mode" id="training-mode-section">
+      <div class="training-info">
+        <h3>Training Protocol</h3>
+        <p id="training-status">Advanced threat simulation enabled</p>
+      </div>
+      <label class="training-toggle">
+        <input type="checkbox" id="training-toggle-checkbox" checked>
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+    
+    <div class="terminal">
+      <div class="terminal-line">[SYSTEM] Defense matrix online</div>
+      <div class="terminal-line">[STATUS] <span id="training-mode-status">Training active</span></div>
+      <div class="terminal-line">[READY] Awaiting threat vectors</div>
+    </div>
+    
+    <div class="actions">
+      <button id="run-simulation-btn" class="cyber-button cyber-button-primary">Execute Training Simulation</button>
+      <button id="view-dashboard-btn" class="cyber-button cyber-button-secondary">Access Command Center</button>
+    </div>
+  </div>
+  
+  <div class="footer">
+    PhishGuard v2.0 | Cyber Defense Protocol Active
   </div>
   
   <script src="popup.js"></script>
