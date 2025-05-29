@@ -1,254 +1,343 @@
-// PhishGuard dashboard.js
+// PhishGuard Dashboard JavaScript - FIXED VERSION with proper statistics tracking AND tab functionality
+// This file must be separate from HTML to comply with Content Security Policy
 
-// DOM elements
-const elements = {
-  simulationsShown: document.getElementById('simulations-shown'),
-  simulationsPassed: document.getElementById('simulations-passed'),
-  threatsBlocked: document.getElementById('threats-blocked'),
-  protectionScore: document.getElementById('protection-score'),
-  vulnerabilityContainer: document.getElementById('vulnerability-container'),
-  historyTableBody: document.getElementById('history-table-body'),
-  progressChart: document.getElementById('progress-chart'),
-  learnUrgency: document.getElementById('learn-urgency'),
-  learnLogin: document.getElementById('learn-login'),
-  learnUrl: document.getElementById('learn-url'),
-  learnFinancial: document.getElementById('learn-financial')
-};
-
-let userStats = null;  
-function initialize() {
-  loadUserStats();
-  setupEventListeners();
+// Tab functionality
+function initializeTabs() {
+  const navTabs = document.querySelectorAll('.nav-tab');
+  const tabContents = document.querySelectorAll('.tab-content');
+  
+  navTabs.forEach(tab => {
+    console.log('PhishGuard: Initializing tab:', tab.getAttribute('data-tab'));
+    tab.addEventListener('click', function() {
+      const targetTab = this.getAttribute('data-tab');
+      
+      // Remove active class from all tabs and contents
+      navTabs.forEach(t => t.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+      
+      // Add active class to clicked tab and corresponding content
+      this.classList.add('active');
+      const targetContent = document.getElementById(targetTab);
+      console.log('PhishGuard: Switching to tab:', targetTab, 'Content:', targetContent);
+      if (targetContent) {
+        targetContent.classList.add('active');
+      }
+      
+      console.log('PhishGuard: Switched to tab:', targetTab);
+    });
+  });
+  
+  // Handle hash-based navigation (for direct links)
+  const hash = window.location.hash.substring(1);
+  if (hash) {
+    const targetTab = document.querySelector(`[data-tab="${hash}"]`);
+    if (targetTab) {
+      targetTab.click();
+    }
+  }
 }
 
-// Load and display user stats
+// FIXED: Load and display user stats with proper counters
 function loadUserStats() {
-  chrome.storage.local.get(['userStats'], function(result) {
-    if (result.userStats) {
-      userStats = result.userStats;
+  chrome.runtime.sendMessage({ action: 'getUserStats' }, (response) => {
+    if (response && !response.error) {
+      const stats = response;
       
       // Update count displays
-      elements.simulationsShown.textContent = userStats.simulationsShown;
+      const simulationsShownEl = document.getElementById('simulations-shown');
+      const simulationsPassedEl = document.getElementById('simulations-passed');
+      const threatsBlockedEl = document.getElementById('threats-blocked');
+      const protectionScoreEl = document.getElementById('protection-score');
       
-      const passedCount = userStats.simulationsShown - userStats.simulationsFallen;
-      elements.simulationsPassed.textContent = passedCount;
+      if (simulationsShownEl) simulationsShownEl.textContent = stats.simulationsShown || 0;
       
-      elements.threatsBlocked.textContent = userStats.phishingSitesBlocked;
+      // FIXED: Use the dedicated simulationsPassed counter
+      if (simulationsPassedEl) simulationsPassedEl.textContent = stats.simulationsPassed || 0;
       
-      // Calculate and update protection score
+      if (threatsBlockedEl) threatsBlockedEl.textContent = stats.phishingSitesBlocked || 0;
+      
+      // FIXED: Calculate protection score based on actual counters
       let protectionScore = 0;
-      if (userStats.simulationsShown > 0) {
-        protectionScore = Math.round((passedCount / userStats.simulationsShown) * 100);
+      const totalSimulations = stats.simulationsShown || 0;
+      const passedSimulations = stats.simulationsPassed || 0;
+      
+      if (totalSimulations > 0) {
+        protectionScore = Math.round((passedSimulations / totalSimulations) * 100);
       }
-      elements.protectionScore.textContent = `${protectionScore}%`;
+      if (protectionScoreEl) protectionScoreEl.textContent = protectionScore + '%';
       
-      // Populate vulnerability chart
-      updateVulnerabilityChart(userStats.vulnerabilityAreas);
+      // Update training history
+      updateTrainingHistory(stats.trainingHistory || []);
       
-      // Populate training history
-      updateTrainingHistory(userStats.trainingHistory);
+      // Update recent activity
+      updateRecentActivity(stats.trainingHistory || []);
       
-      // Generate progress chart
-      if (userStats.trainingHistory && userStats.trainingHistory.length > 1) {
-        generateProgressChart(userStats.trainingHistory);
-      }
+      // Add debug info to console
+      console.log('PhishGuard Dashboard Stats:', {
+        shown: totalSimulations,
+        passed: passedSimulations,
+        fallen: stats.simulationsFallen || 0,
+        blocked: stats.phishingSitesBlocked || 0,
+        score: protectionScore
+      });
+    } else {
+      console.error('PhishGuard: Error loading user stats:', response?.error);
     }
   });
 }
 
-// Update the vulnerability chart
-function updateVulnerabilityChart(vulnerabilityAreas) {
-  // Clear existing content
-  elements.vulnerabilityContainer.innerHTML = '';
-  
-  // Get all vulnerability scores and find the max
-  const scores = Object.values(vulnerabilityAreas);
-  const maxScore = Math.max(...scores, 1); // Ensure we don't divide by zero
-  
-  // Create HTML for each vulnerability
-  const vulnerabilityLabels = {
-    urgencyTactics: 'Urgency Tactics',
-    loginFormSpoofing: 'Login Form Spoofing',
-    misspelledDomains: 'Misspelled Domains',
-    securityFalseClaims: 'Security False Claims',
-    financialBait: 'Financial Bait'
-  };
-  
-  const sortedVulnerabilities = Object.entries(vulnerabilityAreas)
-    .sort((a, b) => b[1] - a[1]);
-  
-  for (const [key, score] of sortedVulnerabilities) {
-    const percentage = (score / maxScore) * 100;
-    const label = vulnerabilityLabels[key] || key;
-    
-    const vulnerabilityItem = document.createElement('li');
-    vulnerabilityItem.className = 'vulnerability-item';
-    vulnerabilityItem.innerHTML = `
-      <div class="vulnerability-label">${label}</div>
-      <div class="vulnerability-bar-container">
-        <div class="vulnerability-bar" style="width: ${percentage}%"></div>
-      </div>
-      <div class="vulnerability-score">${score}</div>
-    `;
-    
-    elements.vulnerabilityContainer.appendChild(vulnerabilityItem);
-  }
-}
-
-// Update the training history table
+// Update training history table
 function updateTrainingHistory(history) {
+  const tableBody = document.getElementById('history-table-body');
+  if (!tableBody) return;
+  
   if (!history || history.length === 0) {
-    elements.historyTableBody.innerHTML = `
+    tableBody.innerHTML = `
       <tr>
-        <td colspan="3" style="text-align: center; color: #5f6368;">No training history yet</td>
+        <td colspan="3" style="text-align: center; color: #5f6368; padding: 40px;">
+          No training history yet. Start browsing to see training simulations appear!
+        </td>
       </tr>
     `;
     return;
   }
   
   // Clear existing content
-  elements.historyTableBody.innerHTML = '';
+  tableBody.innerHTML = '';
   
   // Sort history by date (newest first)
   const sortedHistory = [...history].sort((a, b) => 
     new Date(b.date).getTime() - new Date(a.date).getTime()
   );
   
-  // Create HTML for each history entry
-  const simulationTypeLabels = {
-    urgencyTactics: 'Urgency Tactics',
-    loginFormSpoofing: 'Login Form Spoofing',
-    misspelledDomains: 'Misspelled Domains',
-    securityFalseClaims: 'Security False Claims',
-    financialBait: 'Financial Bait'
-  };
-  
-  // Badge classes for each simulation type
-  const simulationTypeBadges = {
-    urgencyTactics: 'badge-urgency',
-    loginFormSpoofing: 'badge-login',
-    misspelledDomains: 'badge-misspelled',
-    securityFalseClaims: 'badge-security',
-    financialBait: 'badge-financial'
-  };
+  // Show only last 10 entries
+  const recentHistory = sortedHistory.slice(0, 10);
   
   // Add each history entry to the table
-  for (const entry of sortedHistory) {
+  recentHistory.forEach(entry => {
     const formattedDate = new Date(entry.date).toLocaleString();
-    const typeLabel = simulationTypeLabels[entry.simulationType] || entry.simulationType;
-    const typeBadgeClass = simulationTypeBadges[entry.simulationType] || '';
+    
+    // Format simulation type nicely
+    const simulationTypeLabels = {
+      urgencyTactics: 'Urgency Tactics',
+      loginFormSpoofing: 'Login Form Spoofing',
+      misspelledDomains: 'Misspelled Domains',
+      securityFalseClaims: 'Security False Claims',
+      financialBait: 'Financial Bait'
+    };
+    const simulationType = simulationTypeLabels[entry.simulationType] || entry.simulationType || 'Unknown';
     
     const historyRow = document.createElement('tr');
     historyRow.innerHTML = `
       <td>${formattedDate}</td>
-      <td><span class="badge ${typeBadgeClass}">${typeLabel}</span></td>
+      <td>${simulationType}</td>
       <td class="${entry.fell ? 'simulation-result-fail' : 'simulation-result-success'}">
         ${entry.fell ? 'Failed' : 'Passed'}
       </td>
     `;
     
-    elements.historyTableBody.appendChild(historyRow);
+    tableBody.appendChild(historyRow);
+  });
+}
+
+// Update recent activity section
+function updateRecentActivity(history) {
+  const recentActivityEl = document.getElementById('recent-activity');
+  if (!recentActivityEl) return;
+  
+  if (!history || history.length === 0) {
+    recentActivityEl.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">📋</div>
+        <p>No recent training activity</p>
+        <p style="font-size: 14px;">Training simulations will appear here as you browse</p>
+      </div>
+    `;
+    return;
+  }
+  
+  // Get last 3 activities
+  const sortedHistory = [...history].sort((a, b) => 
+    new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+  const recentActivities = sortedHistory.slice(0, 3);
+  
+  let activitiesHTML = '';
+  recentActivities.forEach(activity => {
+    const timeAgo = getTimeAgo(new Date(activity.date));
+    const icon = activity.fell ? '❌' : '✅';
+    const status = activity.fell ? 'Failed' : 'Passed';
+    const statusClass = activity.fell ? 'simulation-result-fail' : 'simulation-result-success';
+    
+    // Format simulation type nicely
+    const simulationTypeLabels = {
+      urgencyTactics: 'Urgency Tactics',
+      loginFormSpoofing: 'Login Form Spoofing',
+      misspelledDomains: 'Misspelled Domains',
+      securityFalseClaims: 'Security False Claims',
+      financialBait: 'Financial Bait'
+    };
+    const simulationType = simulationTypeLabels[activity.simulationType] || activity.simulationType || 'Training Simulation';
+    
+    activitiesHTML += `
+      <div style="padding: 10px; border-bottom: 1px solid #e8eaed; display: flex; align-items: center;">
+        <span style="font-size: 18px; margin-right: 10px;">${icon}</span>
+        <div style="flex: 1;">
+          <div style="font-weight: 500;">${simulationType}</div>
+          <div style="font-size: 12px; color: #5f6368;">${timeAgo}</div>
+        </div>
+        <div class="${statusClass}" style="font-weight: 500;">${status}</div>
+      </div>
+    `;
+  });
+  
+  recentActivityEl.innerHTML = activitiesHTML;
+}
+
+// Helper function to get time ago string
+function getTimeAgo(date) {
+  const now = new Date();
+  const diffMs = now - date;
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+  
+  if (diffMins < 1) return 'Just now';
+  if (diffMins < 60) return `${diffMins} minute${diffMins === 1 ? '' : 's'} ago`;
+  if (diffHours < 24) return `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
+  if (diffDays < 7) return `${diffDays} day${diffDays === 1 ? '' : 's'} ago`;
+  return date.toLocaleDateString();
+}
+
+// Training simulation functions
+function setupTrainingButtons() {
+  // Run training simulation button
+  const runTrainingBtn = document.getElementById('run-training-simulation');
+  if (runTrainingBtn) {
+    runTrainingBtn.addEventListener('click', () => {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (tabs.length > 0) {
+          const currentTab = tabs[0];
+          
+          // Check if tab URL is valid for content script injection
+          if (currentTab.url.startsWith('chrome://') || 
+              currentTab.url.startsWith('chrome-extension://')) {
+            alert('Cannot run simulation on browser pages. Please navigate to a regular website first.');
+            return;
+          }
+          
+          chrome.runtime.sendMessage({
+            action: 'runManualSimulation',
+            tabId: currentTab.id
+          }, (response) => {
+            if (response && response.success) {
+              console.log('PhishGuard: Training simulation launched');
+              setTimeout(loadUserStats, 1000); // Refresh stats
+            } else {
+              console.error('PhishGuard: Failed to launch simulation:', response?.error);
+            }
+          });
+        }
+      });
+    });
+  }
+  
+  // Module launch buttons
+  const moduleButtons = document.querySelectorAll('[data-module]');
+  moduleButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const module = button.getAttribute('data-module');
+      const moduleUrls = {
+        urgency: 'learning/urgencyTactics.html',
+        login: 'learning/loginFormSpoofing.html',
+        financial: 'learning/financialBait.html',
+        domain: 'learning/misspelledDomains.html'
+      };
+      
+      const url = moduleUrls[module];
+      if (url) {
+        chrome.tabs.create({ url: chrome.runtime.getURL(url) });
+      }
+    });
+  });
+}
+
+// Setup resource navigation
+function setupResourceNavigation() {
+  const resourceItems = document.querySelectorAll('.resource-item');
+  resourceItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const resource = item.getAttribute('data-resource');
+      const external = item.getAttribute('data-external');
+      
+      if (external) {
+        // Open external link
+        chrome.tabs.create({ url: external });
+      } else if (resource) {
+        // Open internal resource (placeholder - you can implement these)
+        console.log('Opening resource:', resource);
+        alert(`Resource "${resource}" - Implementation coming soon!`);
+      }
+    });
+  });
+}
+
+// FIXED: Reset stats function for testing
+function resetStats() {
+  if (confirm('Are you sure you want to reset all PhishGuard statistics? This cannot be undone.')) {
+    chrome.runtime.sendMessage({ action: 'resetStats' }, (response) => {
+      if (response && response.success) {
+        console.log('PhishGuard: Stats reset successfully');
+        loadUserStats(); // Refresh display
+        alert('Statistics have been reset successfully!');
+      } else {
+        console.error('PhishGuard: Failed to reset stats:', response?.error);
+        alert('Failed to reset statistics. Check console for details.');
+      }
+    });
   }
 }
 
-// Generate progress chart
-function generateProgressChart(history) {
-  elements.progressChart.innerHTML = `
-    <div style="padding: 20px; text-align: center;">
-      <p style="margin-bottom: 15px; color: #5f6368;">Success rate over time:</p>
-      <div style="height: 200px; display: flex; align-items: flex-end; justify-content: space-between; padding: 0 30px;">
-        <!-- Simplified chart bars -->
-        <div style="
-          width: 30px;
-          height: 60%; 
-          background-color: #4285f4;
-          position: relative;
-        ">
-          <span style="
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            color: #5f6368;
-          ">Week 1</span>
-        </div>
-        <div style="
-          width: 30px;
-          height: 40%; 
-          background-color: #4285f4;
-          position: relative;
-        ">
-          <span style="
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            color: #5f6368;
-          ">Week 2</span>
-        </div>
-        <div style="
-          width: 30px;
-          height: 70%; 
-          background-color: #4285f4;
-          position: relative;
-        ">
-          <span style="
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            color: #5f6368;
-          ">Week 3</span>
-        </div>
-        <div style="
-          width: 30px;
-          height: 85%; 
-          background-color: #4285f4;
-          position: relative;
-        ">
-          <span style="
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            color: #5f6368;
-          ">Current</span>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-function setupEventListeners() {
-  elements.learnUrgency.addEventListener('click', function(e) {
-    e.preventDefault();
-    openLearningResource('urgencyTactics');
-  });
+// Initialize dashboard when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('PhishGuard: Dashboard loaded');
   
-  elements.learnLogin.addEventListener('click', function(e) {
-    e.preventDefault();
-    openLearningResource('loginFormSpoofing');
-  });
+  // Initialize tab functionality - THIS WAS MISSING!
+  initializeTabs();
   
-  elements.learnUrl.addEventListener('click', function(e) {
-    e.preventDefault();
-    openLearningResource('misspelledDomains');
-  });
+  // Load user stats immediately
+  loadUserStats();
   
-  elements.learnFinancial.addEventListener('click', function(e) {
-    e.preventDefault();
-    openLearningResource('financialBait');
-  });
-}
+  // Setup training buttons
+  setupTrainingButtons();
+  
+  // Setup resource navigation
+  setupResourceNavigation();
+  
+  // Refresh stats every 30 seconds
+  setInterval(loadUserStats, 30000);
+  
+  // Add reset stats button for development
+  if (chrome.runtime.getManifest().name.includes('Training')) {
+    const container = document.querySelector('.container');
+    if (container) {
+      const testSection = document.createElement('div');
+      testSection.style.cssText = 'margin-top: 20px; padding: 20px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; text-align: center;';
+      testSection.innerHTML = `
+        <h3 style="color: var(--accent-yellow);">Development Tools</h3>
+        <button id="reset-stats-btn" style="padding: 10px 20px; background: var(--accent-red); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; font-family: inherit;">
+          Reset All Stats
+        </button>
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: 10px;">
+          This will permanently clear all training history and statistics
+        </p>
+      `;
+      container.appendChild(testSection);
+      
+      // Add event listener for the reset button (CSP compliant)
+      document.getElementById('reset-stats-btn')?.addEventListener('click', resetStats);
+    }
+  }
+});
 
-function openLearningResource(resourceType) {
-  chrome.tabs.create({ 
-    url: chrome.runtime.getURL(`learning/${resourceType}.html`) 
-  });
-}
-
-document.addEventListener('DOMContentLoaded', initialize);
+console.log('PhishGuard: Dashboard JavaScript loaded and ready');
