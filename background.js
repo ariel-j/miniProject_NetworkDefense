@@ -1,5 +1,5 @@
-// PhishGuard Enhanced Background Service Worker - FIXED VERSION
-// Fixed message handling and error handling
+// PhishGuard Enhanced Background Service Worker - FIXED TRACKING VERSION
+// Fixed simulation tracking to properly count passed and failed simulations
 
 // Enhanced Configuration
 const CONFIG = {
@@ -20,6 +20,7 @@ const CONFIG = {
   ],
   defaultUserStats: {
     simulationsShown: 0,
+    simulationsPassed: 0,    // FIXED: Added dedicated counter
     simulationsFallen: 0,
     phishingSitesBlocked: 0,
     lastTrainingDate: null,
@@ -49,6 +50,13 @@ chrome.runtime.onInstalled.addListener(async () => {
     const result = await chrome.storage.local.get(['userStats']);
     if (result.userStats) {
       userStats = result.userStats;
+      
+      // FIXED: Migrate old stats format if needed
+      if (typeof userStats.simulationsPassed === 'undefined') {
+        userStats.simulationsPassed = Math.max(0, (userStats.simulationsShown || 0) - (userStats.simulationsFallen || 0));
+        await chrome.storage.local.set({ userStats });
+        console.log('PhishGuard: Migrated user stats to new format');
+      }
     } else {
       await chrome.storage.local.set({ userStats: CONFIG.defaultUserStats });
     }
@@ -254,7 +262,14 @@ async function shouldShowTraining() {
 async function getUserStats() {
   try {
     const result = await chrome.storage.local.get(['userStats']);
-    return result.userStats || CONFIG.defaultUserStats;
+    const stats = result.userStats || CONFIG.defaultUserStats;
+    
+    // FIXED: Ensure simulationsPassed exists
+    if (typeof stats.simulationsPassed === 'undefined') {
+      stats.simulationsPassed = 0;
+    }
+    
+    return stats;
   } catch (error) {
     console.error('PhishGuard: Error getting user stats:', error);
     return CONFIG.defaultUserStats;
@@ -380,7 +395,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   }
 });
 
-// FIXED: Enhanced message handler with proper error handling
+// FIXED: Enhanced message handler with proper simulation tracking
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   // Handle the message asynchronously
   handleMessage(message, sender, sendResponse);
@@ -405,18 +420,25 @@ async function handleMessage(message, sender, sendResponse) {
         break;
         
       case 'trainingResult':
+        // FIXED: Proper tracking of passed and failed simulations
         const stats = await getUserStats();
-        const updates = {
-          simulationsFallen: message.fell ? stats.simulationsFallen + 1 : stats.simulationsFallen
-        };
+        const updates = {};
         
-        // Update vulnerability area
-        if (message.fell && message.simulationType) {
-          const currentVuln = stats.vulnerabilityAreas[message.simulationType] || 0;
-          updates.vulnerabilityAreas = {
-            ...stats.vulnerabilityAreas,
-            [message.simulationType]: currentVuln + 1
-          };
+        if (message.fell) {
+          // User fell for the simulation
+          updates.simulationsFallen = stats.simulationsFallen + 1;
+          
+          // Update vulnerability area
+          if (message.simulationType) {
+            const currentVuln = stats.vulnerabilityAreas[message.simulationType] || 0;
+            updates.vulnerabilityAreas = {
+              ...stats.vulnerabilityAreas,
+              [message.simulationType]: currentVuln + 1
+            };
+          }
+        } else {
+          // User passed the simulation (avoided it)
+          updates.simulationsPassed = stats.simulationsPassed + 1;
         }
         
         // Add to enhanced training history
@@ -434,6 +456,7 @@ async function handleMessage(message, sender, sendResponse) {
         }
         
         await updateUserStats(updates);
+        console.log('PhishGuard: Training result recorded -', message.fell ? 'Failed' : 'Passed');
         sendResponse({ success: true });
         break;
         
@@ -446,13 +469,47 @@ async function handleMessage(message, sender, sendResponse) {
         const simulation = generateTrainingSimulation();
         if (message.tabId) {
           try {
+            // First check if tab exists and is valid
+            const tab = await chrome.tabs.get(message.tabId);
+            
+            if (shouldSkipUrl(tab.url)) {
+              sendResponse({ success: false, error: 'Cannot run simulation on this type of page' });
+              return;
+            }
+            
+            // Try to inject content script first (in case it's not loaded)
+            try {
+              await chrome.scripting.executeScript({
+                target: { tabId: message.tabId },
+                files: ['content.js']
+              });
+            } catch (injectError) {
+              // Content script might already be loaded, continue
+              console.log('PhishGuard: Content script injection failed (might already be loaded):', injectError.message);
+            }
+            
+            // Small delay to ensure content script is ready
+            await new Promise(resolve => setTimeout(resolve, 100));
+            
+            // Send simulation message
             await chrome.tabs.sendMessage(message.tabId, {
               action: 'showTrainingSimulation',
               data: simulation
             });
-            sendResponse({ success: true });
+            
+            // FIXED: Also increment simulationsShown for manual simulations
+            const stats = await getUserStats();
+            await updateUserStats({
+              simulationsShown: stats.simulationsShown + 1,
+              lastTrainingDate: new Date().toISOString(),
+              dailySimulationCount: stats.dailySimulationCount + 1
+            });
+            
+            console.log('PhishGuard: Manual simulation sent successfully:', simulation.type);
+            sendResponse({ success: true, simulationType: simulation.type });
           } catch (msgError) {
-            sendResponse({ success: false, error: 'Could not send simulation to tab' });
+            console.error('PhishGuard: Error sending manual simulation:', msgError);
+            sendResponse({ success: false, error: 'Could not send simulation to tab: ' + msgError.message });
           }
         } else {
           sendResponse({ success: false, error: 'Tab ID required' });
@@ -475,6 +532,14 @@ async function handleMessage(message, sender, sendResponse) {
           lastUpdate: new Date().toISOString(),
           detectionMethods: ['knownDomains', 'typosquatting', 'suspiciousPatterns', 'domainCharacteristics', 'sslStatus']
         });
+        break;
+        
+      // FIXED: Add debug action to reset stats
+      case 'resetStats':
+        await chrome.storage.local.set({ userStats: CONFIG.defaultUserStats });
+        userStats = CONFIG.defaultUserStats;
+        console.log('PhishGuard: User stats reset to defaults');
+        sendResponse({ success: true });
         break;
         
       default:

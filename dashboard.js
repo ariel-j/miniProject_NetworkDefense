@@ -1,7 +1,7 @@
-// PhishGuard Dashboard JavaScript - FIXED CSP VERSION
+// PhishGuard Dashboard JavaScript - FIXED VERSION with proper statistics tracking
 // This file must be separate from HTML to comply with Content Security Policy
 
-// Load and display user stats
+// FIXED: Load and display user stats with proper counters
 function loadUserStats() {
   chrome.runtime.sendMessage({ action: 'getUserStats' }, (response) => {
     if (response && !response.error) {
@@ -15,15 +15,18 @@ function loadUserStats() {
       
       if (simulationsShownEl) simulationsShownEl.textContent = stats.simulationsShown || 0;
       
-      const passedCount = (stats.simulationsShown || 0) - (stats.simulationsFallen || 0);
-      if (simulationsPassedEl) simulationsPassedEl.textContent = passedCount;
+      // FIXED: Use the dedicated simulationsPassed counter
+      if (simulationsPassedEl) simulationsPassedEl.textContent = stats.simulationsPassed || 0;
       
       if (threatsBlockedEl) threatsBlockedEl.textContent = stats.phishingSitesBlocked || 0;
       
-      // Calculate and update protection score
+      // FIXED: Calculate protection score based on actual counters
       let protectionScore = 0;
-      if (stats.simulationsShown > 0) {
-        protectionScore = Math.round((passedCount / stats.simulationsShown) * 100);
+      const totalSimulations = stats.simulationsShown || 0;
+      const passedSimulations = stats.simulationsPassed || 0;
+      
+      if (totalSimulations > 0) {
+        protectionScore = Math.round((passedSimulations / totalSimulations) * 100);
       }
       if (protectionScoreEl) protectionScoreEl.textContent = protectionScore + '%';
       
@@ -32,6 +35,15 @@ function loadUserStats() {
       
       // Update recent activity
       updateRecentActivity(stats.trainingHistory || []);
+      
+      // Add debug info to console
+      console.log('PhishGuard Dashboard Stats:', {
+        shown: totalSimulations,
+        passed: passedSimulations,
+        fallen: stats.simulationsFallen || 0,
+        blocked: stats.phishingSitesBlocked || 0,
+        score: protectionScore
+      });
     } else {
       console.error('PhishGuard: Error loading user stats:', response?.error);
     }
@@ -121,11 +133,21 @@ function updateRecentActivity(history) {
     const status = activity.fell ? 'Failed' : 'Passed';
     const statusClass = activity.fell ? 'simulation-result-fail' : 'simulation-result-success';
     
+    // Format simulation type nicely
+    const simulationTypeLabels = {
+      urgencyTactics: 'Urgency Tactics',
+      loginFormSpoofing: 'Login Form Spoofing',
+      misspelledDomains: 'Misspelled Domains',
+      securityFalseClaims: 'Security False Claims',
+      financialBait: 'Financial Bait'
+    };
+    const simulationType = simulationTypeLabels[activity.simulationType] || activity.simulationType || 'Training Simulation';
+    
     activitiesHTML += `
       <div style="padding: 10px; border-bottom: 1px solid #e8eaed; display: flex; align-items: center;">
         <span style="font-size: 18px; margin-right: 10px;">${icon}</span>
         <div style="flex: 1;">
-          <div style="font-weight: 500;">${activity.simulationType || 'Training Simulation'}</div>
+          <div style="font-weight: 500;">${simulationType}</div>
           <div style="font-size: 12px; color: #5f6368;">${timeAgo}</div>
         </div>
         <div class="${statusClass}" style="font-weight: 500;">${status}</div>
@@ -180,18 +202,60 @@ function testPhishingDetection() {
 function runTestSimulation() {
   chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
     if (tabs.length > 0) {
-      chrome.runtime.sendMessage({
-        action: 'runManualSimulation',
-        tabId: tabs[0].id
-      }, (response) => {
-        if (response && response.success) {
-          console.log('PhishGuard: Test simulation triggered');
-        } else {
-          console.error('PhishGuard: Failed to trigger test simulation:', response?.error);
-        }
+      const currentTab = tabs[0];
+      
+      // Check if tab URL is valid for content script injection
+      if (currentTab.url.startsWith('chrome://') || 
+          currentTab.url.startsWith('chrome-extension://') ||
+          currentTab.url.startsWith('moz-extension://') ||
+          currentTab.url.startsWith('about:') ||
+          currentTab.url.startsWith('file://')) {
+        alert('Cannot run simulation on this page. Please navigate to a regular website first.');
+        return;
+      }
+      
+      // First, ensure content script is injected
+      chrome.scripting.executeScript({
+        target: { tabId: currentTab.id },
+        files: ['content.js']
+      }).then(() => {
+        // Now send the simulation message
+        chrome.runtime.sendMessage({
+          action: 'runManualSimulation',
+          tabId: currentTab.id
+        }, (response) => {
+          if (response && response.success) {
+            console.log('PhishGuard: Test simulation triggered');
+            // Refresh stats after simulation
+            setTimeout(loadUserStats, 1000);
+            alert('Simulation triggered! Check the webpage for the phishing simulation.');
+          } else {
+            console.error('PhishGuard: Failed to trigger test simulation:', response?.error);
+            alert('Failed to run simulation: ' + (response?.error || 'Unknown error'));
+          }
+        });
+      }).catch((error) => {
+        console.error('PhishGuard: Failed to inject content script:', error);
+        alert('Cannot inject content script on this page. Try a different website.');
       });
     }
   });
+}
+
+// FIXED: Reset stats function for testing
+function resetStats() {
+  if (confirm('Are you sure you want to reset all PhishGuard statistics? This cannot be undone.')) {
+    chrome.runtime.sendMessage({ action: 'resetStats' }, (response) => {
+      if (response && response.success) {
+        console.log('PhishGuard: Stats reset successfully');
+        loadUserStats(); // Refresh display
+        alert('Statistics have been reset successfully!');
+      } else {
+        console.error('PhishGuard: Failed to reset stats:', response?.error);
+        alert('Failed to reset statistics. Check console for details.');
+      }
+    });
+  }
 }
 
 // Initialize dashboard when DOM is loaded
@@ -215,8 +279,11 @@ document.addEventListener('DOMContentLoaded', function() {
         <button onclick="testPhishingDetection()" style="margin-right: 10px; padding: 8px 16px; background: #4285f4; color: white; border: none; border-radius: 4px; cursor: pointer;">
           Test Phishing Detection
         </button>
-        <button onclick="runTestSimulation()" style="padding: 8px 16px; background: #34a853; color: white; border: none; border-radius: 4px; cursor: pointer;">
+        <button onclick="runTestSimulation()" style="margin-right: 10px; padding: 8px 16px; background: #34a853; color: white; border: none; border-radius: 4px; cursor: pointer;">
           Run Test Simulation
+        </button>
+        <button onclick="resetStats()" style="padding: 8px 16px; background: #ea4335; color: white; border: none; border-radius: 4px; cursor: pointer;">
+          Reset All Stats
         </button>
         <p style="font-size: 12px; color: #5f6368; margin-top: 10px;">
           Check browser console for test results
@@ -230,3 +297,4 @@ document.addEventListener('DOMContentLoaded', function() {
 // Make functions available globally for onclick handlers
 window.testPhishingDetection = testPhishingDetection;
 window.runTestSimulation = runTestSimulation;
+window.resetStats = resetStats;

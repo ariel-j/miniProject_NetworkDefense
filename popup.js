@@ -1,4 +1,4 @@
-// PhishGuard popup.js - Simplified version
+// PhishGuard popup.js - FIXED VERSION with proper statistics tracking
 
 // DOM elements
 const elements = {
@@ -19,7 +19,7 @@ function initialize() {
   setupEventListeners();
 }
 
-// Load and display user stats
+// FIXED: Load and display user stats with proper counters
 function loadUserStats() {
   chrome.runtime.sendMessage({ action: 'getUserStats' }, (response) => {
     if (response && !response.error) {
@@ -28,17 +28,29 @@ function loadUserStats() {
       // Update count displays
       elements.simulationsShown.textContent = stats.simulationsShown || 0;
       
-      const passedCount = (stats.simulationsShown || 0) - (stats.simulationsFallen || 0);
-      elements.simulationsPassed.textContent = passedCount;
+      // FIXED: Use the dedicated simulationsPassed counter
+      elements.simulationsPassed.textContent = stats.simulationsPassed || 0;
       
       elements.threatsBlocked.textContent = stats.phishingSitesBlocked || 0;
       
-      // Calculate and update protection score
+      // FIXED: Calculate protection score based on actual counters
       let protectionScore = 0;
-      if (stats.simulationsShown > 0) {
-        protectionScore = Math.round((passedCount / stats.simulationsShown) * 100);
+      const totalSimulations = stats.simulationsShown || 0;
+      const passedSimulations = stats.simulationsPassed || 0;
+      
+      if (totalSimulations > 0) {
+        protectionScore = Math.round((passedSimulations / totalSimulations) * 100);
       }
       elements.protectionScore.textContent = `${protectionScore}%`;
+      
+      // Add debug info to console
+      console.log('PhishGuard Stats:', {
+        shown: totalSimulations,
+        passed: passedSimulations,
+        fallen: stats.simulationsFallen || 0,
+        blocked: stats.phishingSitesBlocked || 0,
+        score: protectionScore
+      });
     }
   });
   
@@ -48,6 +60,7 @@ function loadUserStats() {
       elements.trainingToggle.checked = result.trainingEnabled;
     } else {
       // Default to enabled
+      elements.trainingToggle.checked = true;
       chrome.storage.local.set({ trainingEnabled: true });
     }
   });
@@ -132,16 +145,49 @@ function setupEventListeners() {
   elements.trainingToggle.addEventListener('change', function() {
     const isEnabled = this.checked;
     chrome.storage.local.set({ trainingEnabled: isEnabled });
+    console.log('PhishGuard: Training mode', isEnabled ? 'enabled' : 'disabled');
   });
   
   // Run simulation button
   elements.runSimulationBtn.addEventListener('click', function() {
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
       if (tabs.length > 0) {
-        chrome.runtime.sendMessage({
-          action: 'runManualSimulation',
-          tabId: tabs[0].id
+        const currentTab = tabs[0];
+        
+        // Check if tab URL is valid for content script injection
+        if (currentTab.url.startsWith('chrome://') || 
+            currentTab.url.startsWith('chrome-extension://') ||
+            currentTab.url.startsWith('moz-extension://') ||
+            currentTab.url.startsWith('about:') ||
+            currentTab.url.startsWith('file://')) {
+          alert('Cannot run simulation on this page. Please navigate to a regular website first.');
+          return;
+        }
+        
+        // First, ensure content script is injected
+        chrome.scripting.executeScript({
+          target: { tabId: currentTab.id },
+          files: ['content.js']
+        }).then(() => {
+          // Now send the simulation message
+          chrome.runtime.sendMessage({
+            action: 'runManualSimulation',
+            tabId: currentTab.id
+          }, function(response) {
+            if (response && response.success) {
+              console.log('PhishGuard: Manual simulation triggered');
+              // Refresh stats after simulation
+              setTimeout(loadUserStats, 1000);
+            } else {
+              console.error('PhishGuard: Failed to trigger simulation:', response?.error);
+              alert('Failed to run simulation. Make sure you\'re on a regular website.');
+            }
+          });
+        }).catch((error) => {
+          console.error('PhishGuard: Failed to inject content script:', error);
+          alert('Cannot inject content script on this page. Try a different website.');
         });
+        
         window.close(); // Close the popup
       }
     });
@@ -151,6 +197,27 @@ function setupEventListeners() {
   elements.viewDashboardBtn.addEventListener('click', function() {
     chrome.tabs.create({ url: chrome.runtime.getURL('dashboard.html') });
   });
+  
+  // FIXED: Add double-click on logo to reset stats (for testing)
+  const header = document.querySelector('.header');
+  if (header) {
+    let clickCount = 0;
+    header.addEventListener('click', function() {
+      clickCount++;
+      setTimeout(() => { clickCount = 0; }, 1000);
+      
+      if (clickCount === 3) {
+        if (confirm('Reset all PhishGuard statistics? This cannot be undone.')) {
+          chrome.runtime.sendMessage({ action: 'resetStats' }, function(response) {
+            if (response && response.success) {
+              console.log('PhishGuard: Stats reset successfully');
+              loadUserStats(); // Refresh display
+            }
+          });
+        }
+      }
+    });
+  }
 }
 
 // Initialize when DOM is loaded
