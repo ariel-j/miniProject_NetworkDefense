@@ -173,75 +173,6 @@ function getTimeAgo(date) {
   return date.toLocaleDateString();
 }
 
-// Test phishing detection function
-function testPhishingDetection() {
-  const testUrls = [
-    'http://secure-login-verify.com',
-    'https://amaz0n.com',
-    'https://paypa1.com',
-    'https://google.com',
-    'http://192.168.1.1'
-  ];
-  
-  console.log('PhishGuard: Testing phishing detection...');
-  
-  testUrls.forEach(url => {
-    chrome.runtime.sendMessage({ action: 'analyzeUrl', url }, (response) => {
-      if (response && !response.error) {
-        console.log(`URL: ${url}`);
-        console.log(`- Is Phishing: ${response.isPhishing}`);
-        console.log(`- Confidence: ${Math.round(response.confidence * 100)}%`);
-        console.log(`- Reason: ${response.reason}`);
-        console.log('---');
-      }
-    });
-  });
-}
-
-// Run manual simulation for testing
-function runTestSimulation() {
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    if (tabs.length > 0) {
-      const currentTab = tabs[0];
-      
-      // Check if tab URL is valid for content script injection
-      if (currentTab.url.startsWith('chrome://') || 
-          currentTab.url.startsWith('chrome-extension://') ||
-          currentTab.url.startsWith('moz-extension://') ||
-          currentTab.url.startsWith('about:') ||
-          currentTab.url.startsWith('file://')) {
-        alert('Cannot run simulation on this page. Please navigate to a regular website first.');
-        return;
-      }
-      
-      // First, ensure content script is injected
-      chrome.scripting.executeScript({
-        target: { tabId: currentTab.id },
-        files: ['content.js']
-      }).then(() => {
-        // Now send the simulation message
-        chrome.runtime.sendMessage({
-          action: 'runManualSimulation',
-          tabId: currentTab.id
-        }, (response) => {
-          if (response && response.success) {
-            console.log('PhishGuard: Test simulation triggered');
-            // Refresh stats after simulation
-            setTimeout(loadUserStats, 1000);
-            alert('Simulation triggered! Check the webpage for the phishing simulation.');
-          } else {
-            console.error('PhishGuard: Failed to trigger test simulation:', response?.error);
-            alert('Failed to run simulation: ' + (response?.error || 'Unknown error'));
-          }
-        });
-      }).catch((error) => {
-        console.error('PhishGuard: Failed to inject content script:', error);
-        alert('Cannot inject content script on this page. Try a different website.');
-      });
-    }
-  });
-}
-
 // FIXED: Reset stats function for testing
 function resetStats() {
   if (confirm('Are you sure you want to reset all PhishGuard statistics? This cannot be undone.')) {
@@ -268,33 +199,27 @@ document.addEventListener('DOMContentLoaded', function() {
   // Refresh stats every 30 seconds
   setInterval(loadUserStats, 30000);
   
-  // Add test buttons for debugging (only in development)
+  // Add reset stats button
   if (chrome.runtime.getManifest().name.includes('Training')) {
     const container = document.querySelector('.container');
     if (container) {
       const testSection = document.createElement('div');
-      testSection.style.cssText = 'margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px;';
+      testSection.style.cssText = 'margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px; text-align: center;';
       testSection.innerHTML = `
-        <h3>Testing Tools (Development)</h3>
-        <button onclick="testPhishingDetection()" style="margin-right: 10px; padding: 8px 16px; background: #4285f4; color: white; border: none; border-radius: 4px; cursor: pointer;">
-          Test Phishing Detection
-        </button>
-        <button onclick="runTestSimulation()" style="margin-right: 10px; padding: 8px 16px; background: #34a853; color: white; border: none; border-radius: 4px; cursor: pointer;">
-          Run Test Simulation
-        </button>
-        <button onclick="resetStats()" style="padding: 8px 16px; background: #ea4335; color: white; border: none; border-radius: 4px; cursor: pointer;">
+        <h3>Statistics Management</h3>
+        <button id="reset-stats-btn" style="padding: 10px 20px; background: #ea4335; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500;">
           Reset All Stats
         </button>
         <p style="font-size: 12px; color: #5f6368; margin-top: 10px;">
-          Check browser console for test results
+          This will permanently clear all training history and statistics
         </p>
       `;
       container.appendChild(testSection);
+      
+      // Add event listener for the reset button (CSP compliant)
+      document.getElementById('reset-stats-btn')?.addEventListener('click', resetStats);
     }
   }
 });
 
-// Make functions available globally for onclick handlers
-window.testPhishingDetection = testPhishingDetection;
-window.runTestSimulation = runTestSimulation;
-window.resetStats = resetStats;
+console.log('PhishGuard: Dashboard JavaScript loaded and ready');
