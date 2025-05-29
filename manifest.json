@@ -102,9 +102,6 @@
     }
   },
   
-  "externally_connectable": {
-    "matches": []
-  },
   
   "minimum_chrome_version": "88"
 }

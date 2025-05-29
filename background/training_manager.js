@@ -464,3 +464,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else if (typeof window !== 'undefined') {
   window.TrainingManager = TrainingManager;
 }
+
+export default TrainingManager;

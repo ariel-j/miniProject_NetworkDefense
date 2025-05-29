@@ -1,12 +1,10 @@
 // PhishGuard Main Background Script
 // Orchestrates all background functionality
 
-importScripts(
-  'background/config.js',
-  'background/storage-manager.js', 
-  'background/phishing-detector.js',
-  'background/training-manager.js'
-);
+import CONFIG from './config.js';
+import StorageManager from './storage-manager.js';
+import PhishingDetector from './phishing-detector.js';
+import TrainingManager from './training-manager.js';
 
 class PhishGuardBackground {
   constructor() {
@@ -23,7 +21,7 @@ class PhishGuardBackground {
       console.log('PhishGuard: Starting initialization...');
 
       // Load configuration
-      this.config = typeof PHISHGUARD_CONFIG !== 'undefined' ? PHISHGUARD_CONFIG : this.getDefaultConfig();
+this.config = CONFIG || this.getDefaultConfig();
       
       // Initialize storage manager
       this.storage = new StorageManager(this.config);

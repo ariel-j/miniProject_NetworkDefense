@@ -334,3 +334,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else if (typeof window !== 'undefined') {
   window.StorageManager = StorageManager;
 }
+
+export default StorageManager;
