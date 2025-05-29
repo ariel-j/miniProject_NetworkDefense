@@ -371,17 +371,6 @@
       box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
     }
 
-    .cyber-button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .cyber-button:disabled:hover {
-      transform: none;
-      box-shadow: none;
-    }
-
     /* Terminal Status */
     .terminal {
       background: #000;
@@ -443,82 +432,6 @@
     }
 
     .training-mode.disabled::before {
-      background: var(--text-muted);
-    }
-
-    .training-mode.disabled .training-info h3 {
-      color: var(--text-muted);
-    }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <span class="logo">🛡️</span>
-    <h1>PhishGuard</h1>
-    <div class="subtitle">Cyber Defense Active</div>
-  </div>
-  
-  <div class="content">
-    <div class="status safe" id="current-status">
-      <div class="status-icon">✓</div>
-      <div class="status-text">
-        <h2>Protection Active</h2>
-        <p>Real-time monitoring enabled</p>
-      </div>
-    </div>
-    
-    <div class="stats">
-      <h2>Combat Statistics</h2>
-      <div class="stat-grid">
-        <div class="stat-card">
-          <div class="stat-value" id="simulations-shown">0</div>
-          <div class="stat-label">Simulations</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="simulations-passed">0</div>
-          <div class="stat-label">Defended</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="threats-blocked">0</div>
-          <div class="stat-label">Blocked</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="protection-score">0%</div>
-          <div class="stat-label">Defense Rate</div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="training-mode" id="training-mode-section">
-      <div class="training-info">
-        <h3>Training Protocol</h3>
-        <p id="training-status">Advanced threat simulation enabled</p>
-      </div>
-      <label class="training-toggle">
-        <input type="checkbox" id="training-toggle-checkbox" checked>
-        <span class="toggle-slider"></span>
-      </label>
-    </div>
-    
-    <div class="terminal">
-      <div class="terminal-line">[SYSTEM] Defense matrix online</div>
-      <div class="terminal-line">[STATUS] <span id="training-mode-status">Training active</span></div>
-      <div class="terminal-line">[READY] Awaiting threat vectors</div>
-    </div>
-    
-    <div class="actions">
-      <button id="run-simulation-btn" class="cyber-button cyber-button-primary">Execute Training Simulation</button>
-      <button id="view-dashboard-btn" class="cyber-button cyber-button-secondary">Access Command Center</button>
-    </div>
-  </div>
-  
-  <div class="footer">
-    PhishGuard v2.0 | Cyber Defense Protocol Active
-  </div>
-  
-  <script src="popup.js"></script>
-</body>
-</html>training-mode.disabled::before {
       background: var(--text-muted);
     }
 
