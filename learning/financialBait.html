@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishGuard - Financial Bait Defense</title>
+  <style>
+    /* Cyber Security Theme */
+    :root {
+      --primary-bg: #0a0a0a;
+      --secondary-bg: #1a1a1a;
+      --card-bg: #1e1e1e;
+      --accent-green: #00ff41;
+      --accent-blue: #00d4ff;
+      --accent-red: #ff0040;
+      --accent-yellow: #ffff00;
+      --accent-gold: #ffd700;
+      --text-primary: #ffffff;
+      --text-secondary: #b0b0b0;
+      --text-muted: #707070;
+      --border-color: #333333;
+      --shadow: 0 4px 20px rgba(0, 255, 65, 0.1);
+      --glow: 0 0 20px rgba(0, 255, 65, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: var(--primary-bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Animated Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 65, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 0, 64, 0.03) 0%, transparent 50%);
+      z-index: -1;
+      animation: bgShift 15s ease-in-out infinite;
+    }
+
+    @keyframes bgShift {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.1); }
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, var(--secondary-bg) 0%, var(--card-bg) 100%);
+      border-bottom: 2px solid var(--accent-gold);
+      padding: 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-yellow), var(--accent-gold));
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    .logo {
+      font-size: 32px;
+      margin-right: 15px;
+      text-shadow: 0 0 10px var(--accent-gold);
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px var(--accent-gold); }
+      to { text-shadow: 0 0 20px var(--accent-gold), 0 0 30px var(--accent-gold); }
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: bold;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .header .subtitle {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-top: 5px;
+      letter-spacing: 1px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    /* Navigation */
+    .nav-breadcrumb {
+      background: var(--secondary-bg);
+      border-radius: 8px;
+      padding: 15px 20px;
+      margin-bottom: 30px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .nav-breadcrumb a {
+      color: var(--accent-green);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-breadcrumb a:hover {
+      color: var(--accent-blue);
+    }
+
+    .nav-breadcrumb span {
+      color: var(--text-muted);
+      margin: 0 10px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-yellow));
+      opacity: 0.8;
+    }
+
+    .card-title {
+      color: var(--accent-gold);
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+    }
+
+    .card-title .icon {
+      font-size: 28px;
+      margin-right: 12px;
+    }
+
+    .card-content {
+      color: var(--text-secondary);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .card-content h3 {
+      color: var(--accent-yellow);
+      margin: 20px 0 10px 0;
+      font-size: 18px;
+    }
+
+    .card-content ul {
+      margin: 15px 0;
+      padding-left: 25px;
+    }
+
+    .card-content li {
+      margin: 8px 0;
+      color: var(--text-primary);
+    }
+
+    /* Bait Examples */
+    .bait-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .bait-card {
+      background: var(--card-bg);
+      border: 1px solid var(--accent-gold);
+      border-radius: 10px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .bait-card:hover {
+      border-color: var(--accent-red);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+    }
+
+    .bait-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--accent-gold);
+      animation: goldPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes goldPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; box-shadow: 0 0 20px var(--accent-gold); }
+    }
+
+    .bait-title {
+      color: var(--accent-gold);
+      font-weight: bold;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+    }
+
+    .bait-example {
+      background: rgba(255, 215, 0, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid var(--accent-gold);
+      margin: 15px 0;
+      font-style: italic;
+      color: var(--text-primary);
+    }
+
+    .bait-analysis {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .warning-signs {
+      background: rgba(255, 0, 64, 0.1);
+      border: 1px solid var(--accent-red);
+      border-radius: 8px;
+      padding: 15px;
+      margin: 15px 0;
+    }
+
+    /* Terminal Style */
+    .terminal {
+      background: #000;
+      border: 1px solid var(--accent-green);
+      border-radius: 8px;
+      padding: 20px;
+      font-family: 'Courier New', monospace;
+      color: var(--accent-green);
+      margin: 25px 0;
+    }
+
+    .terminal-header {
+      color: var(--accent-yellow);
+      margin-bottom: 15px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .terminal-line {
+      margin: 8px 0;
+      font-size: 14px;
+    }
+
+    .terminal-line.warning {
+      color: var(--accent-red);
+    }
+
+    .terminal-line.success {
+      color: var(--accent-green);
+    }
+
+    /* Quiz Section */
+    .quiz-section {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+
+    .quiz-title {
+      color: var(--accent-gold);
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .quiz-question {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 15px 0;
+      border-left: 4px solid var(--accent-gold);
+    }
+
+    .quiz-options {
+      margin: 15px 0;
+    }
+
+    .quiz-option {
+      background: var(--primary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 12px 15px;
+      margin: 8px 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--text-primary);
+    }
+
+    .quiz-option:hover {
+      border-color: var(--accent-gold);
+      background: rgba(255, 215, 0, 0.1);
+    }
+
+    .quiz-option.correct {
+      border-color: var(--accent-green);
+      background: rgba(0, 255, 65, 0.1);
+    }
+
+    .quiz-option.incorrect {
+      border-color: var(--accent-red);
+      background: rgba(255, 0, 64, 0.1);
+    }
+
+    /* Buttons */
+    .cyber-button {
+      background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+      color: var(--primary-bg);
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-family: inherit;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      margin: 10px 5px;
+    }
+
+    .cyber-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 255, 65, 0.3);
+    }
+
+    .cyber-button.secondary {
+      background: linear-gradient(135deg, var(--accent-red), var(--accent-yellow));
+    }
+
+    /* Progress Indicators */
+    .progress-indicator {
+      background: var(--secondary-bg);
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px 0;
+      border: 1px solid var(--border-color);
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--primary-bg);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
+      border-radius: 4px;
+      transition: width 1s ease;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+      
+      .bait-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .card {
+        padding: 20px;
+      }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--secondary-bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-gold);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-yellow);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="logo">💰</span>
+    <h1>Financial Bait Detection</h1>
+    <div class="subtitle">"Too Good to Be True" Defense Training</div>
+  </div>
+
+  <div class="container">
+    <!-- Breadcrumb Navigation -->
+    <div class="nav-breadcrumb">
+      <a href="../dashboard.html">🛡️ PhishGuard</a>
+      <span>></span>
+      <a href="../dashboard.html">Training Resources</a>
+      <span>></span>
+      <span style="color: var(--accent-gold);">Financial Bait Defense</span>
+    </div>
+
+    <!-- Introduction -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">🎣</span>
+        What is Financial Bait?
+      </h2>
+      <div class="card-content">
+        <p>Financial bait attacks use "too good to be true" offers, prizes, and rewards to lure victims into providing personal information or clicking malicious links. These attacks exploit human greed and the desire for easy money.</p>
+        
+        <h3>How They Work:</h3>
+        <ul>
+          <li><strong>Fake Rewards:</strong> Announcing non-existent prizes or winnings</li>
+          <li><strong>Investment Scams:</strong> Promising unrealistic returns</li>
+          <li><strong>Survey Baits:</strong> Offering money for simple surveys</li>
+          <li><strong>Cashback Tricks:</strong> False refund or cashback claims</li>
+        </ul>
+
+        <p>The key to defense is remembering: if it sounds too good to be true, it probably is. Legitimate companies don't give away large sums of money to random people.</p>
+      </div>
+    </div>
+
+    <!-- Common Financial Baits -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">🚨</span>
+        Common Financial Bait Tactics
+      </h2>
+    </div>
+
+    <div class="bait-grid">
+      <div class="bait-card">
+        <div class="bait-title">🎉 Fake Prize Notifications</div>
+        <div class="bait-example">
+          "CONGRATULATIONS! You've won $10,000 in our monthly drawing! Click here to claim your prize before it expires!"
+        </div>
+        <div class="warning-signs">
+          <div style="color: var(--accent-red); font-weight: bold; margin-bottom: 8px;">⚠️ Warning Signs:</div>
+          <ul style="font-size: 14px; margin: 0; padding-left: 20px;">
+            <li>You never entered any contest</li>
+            <li>Immediate action required</li>
+            <li>No verification process</li>
+            <li>Suspicious sender address</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bait-card">
+        <div class="bait-title">📊 Investment "Opportunities"</div>
+        <div class="bait-example">
+          "Make $5,000 per week working from home! This secret investment strategy has a 99% success rate. Limited spots available!"
+        </div>
+        <div class="warning-signs">
+          <div style="color: var(--accent-red); font-weight: bold; margin-bottom: 8px;">⚠️ Warning Signs:</div>
+          <ul style="font-size: 14px; margin: 0; padding-left: 20px;">
+            <li>Unrealistic profit promises</li>
+            <li>No risk disclosure</li>
+            <li>Pressure to act quickly</li>
+            <li>Vague business model</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bait-card">
+        <div class="bait-title">📋 Survey Scams</div>
+        <div class="bait-example">
+          "Earn $500 by completing this 5-minute survey about your shopping habits! No catch, just share your opinions!"
+        </div>
+        <div class="warning-signs">
+          <div style="color: var(--accent-red); font-weight: bold; margin-bottom: 8px;">⚠️ Warning Signs:</div>
+          <ul style="font-size: 14px; margin: 0; padding-left: 20px;">
+            <li>Excessive payment for simple task</li>
+            <li>Asks for personal information</li>
+            <li>No legitimate survey company</li>
+            <li>Payment requires "verification"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bait-card">
+        <div class="bait-title">💳 Fake Refunds</div>
+        <div class="bait-example">
+          "You're entitled to a $750 tax refund! The IRS has updated their records. Click here to process your refund immediately."
+        </div>
+        <div class="warning-signs">
+          <div style="color: var(--accent-red); font-weight: bold; margin-bottom: 8px;">⚠️ Warning Signs:</div>
+          <ul style="font-size: 14px; margin: 0; padding-left: 20px;">
+            <li>IRS doesn't email about refunds</li>
+            <li>Unsolicited refund notice</li>
+            <li>Urgent processing required</li>
+            <li>Asks for account details</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bait-card">
+        <div class="bait-title">🛍️ Cashback Scams</div>
+        <div class="bait-example">
+          "Get 50% cashback on all purchases this month! Just click here and enter your credit card details to activate this exclusive offer."
+        </div>
+        <div class="warning-signs">
+          <div style="color: var(--accent-red); font-weight: bold; margin-bottom: 8px;">⚠️ Warning Signs:</div>
+          <ul style="font-size: 14px; margin: 0; padding-left: 20px;">
+            <li>Unrealistic cashback percentage</li>
+            <li>Requires credit card info upfront</li>
+            <li>Not from known retailer</li>
+            <li>Limited time pressure</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bait-card">
+        <div class="bait-title">🎰 Lottery Scams</div>
+        <div class="bait-example">
+          "Your email was randomly selected to win €500,000 in the International Email Lottery! Contact us with your details to claim."
+        </div>
+        <div class="warning-signs">
+          <div style="color: var(--accent-red); font-weight: bold; margin-bottom: 8px;">⚠️ Warning Signs:</div>
+          <ul style="font-size: 14px; margin: 0; padding-left: 20px;">
+            <li>Random selection from email</li>
+            <li>Foreign lottery you never entered</li>
+            <li>Requests personal details</li>
+            <li>May ask for "processing fees"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Defense Strategies -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">🛡️</span>
+        Defense Strategies
+      </h2>
+      <div class="card-content">
+        <h3>The GREED Check:</h3>
+        <ul>
+          <li><strong>G - Get Skeptical:</strong> Question offers that seem too generous</li>
+          <li><strong>R - Research:</strong> Look up the company or offer online</li>
+          <li><strong>E - Examine:</strong> Check the sender and website carefully</li>
+          <li><strong>E - Evaluate:</strong> Ask "What's in it for them?"</li>
+          <li><strong>D - Decline:</strong> When in doubt, don't engage</li>
+        </ul>
+
+        <h3>Red Flag Questions:</h3>
+        <ul>
+          <li>Did I enter this contest or lottery?</li>
+          <li>Is this return rate realistic and legal?</li>
+          <li>Why would they give me money for nothing?</li>
+          <li>What personal information are they requesting?</li>
+          <li>Are they pressuring me to act immediately?</li>
+        </ul>
+
+        <h3>Verification Steps:</h3>
+        <ul>
+          <li>Search for "[company name] + scam" online</li>
+          <li>Check official websites directly</li>
+          <li>Contact the supposed sender through official channels</li>
+          <li>Ask trusted friends or family for their opinion</li>
+          <li>Remember: legitimate offers don't expire in hours</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Terminal Status -->
+    <div class="terminal">
+      <div class="terminal-header">[FINANCIAL DEFENSE PROTOCOLS]</div>
+      <div class="terminal-line success">> Greed detection system: ACTIVE</div>
+      <div class="terminal-line success">> Offer verification engine: ONLINE</div>
+      <div class="terminal-line">> Remember: No legitimate free money exists</div>
+      <div class="terminal-line">> Remember: Real surveys pay cents, not hundreds</div>
+      <div class="terminal-line warning">> ALERT: Research before believing any financial offer</div>
+      <div class="terminal-line">> If it sounds too good to be true, it is</div>
+    </div>
+
+    <!-- Interactive Quiz -->
+    <div class="quiz-section">
+      <div class="quiz-title">🧠 Financial Wisdom Test</div>
+      
+      <div class="quiz-question">
+        <p><strong>Question 1:</strong> You receive an email saying you won $50,000 in a lottery you never entered. What should you do?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" data-answer="wrong">Check if the email looks official</div>
+          <div class="quiz-option" data-answer="wrong">Reply asking for more details</div>
+          <div class="quiz-option" data-answer="correct">Delete it immediately - it's definitely a scam</div>
+          <div class="quiz-option" data-answer="wrong">Forward it to friends to check</div>
+        </div>
+      </div>
+
+      <div class="quiz-question">
+        <p><strong>Question 2:</strong> An investment opportunity promises 300% returns in 30 days. This is:</p>
+        <div class="quiz-options">
+          <div class="quiz-option" data-answer="wrong">Possible with new technology</div>
+          <div class="quiz-option" data-answer="correct">Definitely a scam - mathematically impossible</div>
+          <div class="quiz-option" data-answer="wrong">Worth investigating further</div>
+          <div class="quiz-option" data-answer="wrong">A high-risk but legitimate investment</div>
+        </div>
+      </div>
+
+      <div class="progress-indicator">
+        <div style="color: var(--text-secondary); margin-bottom: 10px;">Training Progress:</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%" id="progress-bar"></div>
+        </div>
+        <div style="color: var(--text-muted); font-size: 14px; margin-top: 5px;" id="progress-text">Complete the quiz to advance</div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div style="text-align: center; margin: 30px 0;">
+      <button class="cyber-button" id="take-quiz">Advanced Training Lab</button>
+      <button class="cyber-button secondary" id="back-to-dashboard">Return to Dashboard</button>
+    </div>
+  </div>
+
+  <script src="financialBait.js"></script>
+</body>
+</html>
