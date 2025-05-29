@@ -1,7 +1,7 @@
 // PhishGuard Content Script
 // Simplified version that handles warnings and simulations
 
-let simulationActive = false;
+let simulationActive = false; //<------------- weird bug
 let currentSimulation = null;
 
 // Initialize content script
