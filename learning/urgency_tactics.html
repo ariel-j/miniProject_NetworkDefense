@@ -4,235 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Recognizing Urgency Tactics - PhishGuard Training</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f8f9fa;
-      color: #3c4043;
-      line-height: 1.6;
-    }
-    
-    .header {
-      background-color: #4285f4;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    
-    .header-content {
-      max-width: 800px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .logo {
-      font-size: 32px;
-      margin-right: 15px;
-    }
-    
-    .header h1 {
-      margin: 0;
-      font-size: 24px;
-      font-weight: 500;
-    }
-    
-    .container {
-      max-width: 800px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-    
-    .lesson-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    
-    .lesson-icon {
-      font-size: 36px;
-      margin-right: 15px;
-      color: #d32f2f;
-    }
-    
-    .lesson-title {
-      margin: 0;
-      font-size: 28px;
-      color: #202124;
-    }
-    
-    .lesson-subtitle {
-      margin: 5px 0 0 0;
-      font-size: 16px;
-      color: #5f6368;
-      font-weight: normal;
-    }
-    
-    .lesson-content {
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      padding: 30px;
-      margin-bottom: 30px;
-    }
-    
-    h2 {
-      margin-top: 0;
-      margin-bottom: 15px;
-      font-size: 20px;
-      color: #202124;
-    }
-    
-    p {
-      margin-bottom: 15px;
-      font-size: 16px;
-    }
-    
-    ul, ol {
-      margin-bottom: 20px;
-      padding-left: 25px;
-    }
-    
-    li {
-      margin-bottom: 10px;
-    }
-    
-    .example-box {
-      background-color: #ffebee;
-      border-left: 4px solid #d32f2f;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 4px;
-    }
-    
-    .example-box h3 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      font-size: 16px;
-      color: #d32f2f;
-    }
-    
-    .example-box p {
-      margin: 0;
-      font-size: 15px;
-    }
-    
-    .tip-box {
-      background-color: #e8f0fe;
-      border-left: 4px solid #4285f4;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 4px;
-    }
-    
-    .tip-box h3 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      font-size: 16px;
-      color: #4285f4;
-    }
-    
-    .quiz-section {
-      margin-top: 30px;
-    }
-    
-    .quiz-question {
-      margin-bottom: 25px;
-    }
-    
-    .quiz-options {
-      list-style-type: none;
-      padding: 0;
-    }
-    
-    .quiz-option {
-      padding: 10px 15px;
-      margin-bottom: 10px;
-      border: 1px solid #dadce0;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-    
-    .quiz-option:hover {
-      background-color: #f1f3f4;
-    }
-    
-    .quiz-option.selected {
-      background-color: #e8f0fe;
-      border-color: #4285f4;
-    }
-    
-    .quiz-option.correct {
-      background-color: #e6f4ea;
-      border-color: #34a853;
-    }
-    
-    .quiz-option.incorrect {
-      background-color: #fdeded;
-      border-color: #ea4335;
-    }
-    
-    .quiz-feedback {
-      margin-top: 15px;
-      padding: 10px 15px;
-      border-radius: 4px;
-      display: none;
-    }
-    
-    .quiz-feedback.correct {
-      background-color: #e6f4ea;
-      color: #137333;
-      display: block;
-    }
-    
-    .quiz-feedback.incorrect {
-      background-color: #fdeded;
-      color: #c5221f;
-      display: block;
-    }
-    
-    .button {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #4285f4;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background-color 0.2s;
-    }
-    
-    .button:hover {
-      background-color: #3367d6;
-    }
-    
-    .button-secondary {
-      background-color: #f8f9fa;
-      color: #3c4043;
-      border: 1px solid #dadce0;
-    }
-    
-    .button-secondary:hover {
-      background-color: #f1f3f4;
-    }
-    
-    .footer {
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-      border-top: 1px solid #dadce0;
-      color: #5f6368;
-      font-size: 14px;
-    }
-  </style>
+  <link rel="stylesheet" href="urgencyTactics.css">
 </head>
 <body>
   <div class="header">
@@ -367,7 +139,7 @@
       
       <div class="quiz-question">
         <p><strong>1. Why do phishers use urgency tactics in their messages?</strong></p>
-        <ul class="quiz-options">
+        <ul class="quiz-options" data-question="1">
           <li class="quiz-option" data-correct="true">To prevent you from thinking critically and verifying the message</li>
           <li class="quiz-option">To make their messages stand out from legitimate ones</li>
           <li class="quiz-option">Because all official communications use urgent language</li>
@@ -378,7 +150,7 @@
       
       <div class="quiz-question">
         <p><strong>2. Which of the following is the best response to an urgent email claiming your account will be suspended?</strong></p>
-        <ul class="quiz-options">
+        <ul class="quiz-options" data-question="2">
           <li class="quiz-option">Click the link immediately to prevent account suspension</li>
           <li class="quiz-option">Reply to the email asking for more time</li>
           <li class="quiz-option" data-correct="true">Open a new browser tab and log in directly to the official website</li>
@@ -389,7 +161,21 @@
       
       <div class="quiz-question">
         <p><strong>3. Which phrase is LEAST likely to be used in a phishing email using urgency tactics?</strong></p>
-        <ul class="quiz-options">
+        <ul class="quiz-options" data-question="3">
           <li class="quiz-option">Immediate action required</li>
           <li class="quiz-option">Your account will be terminated</li>
           <li class="quiz-option" data-correct="true">Please review this at your convenience</li>
+          <li class="quiz-option">Final warning - respond now</li>
+        </ul>
+        <div class="quiz-feedback" id="feedback-3"></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    PhishGuard Training v1.0 | Built for better security awareness
+  </div>
+  
+  <script src="urgencyTactics.js"></script>
+</body>
+</html>
