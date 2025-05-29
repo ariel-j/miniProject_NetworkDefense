@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { User } from "@/entities/User";
-import { ThreatDetection } from "@/entities/ThreatDetection";
-import { TrainingSimulation } from "@/entities/TrainingSimulation";
+import { User } from "../Entities/user";
+import { ThreatDetection } from "../Entities/ThreatDetection";
+import { TrainingSimulation } from "../Entities/TrainingSimulation";
 import { motion } from "framer-motion";
 import { 
   Shield, 
@@ -14,9 +14,9 @@ import {
   Clock
 } from "lucide-react";
 
-import ThreatStatusCard from "../components/dashboard/ThreatStatusCard";
-import RecentThreats from "../components/dashboard/RecentThreats";
-import SecurityScore from "../components/dashboard/SecurityScore";
+import ThreatStatusCard from "../Components/dashboard/ThreatStatusCard";
+import RecentThreats from "../Components/dashboard/RecentThreats";
+import SecurityScore from "../Components/dashboard/SecurityScore";
 
 export default function Dashboard() {
   const [userData, setUserData] = useState(null);

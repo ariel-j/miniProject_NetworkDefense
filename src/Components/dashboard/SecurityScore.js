@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Shield, TrendingUp, Target } from "lucide-react";
 import { motion } from "framer-motion";
 

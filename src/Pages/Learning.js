@@ -1,14 +1,14 @@
 
 import React, { useState, useEffect } from "react";
-import { LearningModule } from "@/entities/LearningModule";
-import { User } from "@/entities/User";
+import { LearningModule } from "../Entities/LearningModule";
+import { User } from "../Entities/user";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, CheckCircle, XCircle, Lightbulb, Brain, BarChart3 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "../Components/ui/card";
+import { Button } from "../Components/ui/button";
+import { Badge } from "../Components/ui/badge";
+import { Progress } from "../Components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../Components/ui/tabs";
 import ReactMarkdown from 'react-markdown';
 
 export default function Learning() {
