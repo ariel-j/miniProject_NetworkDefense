@@ -6,7 +6,7 @@ export { Progress } from './progress';
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
 
 // entities/index.js
-export { User } from './User';
+export { User } from './user';
 export { ThreatDetection } from './ThreatDetection';
 export { TrainingSimulation } from './TrainingSimulation';
 export { LearningModule } from './LearningModule';

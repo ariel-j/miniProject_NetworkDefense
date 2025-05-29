@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { User } from "@/entities/User";
-import { ThreatDetection } from "@/entities/ThreatDetection";
-import { TrainingSimulation } from "@/entities/TrainingSimulation";
+import { User } from "../Entities/user";
+import { ThreatDetection } from "../Entities/ThreatDetection";
+import { TrainingSimulation } from "../Entities/TrainingSimulation";
 import { motion } from "framer-motion";
 import { TrendingUp, BarChart3, ShieldCheck, Target, PieChart, CalendarDays, AlertOctagon, Activity } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../Components/ui/card";
 import { ResponsiveContainer, LineChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Pie, Cell } from 'recharts';
 import { format, subDays, parseISO } from 'date-fns';
 

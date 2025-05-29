@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Navigation from './components/Navigation';
-import Dashboard from './pages/Dashboard';
-import Analytics from './pages/Analytics';
-import Training from './pages/Training';
-import Learning from './pages/Learning';
-import { User } from './entities/User';
-import './App.css';
+import Navigation from './Components/Navigation';
+import Dashboard from './Pages/Dashboard';
+import Analytics from './Pages/Analytics';
+import Training from './Pages/Training';
+import Learning from './Pages/Learning';
+import { User } from './Entities/user';
+import './app.css';
 
 function App() {
   const [user, setUser] = useState(null);

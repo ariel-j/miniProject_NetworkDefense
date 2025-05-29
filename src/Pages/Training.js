@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { TrainingSimulation } from "@/entities/TrainingSimulation";
-import { User } from "@/entities/User";
+import { TrainingSimulation } from "../Entities/TrainingSimulation";
+import { User } from "../Entities/user";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Target, 
@@ -13,9 +13,9 @@ import {
   XCircle,
   RefreshCw
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "../Components/ui/card";
+import { Button } from "../Components/ui/button";
+import { Badge } from "../Components/ui/badge";
 
 export default function Training() {
   const [currentSimulation, setCurrentSimulation] = useState(null);
