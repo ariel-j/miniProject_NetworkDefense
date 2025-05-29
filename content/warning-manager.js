@@ -579,35 +579,4 @@ class WarningManager {
 // Export for use in other modules
 if (typeof window !== 'undefined') {
   window.WarningManager = WarningManager;
-}px;">
-        <h3 style="color: #333; border-bottom: 2px solid #f0f0f0; padding-bottom: 5px;">Detection Summary</h3>
-        <div style="background: #f9f9f9; padding: 15px; border-radius: 4px; margin: 10px 0;">
-          <p><strong>URL:</strong> ${analysisData.details?.url || window.location.href}</p>
-          <p><strong>Confidence:</strong> ${Math.round(analysisData.confidence * 100)}%</p>
-          <p><strong>Primary Reason:</strong> ${analysisData.reason}</p>
-        </div>
-      </div>
-
-      ${detectionMethods.length > 0 ? `
-        <div style="margin-bottom: 20px;">
-          <h3 style="color: #333; border-bottom: 2px solid #f0f0f0; padding-bottom: 5px;">Detection Methods</h3>
-          ${detectionMethods.map(method => `
-            <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; margin: 5px 0; border-radius: 4px;">
-              <strong>${method.method}:</strong> ${Math.round(method.confidence * 100)}% confidence
-              ${method.details ? `<br><small style="color: #666;">${JSON.stringify(method.details)}</small>` : ''}
-            </div>
-          `).join('')}
-        </div>
-      ` : ''}
-
-      <div style="margin-bottom: 20px;">
-        <h3 style="color: #333; border-bottom: 2px solid #f0f0f0; padding-bottom: 5px;">What This Means</h3>
-        <div style="background: #fff3cd; padding: 15px; border-radius: 4px; border-left: 4px solid #ff9f00;">
-          <p>This website has characteristics commonly associated with phishing attacks:</p>
-          <ul style="margin: 10px 0; padding-left: 20px;">
-            ${allReasons.map(reason => `<li>${reason}</li>`).join('')}
-          </ul>
-        </div>
-      </div>
-
-      <div style="margin-bottom: 20
+}
