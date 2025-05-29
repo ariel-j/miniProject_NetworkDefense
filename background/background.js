@@ -1,13 +1,12 @@
 // PhishGuard Main Background Script
 // Orchestrates all background functionality
 
-// Import required modules (these would be loaded via importScripts in manifest)
-// importScripts(
-//   'background/config.js',
-//   'background/storage-manager.js', 
-//   'background/phishing-detector.js',
-//   'background/training-manager.js'
-// );
+importScripts(
+  'background/config.js',
+  'background/storage-manager.js', 
+  'background/phishing-detector.js',
+  'background/training-manager.js'
+);
 
 class PhishGuardBackground {
   constructor() {
