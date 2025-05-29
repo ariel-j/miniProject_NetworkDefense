@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "PhishGuard Training",
   "version": "1.3.0",
-  "description": "Anti-phishing extension with simulated attack training mode - now with modular architecture",
+  "description": "Anti-phishing extension with simulated attack training mode",
   
   "permissions": [
     "activeTab",
@@ -20,15 +20,14 @@
   ],
   
   "background": {
-    "service_worker": "background/background.js",
-    "type": "module"
+    "service_worker": "background.js"
   },
   
   "action": {
-    "default_popup": "popup/popup.html",
+    "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/Logo.png",
-      "48": "icons/Logo.png",
+      "48": "icons/Logo.png", 
       "128": "icons/Logo.png"
     }
   },
@@ -42,14 +41,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": [
-        "content/content-styles.js",
-        "content/content-templates.js",
-        "content/page-analyzer.js",
-        "content/warning-manager.js", 
-        "content/simulation-manager.js",
-        "content/content-script.js"
-      ],
+      "js": ["content.js"],
       "run_at": "document_idle"
     }
   ],
@@ -57,18 +49,12 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "background/*.js",
-        "content/*.js",
-        "training/*.html",
         "learning/*.html",
-        "learning/*.css",
+        "learning/*.css", 
         "learning/*.js",
         "dashboard/*.html",
         "dashboard/*.css",
         "dashboard/*.js",
-        "popup/*.html",
-        "popup/*.css", 
-        "popup/*.js",
         "images/*",
         "icons/*"
       ],
@@ -76,7 +62,7 @@
     }
   ],
   
-  "options_page": "dashboard/index.html",
+  "options_page": "dashboard.html",
   
   "commands": {
     "toggle-training": {
@@ -88,20 +74,19 @@
     },
     "run-simulation": {
       "suggested_key": {
-        "default": "Ctrl+Shift+S",
-        "mac": "Command+Shift+S"  
+        "default": "Ctrl+Shift+S", 
+        "mac": "Command+Shift+S"
       },
       "description": "Run a practice phishing simulation"
     },
     "open-dashboard": {
       "suggested_key": {
         "default": "Ctrl+Shift+D",
-        "mac": "Command+Shift+D"
+        "mac": "Command+Shift+D"  
       },
       "description": "Open PhishGuard dashboard"
     }
   },
-  
   
   "minimum_chrome_version": "88"
 }
