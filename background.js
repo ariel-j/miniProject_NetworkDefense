@@ -1,5 +1,3 @@
-// PhishGuard Enhanced Background Service Worker - FIXED TRACKING VERSION
-// Fixed simulation tracking to properly count passed and failed simulations
 
 // Enhanced Configuration
 const CONFIG = {
