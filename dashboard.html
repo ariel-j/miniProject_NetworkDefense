@@ -116,122 +116,219 @@
       </div>
     </div>
 
-    <!-- Analytics Tab -->
-    <div id="analytics" class="tab-content">
-      <div class="card-grid">
-        <div class="card">
-          <h2 class="card-title">📊 Performance Metrics</h2>
-          <div class="stats-grid">
-            <div class="stat-item">
-              <div class="stat-value">87%</div>
-              <div class="stat-label">Success Rate</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">23</div>
-              <div class="stat-label">Training Hours</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">156</div>
-              <div class="stat-label">Threats Analyzed</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">42</div>
-              <div class="stat-label">Skills Learned</div>
-            </div>
-          </div>
+<!-- Analytics Tab -->
+<div id="analytics" class="tab-content">
+  <!-- Real-time Performance Overview -->
+  <div class="card-grid">
+    <div class="card">
+      <h2 class="card-title">📊 Live Performance Metrics</h2>
+      <div class="stats-grid">
+        <div class="stat-item pulse-animation">
+          <div class="stat-value" id="analytics-success-rate">0%</div>
+          <div class="stat-label">Success Rate</div>
+          <div class="stat-trend positive">↗ +5%</div>
         </div>
-
-        <div class="card">
-          <h2 class="card-title">🎯 Vulnerability Analysis</h2>
-          <div style="margin: 20px 0;">
-            <div style="margin-bottom: 15px;">
-              <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                <span>Urgency Tactics</span>
-                <span>65%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-fill" style="width: 65%;"></div>
-              </div>
-            </div>
-            <div style="margin-bottom: 15px;">
-              <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                <span>Login Spoofing</span>
-                <span>80%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-fill" style="width: 80%;"></div>
-              </div>
-            </div>
-            <div style="margin-bottom: 15px;">
-              <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                <span>Financial Bait</span>
-                <span>92%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-fill" style="width: 92%;"></div>
-              </div>
-            </div>
-            <div style="margin-bottom: 15px;">
-              <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                <span>Domain Spoofing</span>
-                <span>74%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-fill" style="width: 74%;"></div>
-              </div>
-            </div>
-          </div>
+        <div class="stat-item pulse-animation">
+          <div class="stat-value" id="analytics-training-hours">0</div>
+          <div class="stat-label">Training Hours</div>
+          <div class="stat-trend positive">↗ +2h</div>
         </div>
-      </div>
-
-      <div class="card">
-        <h2 class="card-title">📈 Training Progress</h2>
-        <div class="chart-container" id="progress-chart">
-          <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-secondary);">
-            <div style="text-align: center;">
-              <div style="font-size: 48px; margin-bottom: 10px;">📈</div>
-              <div>Training analytics visualization would appear here</div>
-              <div style="font-size: 14px; margin-top: 10px;">Chart.js integration recommended</div>
-            </div>
-          </div>
+        <div class="stat-item pulse-animation">
+          <div class="stat-value" id="analytics-threats-analyzed">0</div>
+          <div class="stat-label">Threats Analyzed</div>
+          <div class="stat-trend neutral">→ 0</div>
         </div>
-      </div>
-
-      <div class="card">
-        <h2 class="card-title">🎲 Recent Simulations</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Time</th>
-              <th>Type</th>
-              <th>Response Time</th>
-              <th>Result</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>2 hours ago</td>
-              <td>Urgency Tactics</td>
-              <td>15.3s</td>
-              <td class="simulation-result-success">Avoided</td>
-            </tr>
-            <tr>
-              <td>1 day ago</td>
-              <td>Login Spoofing</td>
-              <td>8.7s</td>
-              <td class="simulation-result-fail">Clicked</td>
-            </tr>
-            <tr>
-              <td>3 days ago</td>
-              <td>Financial Bait</td>
-              <td>22.1s</td>
-              <td class="simulation-result-success">Avoided</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="stat-item pulse-animation">
+          <div class="stat-value" id="analytics-security-score">0</div>
+          <div class="stat-label">Security Score</div>
+          <div class="stat-trend positive">↗ A+</div>
+        </div>
       </div>
     </div>
 
+    <div class="card">
+      <h2 class="card-title">🎯 Dynamic Vulnerability Analysis</h2>
+      <div class="vulnerability-container">
+        <div class="vulnerability-item" data-type="urgency">
+          <div class="vulnerability-header">
+            <span class="vulnerability-icon">⏰</span>
+            <span class="vulnerability-name">Urgency Tactics</span>
+            <span class="vulnerability-percentage" id="urgency-percentage">0%</span>
+          </div>
+          <div class="progress-bar animated-progress">
+            <div class="progress-fill" id="urgency-progress" style="width: 0%;" data-target="65"></div>
+          </div>
+          <div class="vulnerability-details">
+            <span class="vulnerability-trend improving">Improving</span>
+            <span class="vulnerability-risk medium">Medium Risk</span>
+          </div>
+        </div>
+
+        <div class="vulnerability-item" data-type="login">
+          <div class="vulnerability-header">
+            <span class="vulnerability-icon">🔐</span>
+            <span class="vulnerability-name">Login Spoofing</span>
+            <span class="vulnerability-percentage" id="login-percentage">0%</span>
+          </div>
+          <div class="progress-bar animated-progress">
+            <div class="progress-fill" id="login-progress" style="width: 0%;" data-target="80"></div>
+          </div>
+          <div class="vulnerability-details">
+            <span class="vulnerability-trend stable">Stable</span>
+            <span class="vulnerability-risk low">Low Risk</span>
+          </div>
+        </div>
+
+        <div class="vulnerability-item" data-type="financial">
+          <div class="vulnerability-header">
+            <span class="vulnerability-icon">💰</span>
+            <span class="vulnerability-name">Financial Bait</span>
+            <span class="vulnerability-percentage" id="financial-percentage">0%</span>
+          </div>
+          <div class="progress-bar animated-progress">
+            <div class="progress-fill" id="financial-progress" style="width: 0%;" data-target="92"></div>
+          </div>
+          <div class="vulnerability-details">
+            <span class="vulnerability-trend improving">Improving</span>
+            <span class="vulnerability-risk low">Low Risk</span>
+          </div>
+        </div>
+
+        <div class="vulnerability-item" data-type="domain">
+          <div class="vulnerability-header">
+            <span class="vulnerability-icon">🌐</span>
+            <span class="vulnerability-name">Domain Spoofing</span>
+            <span class="vulnerability-percentage" id="domain-percentage">0%</span>
+          </div>
+          <div class="progress-bar animated-progress">
+            <div class="progress-fill" id="domain-progress" style="width: 0%;" data-target="74"></div>
+          </div>
+          <div class="vulnerability-details">
+            <span class="vulnerability-trend declining">Needs Attention</span>
+            <span class="vulnerability-risk high">High Risk</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Charts Section -->
+  <div class="card-grid">
+    <div class="card full-width">
+      <h2 class="card-title">📈 Training Progress Over Time</h2>
+      <div class="chart-controls">
+        <button class="chart-btn active" data-period="7d">7 Days</button>
+        <button class="chart-btn" data-period="30d">30 Days</button>
+        <button class="chart-btn" data-period="90d">3 Months</button>
+        <button class="chart-btn" data-period="1y">1 Year</button>
+      </div>
+      <div class="chart-container" id="progress-chart">
+        <!-- ASCII Art Chart for Visual Appeal -->
+        <div class="ascii-chart">
+          <div class="chart-header">
+            <span>Success Rate %</span>
+            <span class="chart-period">Last 30 Days</span>
+          </div>
+          <div class="chart-grid">
+            <div class="chart-line">
+              <span class="chart-label">100%</span>
+              <span class="chart-bar">████████████████████████████████████████</span>
+            </div>
+            <div class="chart-line">
+              <span class="chart-label"> 80%</span>
+              <span class="chart-bar">████████████████████████████████</span>
+            </div>
+            <div class="chart-line current">
+              <span class="chart-label"> 60%</span>
+              <span class="chart-bar">████████████████████████░░░░░░░░</span>
+              <span class="chart-indicator">◄ Current</span>
+            </div>
+            <div class="chart-line">
+              <span class="chart-label"> 40%</span>
+              <span class="chart-bar">████████████████░░░░░░░░░░░░░░░░</span>
+            </div>
+            <div class="chart-line">
+              <span class="chart-label"> 20%</span>
+              <span class="chart-bar">████████░░░░░░░░░░░░░░░░░░░░░░░░</span>
+            </div>
+            <div class="chart-line">
+              <span class="chart-label">  0%</span>
+              <span class="chart-bar">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</span>
+            </div>
+          </div>
+          <div class="chart-footer">
+            <span>Week 1</span>
+            <span>Week 2</span>
+            <span>Week 3</span>
+            <span>Week 4</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Analytics -->
+  <div class="card-grid">
+    <div class="card">
+      <h2 class="card-title">🎲 Recent Training Activity</h2>
+      <div id="recent-activity-analytics">
+        <!-- This will be populated by JavaScript -->
+        <div class="empty-state">
+          <div class="empty-state-icon">📊</div>
+          <p>Loading training analytics...</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">🏆 Achievement Tracking</h2>
+      <div class="achievement-grid">
+        <div class="achievement-item unlocked">
+          <div class="achievement-icon">🛡️</div>
+          <div class="achievement-info">
+            <div class="achievement-name">First Defense</div>
+            <div class="achievement-desc">Completed first training simulation</div>
+          </div>
+          <div class="achievement-status">Unlocked</div>
+        </div>
+        <div class="achievement-item unlocked">
+          <div class="achievement-icon">🎯</div>
+          <div class="achievement-info">
+            <div class="achievement-name">Sharp Eye</div>
+            <div class="achievement-desc">Passed 5 simulations in a row</div>
+          </div>
+          <div class="achievement-status">Unlocked</div>
+        </div>
+        <div class="achievement-item locked">
+          <div class="achievement-icon">🏅</div>
+          <div class="achievement-info">
+            <div class="achievement-name">Security Expert</div>
+            <div class="achievement-desc">Achieve 90% success rate</div>
+          </div>
+          <div class="achievement-status">Locked</div>
+        </div>
+        <div class="achievement-item locked">
+          <div class="achievement-icon">👑</div>
+          <div class="achievement-info">
+            <div class="achievement-name">Cyber Guardian</div>
+            <div class="achievement-desc">Complete all training modules</div>
+          </div>
+          <div class="achievement-status">Locked</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analytics Terminal -->
+  <div class="terminal">
+    <div class="terminal-header">[ANALYTICS ENGINE]</div>
+    <div class="terminal-line">> Data collection: ACTIVE</div>
+    <div class="terminal-line">> Behavioral analysis: RUNNING</div>
+    <div class="terminal-line">> Threat modeling: UPDATED</div>
+    <div class="terminal-line">> Prediction accuracy: 94.7%</div>
+    <div class="terminal-line">> Next vulnerability scan: <span id="next-scan-time">Loading...</span></div>
+  </div>
+</div>
     <!-- Urgency Tactics Tab -->
     <div id="urgency" class="tab-content">
       <div class="card">

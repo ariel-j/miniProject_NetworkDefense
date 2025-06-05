@@ -649,3 +649,356 @@
     ::-webkit-scrollbar-thumb:hover {
       background: var(--accent-blue);
     }
+
+    /* Enhanced Analytics CSS Additions */
+
+/* Full width cards */
+.card.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Pulse animation for stats */
+.pulse-animation {
+  animation: statPulse 3s ease-in-out infinite;
+}
+
+@keyframes statPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* Stat trends */
+.stat-trend {
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.stat-trend.positive { color: var(--accent-green); }
+.stat-trend.negative { color: var(--accent-red); }
+.stat-trend.neutral { color: var(--accent-yellow); }
+
+/* Vulnerability Analysis */
+.vulnerability-container {
+  margin-top: 15px;
+}
+
+.vulnerability-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: var(--secondary-bg);
+  border-radius: 8px;
+  border-left: 4px solid var(--accent-blue);
+}
+
+.vulnerability-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.vulnerability-icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.vulnerability-name {
+  flex: 1;
+  font-weight: bold;
+}
+
+.vulnerability-percentage {
+  color: var(--accent-blue);
+  font-weight: bold;
+}
+
+.vulnerability-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.vulnerability-trend.improving { color: var(--accent-green); }
+.vulnerability-trend.declining { color: var(--accent-red); }
+.vulnerability-trend.stable { color: var(--accent-yellow); }
+
+.vulnerability-risk.low { color: var(--accent-green); }
+.vulnerability-risk.medium { color: var(--accent-yellow); }
+.vulnerability-risk.high { color: var(--accent-red); }
+
+/* Chart Controls */
+.chart-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.chart-btn {
+  padding: 8px 16px;
+  background: var(--secondary-bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.chart-btn:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+
+.chart-btn.active {
+  background: var(--accent-blue);
+  color: var(--primary-bg);
+  border-color: var(--accent-blue);
+}
+
+/* ASCII Chart */
+.ascii-chart {
+  font-family: 'Courier New', monospace;
+  background: var(--secondary-bg);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  color: var(--accent-green);
+  font-weight: bold;
+}
+
+.chart-grid {
+  margin: 15px 0;
+}
+
+.chart-line {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  font-size: 12px;
+}
+
+.chart-line.current {
+  color: var(--accent-green);
+  font-weight: bold;
+}
+
+.chart-label {
+  width: 50px;
+  color: var(--text-secondary);
+}
+
+.chart-bar {
+  margin: 0 10px;
+  color: var(--accent-blue);
+}
+
+.chart-indicator {
+  color: var(--accent-green);
+  font-weight: bold;
+}
+
+.chart-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+/* Achievement System */
+.achievement-grid {
+  margin-top: 15px;
+}
+
+.achievement-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: var(--secondary-bg);
+  border-radius: 8px;
+  border-left: 4px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.achievement-item.unlocked {
+  border-left-color: var(--accent-green);
+}
+
+.achievement-item.locked {
+  opacity: 0.6;
+  border-left-color: var(--text-muted);
+}
+
+.achievement-icon {
+  font-size: 24px;
+  margin-right: 15px;
+  width: 40px;
+  text-align: center;
+}
+
+.achievement-info {
+  flex: 1;
+}
+
+.achievement-name {
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.achievement-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.achievement-status {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.achievement-item.unlocked .achievement-status {
+  background: var(--accent-green);
+  color: var(--primary-bg);
+}
+
+.achievement-item.locked .achievement-status {
+  background: var(--text-muted);
+  color: var(--primary-bg);
+}
+
+/* Enhanced Table */
+.table-controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.filter-select {
+  padding: 8px 12px;
+  background: var(--secondary-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+.search-box {
+  position: relative;
+  flex: 1;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 8px 35px 8px 12px;
+  background: var(--secondary-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.enhanced-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.simulation-type {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.simulation-type.urgency { background: rgba(255, 255, 0, 0.2); color: var(--accent-yellow); }
+.simulation-type.login { background: rgba(0, 212, 255, 0.2); color: var(--accent-blue); }
+.simulation-type.financial { background: rgba(0, 255, 65, 0.2); color: var(--accent-green); }
+
+.difficulty {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.difficulty.easy { background: var(--accent-green); color: var(--primary-bg); }
+.difficulty.medium { background: var(--accent-yellow); color: var(--primary-bg); }
+.difficulty.hard { background: var(--accent-red); color: white; }
+
+.score {
+  font-weight: bold;
+}
+
+.score.high { color: var(--accent-green); }
+.score.medium { color: var(--accent-yellow); }
+.score.low { color: var(--accent-red); }
+
+/* Activity Items */
+.activity-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 8px;
+  background: var(--secondary-bg);
+  border-radius: 6px;
+  border-left: 3px solid var(--border-color);
+}
+
+.activity-item.result-success {
+  border-left-color: var(--accent-green);
+}
+
+.activity-item.result-fail {
+  border-left-color: var(--accent-red);
+}
+
+.activity-icon {
+  font-size: 18px;
+  margin-right: 12px;
+  width: 30px;
+  text-align: center;
+}
+
+.activity-info {
+  flex: 1;
+}
+
+.activity-title {
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.activity-time {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.activity-score {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--accent-blue);
+}
