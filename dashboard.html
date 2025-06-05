@@ -410,14 +410,22 @@
       </div>
     </div>
 
-    <!-- Training Lab Tab -->
+<!-- Training Lab Tab -->
     <div id="training" class="tab-content">
       <div class="card">
         <h2 class="card-title">🧪 Training Laboratory</h2>
         <p style="color: var(--text-secondary); margin-bottom: 20px;">
           Practice identifying phishing attempts in a safe environment. Each simulation is designed to test different vulnerability areas.
         </p>
-        <button class="cyber-button" id="run-training-simulation">Execute Training Simulation</button>
+        
+        <!-- This explanation will be dynamically shown when the tab loads -->
+        <div style="padding: 15px; background: rgba(0, 212, 255, 0.1); border: 1px solid var(--accent-blue); border-radius: 8px; color: var(--text-secondary); text-align: center; margin-bottom: 20px;">
+          <p><strong>🎯 Automatic Training Simulations</strong></p>
+          <p style="font-size: 14px; margin-top: 8px;">
+            Training simulations appear automatically while browsing regular websites based on your settings. 
+            Use the training modules below to learn about specific phishing techniques.
+          </p>
+        </div>
       </div>
 
       <div class="training-modules">
@@ -451,20 +459,6 @@
 
         <div class="training-module">
           <div class="module-header">
-            <div class="module-icon">🌐</div>
-            <div>
-              <div class="module-title">Domain Verification</div>
-              <div style="color: var(--text-secondary); font-size: 12px;">Difficulty: Beginner</div>
-            </div>
-          </div>
-          <div class="module-desc">
-            Develop keen eyes for typosquatting and domain spoofing. Practice identifying subtle character substitutions and misleading domain structures.
-          </div>
-          <button class="cyber-button" data-module="domain">Launch Module</button>
-        </div>
-
-        <div class="training-module">
-          <div class="module-header">
             <div class="module-icon">💰</div>
             <div>
               <div class="module-title">Financial Bait Detection</div>
@@ -477,37 +471,54 @@
           <button class="cyber-button" data-module="financial">Launch Module</button>
         </div>
 
-        <div class="training-module">
+        <!-- Coming Soon Modules (Optional - shows what's planned) -->
+        <div class="training-module" style="opacity: 0.6;">
+          <div class="module-header">
+            <div class="module-icon">🌐</div>
+            <div>
+              <div class="module-title">Domain Verification</div>
+              <div style="color: var(--text-secondary); font-size: 12px;">Coming Soon</div>
+            </div>
+          </div>
+          <div class="module-desc">
+            Develop keen eyes for typosquatting and domain spoofing. Practice identifying subtle character substitutions and misleading domain structures.
+          </div>
+          <button class="cyber-button" disabled style="opacity: 0.5; cursor: not-allowed;">Coming Soon</button>
+        </div>
+
+        <div class="training-module" style="opacity: 0.6;">
           <div class="module-header">
             <div class="module-icon">🔍</div>
             <div>
               <div class="module-title">Email Header Analysis</div>
-              <div style="color: var(--text-secondary); font-size: 12px;">Difficulty: Expert</div>
+              <div style="color: var(--text-secondary); font-size: 12px;">Coming Soon</div>
             </div>
           </div>
           <div class="module-desc">
             Deep dive into email forensics. Learn to analyze email headers, sender reputation, and routing information to verify message authenticity.
           </div>
-          <button class="cyber-button" data-module="email">Launch Module</button>
+          <button class="cyber-button" disabled style="opacity: 0.5; cursor: not-allowed;">Coming Soon</button>
         </div>
 
-        <div class="training-module">
+        <div class="training-module" style="opacity: 0.6;">
           <div class="module-header">
             <div class="module-icon">📱</div>
             <div>
               <div class="module-title">Mobile Phishing Defense</div>
-              <div style="color: var(--text-secondary); font-size: 12px;">Difficulty: Advanced</div>
+              <div style="color: var(--text-secondary); font-size: 12px;">Coming Soon</div>
             </div>
           </div>
           <div class="module-desc">
             Specialized training for mobile-specific phishing attacks. Learn about SMS phishing, malicious apps, and mobile-optimized phishing sites.
           </div>
-          <button class="cyber-button" data-module="mobile">Launch Module</button>
+          <button class="cyber-button" disabled style="opacity: 0.5; cursor: not-allowed;">Coming Soon</button>
         </div>
       </div>
 
       <div class="terminal">
         <div class="terminal-header">[TRAINING MATRIX]</div>
+        <div class="terminal-line">> Active modules: 3 available</div>
+        <div class="terminal-line">> Upcoming modules: 3 in development</div>
         <div class="terminal-line">> Simulation engine: READY</div>
         <div class="terminal-line">> Difficulty level: ADAPTIVE</div>
         <div class="terminal-line">> Safe mode: ENABLED</div>
