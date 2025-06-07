@@ -156,8 +156,8 @@ function initializeResources() {
 function openResource(resourceType) {
   // Map resources to actual files or actions
   const resourceActions = {
-    'phishing-guide': () => openLearningResource('urgencyTactics'),
-    'social-engineering': () => openLearningResource('loginFormSpoofing'),
+    'social-engineering': () => window.location.href = 'resources/phishingGuide.html',
+    'social-engineering': () => window.location.href = 'resources/socialEngineering.html',
     'incident-response': () => showNotification('Incident response guide coming soon!', 'info'),
     'security-tools': () => showNotification('Security tools guide coming soon!', 'info'),
     'quick-tips': () => showNotification('Quick tips guide coming soon!', 'info'),
