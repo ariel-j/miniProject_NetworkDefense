@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PhishGuard - Cyber Defense Training</title>
-  <link rel = "stylesheet" href = "dashboard.css">
-  </head>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+
 <body>
   <div class="header">
     <span class="logo">🛡️</span>
@@ -53,7 +55,7 @@
             <div class="threat-item">
               <div class="threat-icon">🎯</div>
               <div class="threat-info">
-                <div class="threat-name">Spear Phishing</div> 
+                <div class="threat-name">Spear Phishing</div>
                 <div class="threat-desc">Targeted email attacks</div>
               </div>
               <div class="threat-level critical">Critical</div>
@@ -115,225 +117,226 @@
       </div>
     </div>
 
-<!-- Analytics Tab -->
-<div id="analytics" class="tab-content">
-  <!-- Real-time Performance Overview -->
-  <div class="card-grid">
-    <div class="card">
-      <h2 class="card-title">📊 Live Performance Metrics</h2>
-      <div class="stats-grid">
-        <div class="stat-item pulse-animation">
-          <div class="stat-value" id="analytics-success-rate">0%</div>
-          <div class="stat-label">Success Rate</div>
-          <div class="stat-trend positive">↗ +5%</div>
+    <!-- Analytics Tab -->
+    <div id="analytics" class="tab-content">
+      <!-- Real-time Performance Overview -->
+      <div class="card-grid">
+        <div class="card">
+          <h2 class="card-title">📊 Live Performance Metrics</h2>
+          <div class="stats-grid">
+            <div class="stat-item pulse-animation">
+              <div class="stat-value" id="analytics-success-rate">0%</div>
+              <div class="stat-label">Success Rate</div>
+              <div class="stat-trend positive">↗ +5%</div>
+            </div>
+            <div class="stat-item pulse-animation">
+              <div class="stat-value" id="analytics-training-hours">0</div>
+              <div class="stat-label">Training Hours</div>
+              <div class="stat-trend positive">↗ +2h</div>
+            </div>
+            <div class="stat-item pulse-animation">
+              <div class="stat-value" id="analytics-threats-analyzed">0</div>
+              <div class="stat-label">Threats Analyzed</div>
+              <div class="stat-trend neutral">→ 0</div>
+            </div>
+            <div class="stat-item pulse-animation">
+              <div class="stat-value" id="analytics-security-score">0</div>
+              <div class="stat-label">Security Score</div>
+              <div class="stat-trend positive">↗ A+</div>
+            </div>
+          </div>
         </div>
-        <div class="stat-item pulse-animation">
-          <div class="stat-value" id="analytics-training-hours">0</div>
-          <div class="stat-label">Training Hours</div>
-          <div class="stat-trend positive">↗ +2h</div>
+
+        <div class="card">
+          <h2 class="card-title">🎯 Dynamic Vulnerability Analysis</h2>
+          <div class="vulnerability-container">
+            <div class="vulnerability-item" data-type="urgency">
+              <div class="vulnerability-header">
+                <span class="vulnerability-icon">⏰</span>
+                <span class="vulnerability-name">Urgency Tactics</span>
+                <span class="vulnerability-percentage" id="urgency-percentage">0%</span>
+              </div>
+              <div class="progress-bar animated-progress">
+                <div class="progress-fill" id="urgency-progress" style="width: 0%;" data-target="65"></div>
+              </div>
+              <div class="vulnerability-details">
+                <span class="vulnerability-trend improving">Improving</span>
+                <span class="vulnerability-risk medium">Medium Risk</span>
+              </div>
+            </div>
+
+            <div class="vulnerability-item" data-type="login">
+              <div class="vulnerability-header">
+                <span class="vulnerability-icon">🔐</span>
+                <span class="vulnerability-name">Login Spoofing</span>
+                <span class="vulnerability-percentage" id="login-percentage">0%</span>
+              </div>
+              <div class="progress-bar animated-progress">
+                <div class="progress-fill" id="login-progress" style="width: 0%;" data-target="80"></div>
+              </div>
+              <div class="vulnerability-details">
+                <span class="vulnerability-trend stable">Stable</span>
+                <span class="vulnerability-risk low">Low Risk</span>
+              </div>
+            </div>
+
+            <div class="vulnerability-item" data-type="financial">
+              <div class="vulnerability-header">
+                <span class="vulnerability-icon">💰</span>
+                <span class="vulnerability-name">Financial Bait</span>
+                <span class="vulnerability-percentage" id="financial-percentage">0%</span>
+              </div>
+              <div class="progress-bar animated-progress">
+                <div class="progress-fill" id="financial-progress" style="width: 0%;" data-target="92"></div>
+              </div>
+              <div class="vulnerability-details">
+                <span class="vulnerability-trend improving">Improving</span>
+                <span class="vulnerability-risk low">Low Risk</span>
+              </div>
+            </div>
+
+            <div class="vulnerability-item" data-type="domain">
+              <div class="vulnerability-header">
+                <span class="vulnerability-icon">🌐</span>
+                <span class="vulnerability-name">Domain Spoofing</span>
+                <span class="vulnerability-percentage" id="domain-percentage">0%</span>
+              </div>
+              <div class="progress-bar animated-progress">
+                <div class="progress-fill" id="domain-progress" style="width: 0%;" data-target="74"></div>
+              </div>
+              <div class="vulnerability-details">
+                <span class="vulnerability-trend declining">Needs Attention</span>
+                <span class="vulnerability-risk high">High Risk</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="stat-item pulse-animation">
-          <div class="stat-value" id="analytics-threats-analyzed">0</div>
-          <div class="stat-label">Threats Analyzed</div>
-          <div class="stat-trend neutral">→ 0</div>
+      </div>
+
+      <!-- Interactive Charts Section -->
+      <div class="card-grid">
+        <div class="card full-width">
+          <h2 class="card-title">📈 Training Progress Over Time</h2>
+          <div class="chart-controls">
+            <button class="chart-btn active" data-period="7d">7 Days</button>
+            <button class="chart-btn" data-period="30d">30 Days</button>
+            <button class="chart-btn" data-period="90d">3 Months</button>
+            <button class="chart-btn" data-period="1y">1 Year</button>
+          </div>
+          <div class="chart-container" id="progress-chart">
+            <!-- ASCII Art Chart for Visual Appeal -->
+            <div class="ascii-chart">
+              <div class="chart-header">
+                <span>Success Rate %</span>
+                <span class="chart-period">Last 30 Days</span>
+              </div>
+              <div class="chart-grid">
+                <div class="chart-line">
+                  <span class="chart-label">100%</span>
+                  <span class="chart-bar">████████████████████████████████████████</span>
+                </div>
+                <div class="chart-line">
+                  <span class="chart-label"> 80%</span>
+                  <span class="chart-bar">████████████████████████████████</span>
+                </div>
+                <div class="chart-line current">
+                  <span class="chart-label"> 60%</span>
+                  <span class="chart-bar">████████████████████████░░░░░░░░</span>
+                  <span class="chart-indicator">◄ Current</span>
+                </div>
+                <div class="chart-line">
+                  <span class="chart-label"> 40%</span>
+                  <span class="chart-bar">████████████████░░░░░░░░░░░░░░░░</span>
+                </div>
+                <div class="chart-line">
+                  <span class="chart-label"> 20%</span>
+                  <span class="chart-bar">████████░░░░░░░░░░░░░░░░░░░░░░░░</span>
+                </div>
+                <div class="chart-line">
+                  <span class="chart-label"> 0%</span>
+                  <span class="chart-bar">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</span>
+                </div>
+              </div>
+              <div class="chart-footer">
+                <span>Week 1</span>
+                <span>Week 2</span>
+                <span>Week 3</span>
+                <span>Week 4</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="stat-item pulse-animation">
-          <div class="stat-value" id="analytics-security-score">0</div>
-          <div class="stat-label">Security Score</div>
-          <div class="stat-trend positive">↗ A+</div>
+      </div>
+
+      <!-- Detailed Analytics -->
+      <div class="card-grid">
+        <div class="card">
+          <h2 class="card-title">🎲 Recent Training Activity</h2>
+          <div id="recent-activity-analytics">
+            <!-- This will be populated by JavaScript -->
+            <div class="empty-state">
+              <div class="empty-state-icon">📊</div>
+              <p>Loading training analytics...</p>
+            </div>
+          </div>
         </div>
+
+        <div class="card">
+          <h2 class="card-title">🏆 Achievement Tracking</h2>
+          <div class="achievement-grid">
+            <div class="achievement-item unlocked">
+              <div class="achievement-icon">🛡️</div>
+              <div class="achievement-info">
+                <div class="achievement-name">First Defense</div>
+                <div class="achievement-desc">Completed first training simulation</div>
+              </div>
+              <div class="achievement-status">Unlocked</div>
+            </div>
+            <div class="achievement-item unlocked">
+              <div class="achievement-icon">🎯</div>
+              <div class="achievement-info">
+                <div class="achievement-name">Sharp Eye</div>
+                <div class="achievement-desc">Passed 5 simulations in a row</div>
+              </div>
+              <div class="achievement-status">Unlocked</div>
+            </div>
+            <div class="achievement-item locked">
+              <div class="achievement-icon">🏅</div>
+              <div class="achievement-info">
+                <div class="achievement-name">Security Expert</div>
+                <div class="achievement-desc">Achieve 90% success rate</div>
+              </div>
+              <div class="achievement-status">Locked</div>
+            </div>
+            <div class="achievement-item locked">
+              <div class="achievement-icon">👑</div>
+              <div class="achievement-info">
+                <div class="achievement-name">Cyber Guardian</div>
+                <div class="achievement-desc">Complete all training modules</div>
+              </div>
+              <div class="achievement-status">Locked</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Analytics Terminal -->
+      <div class="terminal">
+        <div class="terminal-header">[ANALYTICS ENGINE]</div>
+        <div class="terminal-line">> Data collection: ACTIVE</div>
+        <div class="terminal-line">> Behavioral analysis: RUNNING</div>
+        <div class="terminal-line">> Threat modeling: UPDATED</div>
+        <div class="terminal-line">> Prediction accuracy: 94.7%</div>
+        <div class="terminal-line">> Next vulnerability scan: <span id="next-scan-time">Loading...</span></div>
       </div>
     </div>
-
-    <div class="card">
-      <h2 class="card-title">🎯 Dynamic Vulnerability Analysis</h2>
-      <div class="vulnerability-container">
-        <div class="vulnerability-item" data-type="urgency">
-          <div class="vulnerability-header">
-            <span class="vulnerability-icon">⏰</span>
-            <span class="vulnerability-name">Urgency Tactics</span>
-            <span class="vulnerability-percentage" id="urgency-percentage">0%</span>
-          </div>
-          <div class="progress-bar animated-progress">
-            <div class="progress-fill" id="urgency-progress" style="width: 0%;" data-target="65"></div>
-          </div>
-          <div class="vulnerability-details">
-            <span class="vulnerability-trend improving">Improving</span>
-            <span class="vulnerability-risk medium">Medium Risk</span>
-          </div>
-        </div>
-
-        <div class="vulnerability-item" data-type="login">
-          <div class="vulnerability-header">
-            <span class="vulnerability-icon">🔐</span>
-            <span class="vulnerability-name">Login Spoofing</span>
-            <span class="vulnerability-percentage" id="login-percentage">0%</span>
-          </div>
-          <div class="progress-bar animated-progress">
-            <div class="progress-fill" id="login-progress" style="width: 0%;" data-target="80"></div>
-          </div>
-          <div class="vulnerability-details">
-            <span class="vulnerability-trend stable">Stable</span>
-            <span class="vulnerability-risk low">Low Risk</span>
-          </div>
-        </div>
-
-        <div class="vulnerability-item" data-type="financial">
-          <div class="vulnerability-header">
-            <span class="vulnerability-icon">💰</span>
-            <span class="vulnerability-name">Financial Bait</span>
-            <span class="vulnerability-percentage" id="financial-percentage">0%</span>
-          </div>
-          <div class="progress-bar animated-progress">
-            <div class="progress-fill" id="financial-progress" style="width: 0%;" data-target="92"></div>
-          </div>
-          <div class="vulnerability-details">
-            <span class="vulnerability-trend improving">Improving</span>
-            <span class="vulnerability-risk low">Low Risk</span>
-          </div>
-        </div>
-
-        <div class="vulnerability-item" data-type="domain">
-          <div class="vulnerability-header">
-            <span class="vulnerability-icon">🌐</span>
-            <span class="vulnerability-name">Domain Spoofing</span>
-            <span class="vulnerability-percentage" id="domain-percentage">0%</span>
-          </div>
-          <div class="progress-bar animated-progress">
-            <div class="progress-fill" id="domain-progress" style="width: 0%;" data-target="74"></div>
-          </div>
-          <div class="vulnerability-details">
-            <span class="vulnerability-trend declining">Needs Attention</span>
-            <span class="vulnerability-risk high">High Risk</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Interactive Charts Section -->
-  <div class="card-grid">
-    <div class="card full-width">
-      <h2 class="card-title">📈 Training Progress Over Time</h2>
-      <div class="chart-controls">
-        <button class="chart-btn active" data-period="7d">7 Days</button>
-        <button class="chart-btn" data-period="30d">30 Days</button>
-        <button class="chart-btn" data-period="90d">3 Months</button>
-        <button class="chart-btn" data-period="1y">1 Year</button>
-      </div>
-      <div class="chart-container" id="progress-chart">
-        <!-- ASCII Art Chart for Visual Appeal -->
-        <div class="ascii-chart">
-          <div class="chart-header">
-            <span>Success Rate %</span>
-            <span class="chart-period">Last 30 Days</span>
-          </div>
-          <div class="chart-grid">
-            <div class="chart-line">
-              <span class="chart-label">100%</span>
-              <span class="chart-bar">████████████████████████████████████████</span>
-            </div>
-            <div class="chart-line">
-              <span class="chart-label"> 80%</span>
-              <span class="chart-bar">████████████████████████████████</span>
-            </div>
-            <div class="chart-line current">
-              <span class="chart-label"> 60%</span>
-              <span class="chart-bar">████████████████████████░░░░░░░░</span>
-              <span class="chart-indicator">◄ Current</span>
-            </div>
-            <div class="chart-line">
-              <span class="chart-label"> 40%</span>
-              <span class="chart-bar">████████████████░░░░░░░░░░░░░░░░</span>
-            </div>
-            <div class="chart-line">
-              <span class="chart-label"> 20%</span>
-              <span class="chart-bar">████████░░░░░░░░░░░░░░░░░░░░░░░░</span>
-            </div>
-            <div class="chart-line">
-              <span class="chart-label">  0%</span>
-              <span class="chart-bar">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</span>
-            </div>
-          </div>
-          <div class="chart-footer">
-            <span>Week 1</span>
-            <span>Week 2</span>
-            <span>Week 3</span>
-            <span>Week 4</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Detailed Analytics -->
-  <div class="card-grid">
-    <div class="card">
-      <h2 class="card-title">🎲 Recent Training Activity</h2>
-      <div id="recent-activity-analytics">
-        <!-- This will be populated by JavaScript -->
-        <div class="empty-state">
-          <div class="empty-state-icon">📊</div>
-          <p>Loading training analytics...</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2 class="card-title">🏆 Achievement Tracking</h2>
-      <div class="achievement-grid">
-        <div class="achievement-item unlocked">
-          <div class="achievement-icon">🛡️</div>
-          <div class="achievement-info">
-            <div class="achievement-name">First Defense</div>
-            <div class="achievement-desc">Completed first training simulation</div>
-          </div>
-          <div class="achievement-status">Unlocked</div>
-        </div>
-        <div class="achievement-item unlocked">
-          <div class="achievement-icon">🎯</div>
-          <div class="achievement-info">
-            <div class="achievement-name">Sharp Eye</div>
-            <div class="achievement-desc">Passed 5 simulations in a row</div>
-          </div>
-          <div class="achievement-status">Unlocked</div>
-        </div>
-        <div class="achievement-item locked">
-          <div class="achievement-icon">🏅</div>
-          <div class="achievement-info">
-            <div class="achievement-name">Security Expert</div>
-            <div class="achievement-desc">Achieve 90% success rate</div>
-          </div>
-          <div class="achievement-status">Locked</div>
-        </div>
-        <div class="achievement-item locked">
-          <div class="achievement-icon">👑</div>
-          <div class="achievement-info">
-            <div class="achievement-name">Cyber Guardian</div>
-            <div class="achievement-desc">Complete all training modules</div>
-          </div>
-          <div class="achievement-status">Locked</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Analytics Terminal -->
-  <div class="terminal">
-    <div class="terminal-header">[ANALYTICS ENGINE]</div>
-    <div class="terminal-line">> Data collection: ACTIVE</div>
-    <div class="terminal-line">> Behavioral analysis: RUNNING</div>
-    <div class="terminal-line">> Threat modeling: UPDATED</div>
-    <div class="terminal-line">> Prediction accuracy: 94.7%</div>
-    <div class="terminal-line">> Next vulnerability scan: <span id="next-scan-time">Loading...</span></div>
-  </div>
-</div>
     <!-- Urgency Tactics Tab -->
     <div id="urgency" class="tab-content">
       <div class="card">
         <h2 class="card-title">⏰ Urgency Tactics - Psychological Warfare</h2>
         <p style="color: var(--text-secondary); margin-bottom: 20px;">
-          Urgency tactics are psychological manipulation techniques that pressure victims into making hasty decisions without proper verification. These attacks exploit our natural fight-or-flight response.
+          Urgency tactics are psychological manipulation techniques that pressure victims into making hasty decisions
+          without proper verification. These attacks exploit our natural fight-or-flight response.
         </p>
       </div>
 
@@ -341,7 +344,8 @@
         <div class="urgency-card">
           <div class="urgency-title">🚨 Account Suspension</div>
           <div class="urgency-example">
-            "URGENT: Your account will be suspended in 24 hours due to suspicious activity. Click here to verify immediately!"
+            "URGENT: Your account will be suspended in 24 hours due to suspicious activity. Click here to verify
+            immediately!"
           </div>
           <p style="color: var(--text-secondary); font-size: 14px;">
             Creates fear of losing access to important services, pushing for immediate action.
@@ -409,19 +413,21 @@
       </div>
     </div>
 
-<!-- Training Lab Tab -->
+    <!-- Training Lab Tab -->
     <div id="training" class="tab-content">
       <div class="card">
         <h2 class="card-title">🧪 Training Laboratory</h2>
         <p style="color: var(--text-secondary); margin-bottom: 20px;">
-          Practice identifying phishing attempts in a safe environment. Each simulation is designed to test different vulnerability areas.
+          Practice identifying phishing attempts in a safe environment. Each simulation is designed to test different
+          vulnerability areas.
         </p>
-        
+
         <!-- This explanation will be dynamically shown when the tab loads -->
-        <div style="padding: 15px; background: rgba(0, 212, 255, 0.1); border: 1px solid var(--accent-blue); border-radius: 8px; color: var(--text-secondary); text-align: center; margin-bottom: 20px;">
+        <div
+          style="padding: 15px; background: rgba(0, 212, 255, 0.1); border: 1px solid var(--accent-blue); border-radius: 8px; color: var(--text-secondary); text-align: center; margin-bottom: 20px;">
           <p><strong>🎯 Automatic Training Simulations</strong></p>
           <p style="font-size: 14px; margin-top: 8px;">
-            Training simulations appear automatically while browsing regular websites based on your settings. 
+            Training simulations appear automatically while browsing regular websites based on your settings.
             Use the training modules below to learn about specific phishing techniques.
           </p>
         </div>
@@ -437,7 +443,8 @@
             </div>
           </div>
           <div class="module-desc">
-            Learn to resist time-based manipulation tactics. This module presents scenarios with artificial deadlines and urgent language to test your ability to pause and verify before acting.
+            Learn to resist time-based manipulation tactics. This module presents scenarios with artificial deadlines
+            and urgent language to test your ability to pause and verify before acting.
           </div>
           <button class="cyber-button" data-module="urgency">Launch Module</button>
         </div>
@@ -451,7 +458,8 @@
             </div>
           </div>
           <div class="module-desc">
-            Master the art of identifying fake login pages. Learn to spot subtle differences in URLs, SSL certificates, and form behaviors that indicate credential theft attempts.
+            Master the art of identifying fake login pages. Learn to spot subtle differences in URLs, SSL certificates,
+            and form behaviors that indicate credential theft attempts.
           </div>
           <button class="cyber-button" data-module="login">Launch Module</button>
         </div>
@@ -465,7 +473,8 @@
             </div>
           </div>
           <div class="module-desc">
-            Recognize "too good to be true" offers and prize scams. Learn the common patterns used in financial bait attacks and develop healthy skepticism.
+            Recognize "too good to be true" offers and prize scams. Learn the common patterns used in financial bait
+            attacks and develop healthy skepticism.
           </div>
           <button class="cyber-button" data-module="financial">Launch Module</button>
         </div>
@@ -480,7 +489,8 @@
             </div>
           </div>
           <div class="module-desc">
-            Develop keen eyes for typosquatting and domain spoofing. Practice identifying subtle character substitutions and misleading domain structures.
+            Develop keen eyes for typosquatting and domain spoofing. Practice identifying subtle character substitutions
+            and misleading domain structures.
           </div>
           <button class="cyber-button" disabled style="opacity: 0.5; cursor: not-allowed;">Coming Soon</button>
         </div>
@@ -494,7 +504,8 @@
             </div>
           </div>
           <div class="module-desc">
-            Deep dive into email forensics. Learn to analyze email headers, sender reputation, and routing information to verify message authenticity.
+            Deep dive into email forensics. Learn to analyze email headers, sender reputation, and routing information
+            to verify message authenticity.
           </div>
           <button class="cyber-button" disabled style="opacity: 0.5; cursor: not-allowed;">Coming Soon</button>
         </div>
@@ -508,7 +519,8 @@
             </div>
           </div>
           <div class="module-desc">
-            Specialized training for mobile-specific phishing attacks. Learn about SMS phishing, malicious apps, and mobile-optimized phishing sites.
+            Specialized training for mobile-specific phishing attacks. Learn about SMS phishing, malicious apps, and
+            mobile-optimized phishing sites.
           </div>
           <button class="cyber-button" disabled style="opacity: 0.5; cursor: not-allowed;">Coming Soon</button>
         </div>
@@ -540,7 +552,8 @@
                 </div>
               </div>
             </a>
-            <a href="resources/socialEngineering.html" class="resource-link" style="text-decoration: none; color: inherit;">
+            <a href="resources/socialEngineering.html" class="resource-link"
+              style="text-decoration: none; color: inherit;">
               <div class="resource-item" data-resource="social-engineering">
                 <div class="resource-icon">🧠</div>
                 <div class="resource-info">
@@ -569,27 +582,32 @@
         <div class="card">
           <h2 class="card-title">🎓 Training Resources</h2>
           <div style="margin-top: 15px;">
-            <div class="resource-item" data-resource="quick-tips">
+
+            <a href="resources/quickSecurityTips.html" class="resource-item"
+              style="text-decoration: none; color: inherit;">
               <div class="resource-icon">💡</div>
               <div class="resource-info">
                 <div class="resource-title">Quick Security Tips</div>
                 <div class="resource-desc">Daily practices for better security</div>
               </div>
-            </div>
-            <div class="resource-item" data-resource="case-studies">
+            </a>
+
+            <a href="resources/caseStudies.html" class="resource-item" style="text-decoration: none; color: inherit;">
               <div class="resource-icon">🔍</div>
               <div class="resource-info">
                 <div class="resource-title">Real Attack Case Studies</div>
                 <div class="resource-desc">Learn from actual phishing incidents</div>
               </div>
-            </div>
-            <div class="resource-item" data-resource="videos">
+            </a>
+            
+            <a href="resources/trainingVideos.html" class="resource-item" style="text-decoration: none; color: inherit;"></a>
               <div class="resource-icon">🎥</div>
               <div class="resource-info">
                 <div class="resource-title">Training Videos</div>
                 <div class="resource-desc">Visual guides and demonstrations</div>
               </div>
-            </div>
+          </a>
+
             <div class="resource-item" data-resource="updates">
               <div class="resource-icon">📡</div>
               <div class="resource-info">
@@ -647,4 +665,5 @@
 
   <script src="dashboard.js" defer></script>
 </body>
+
 </html>
