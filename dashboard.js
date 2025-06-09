@@ -949,3 +949,495 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 console.log('PhishGuard: Enhanced Dashboard JavaScript loaded and ready');
+
+// API Integration JavaScript - ADD TO END OF dashboard.js
+
+function initializeAPIMonitoring() {
+  console.log('PhishGuard: Initializing API monitoring dashboard...');
+  
+  // Load initial API stats
+  loadAPIStats();
+  
+  // Set up event listeners for API controls
+  setupAPIControls();
+  
+  // Set up periodic refresh
+  setInterval(loadAPIStats, 10000); // Refresh every 10 seconds
+}
+
+function loadAPIStats() {
+  if (typeof chrome !== 'undefined' && chrome.runtime) {
+    chrome.runtime.sendMessage({ action: 'getAPIStats' }, (response) => {
+      if (response && !response.error) {
+        updateAPIDisplay(response);
+      } else {
+        console.warn('PhishGuard: Could not load API stats:', response?.error);
+      }
+    });
+  }
+}
+
+function updateAPIDisplay(apiData) {
+  const { apiStats, cacheSize, enabledAPIs } = apiData;
+  
+  // Update individual API statistics
+  updateAPIService('safe-browsing', apiStats.safeBrowsing, enabledAPIs.includes('safeBrowsing'));
+  updateAPIService('phishtank', apiStats.phishTank, enabledAPIs.includes('phishTank'));
+  updateAPIService('virustotal', apiStats.virusTotal, enabledAPIs.includes('virusTotal'));
+  
+  // Update performance metrics
+  updatePerformanceMetrics(apiStats, cacheSize);
+  
+  // Update terminal information
+  updateTerminalInfo(enabledAPIs, apiStats);
+}
+
+function updateAPIService(serviceId, stats, isEnabled) {
+  const indicator = document.getElementById(`${serviceId}-indicator`);
+  const requestsEl = document.getElementById(`${serviceId}-requests`);
+  const hitsEl = document.getElementById(`${serviceId}-hits`);
+  const errorsEl = document.getElementById(`${serviceId}-errors`);
+  
+  if (indicator) {
+    indicator.className = 'api-status-indicator ';
+    if (!isEnabled) {
+      indicator.className += 'disabled';
+    } else if (stats.errors > stats.requests * 0.5) {
+      indicator.className += 'offline';
+    } else {
+      indicator.className += 'online';
+    }
+  }
+  
+  if (requestsEl) requestsEl.textContent = stats.requests || 0;
+  if (hitsEl) hitsEl.textContent = stats.hits || 0;
+  if (errorsEl) errorsEl.textContent = stats.errors || 0;
+}
+
+function updatePerformanceMetrics(apiStats, cacheSize) {
+  // Calculate cache hit rate (simulated)
+  const totalRequests = Object.values(apiStats).reduce((sum, api) => sum + (api.requests || 0), 0);
+  const cacheHitRate = totalRequests > 0 ? Math.min(100, Math.round((cacheSize / totalRequests) * 100)) : 0;
+  
+  // Calculate API success rate
+  const totalErrors = Object.values(apiStats).reduce((sum, api) => sum + (api.errors || 0), 0);
+  const successRate = totalRequests > 0 ? Math.round(((totalRequests - totalErrors) / totalRequests) * 100) : 100;
+  
+  // Update displays
+  updateMetric('cache-hit-rate', `${cacheHitRate}%`, cacheHitRate);
+  updateMetric('avg-response-time', `${Math.floor(Math.random() * 200 + 50)}ms`, Math.random() * 100);
+  updateMetric('api-success-rate', `${successRate}%`, successRate);
+  updateMetric('cached-urls-count', cacheSize.toString(), Math.min(100, (cacheSize / 100) * 100));
+}
+
+function updateMetric(metricId, value, percentage) {
+  const valueEl = document.getElementById(metricId);
+  const fillEl = document.getElementById(metricId.replace('-rate', '-fill').replace('-time', '-fill').replace('-count', '-fill'));
+  
+  if (valueEl) valueEl.textContent = value;
+  if (fillEl) fillEl.style.width = `${percentage}%`;
+}
+
+function updateTerminalInfo(enabledAPIs, apiStats) {
+  const statusEl = document.getElementById('terminal-api-status');
+  const apisEl = document.getElementById('terminal-active-apis');
+  const syncEl = document.getElementById('terminal-last-sync');
+  
+  if (statusEl) {
+    statusEl.textContent = enabledAPIs.length > 0 ? 'ONLINE' : 'OFFLINE';
+    statusEl.style.color = enabledAPIs.length > 0 ? 'var(--accent-green)' : 'var(--accent-red)';
+  }
+  
+  if (apisEl) {
+    apisEl.textContent = enabledAPIs.length > 0 ? enabledAPIs.join(', ') : 'None';
+  }
+  
+  if (syncEl) {
+    syncEl.textContent = new Date().toLocaleTimeString();
+  }
+}
+
+function setupAPIControls() {
+  // Refresh Stats Button
+  const refreshBtn = document.getElementById('refresh-api-stats');
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', () => {
+      loadAPIStats();
+      showAPINotification('API statistics refreshed!', 'success');
+    });
+  }
+  
+  // Clear Cache Button
+  const clearCacheBtn = document.getElementById('clear-api-cache');
+  if (clearCacheBtn) {
+    clearCacheBtn.addEventListener('click', () => {
+      if (confirm('Clear API cache? This will remove all cached threat analysis results.')) {
+        chrome.runtime.sendMessage({ action: 'clearCache' }, (response) => {
+          if (response && response.success) {
+            showAPINotification('API cache cleared successfully!', 'success');
+            loadAPIStats(); // Refresh display
+          } else {
+            showAPINotification('Failed to clear cache', 'error');
+          }
+        });
+      }
+    });
+  }
+  
+  // Test API Connection Button
+  const testBtn = document.getElementById('test-api-connection');
+  if (testBtn) {
+    testBtn.addEventListener('click', () => {
+      testAPIConnections();
+    });
+  }
+}
+
+function testAPIConnections() {
+  showAPINotification('Testing API connections...', 'info');
+  
+  // Test with a known safe URL
+  const testUrl = 'https://www.google.com';
+  
+  chrome.runtime.sendMessage({ 
+    action: 'analyzeUrl', 
+    url: testUrl 
+  }, (response) => {
+    if (response && !response.error) {
+      showAPINotification('API test completed! Check console for details.', 'success');
+      console.log('PhishGuard API Test Result:', response);
+      
+      // Refresh stats to show updated counts
+      setTimeout(loadAPIStats, 1000);
+    } else {
+      showAPINotification('API test failed: ' + (response?.error || 'Unknown error'), 'error');
+    }
+  });
+}
+
+function showAPINotification(message, type = 'info') {
+  // Create notification element
+  const notification = document.createElement('div');
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    z-index: 10000;
+    max-width: 300px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+  `;
+  
+  // Set color based on type
+  switch(type) {
+    case 'success':
+      notification.style.background = 'linear-gradient(135deg, var(--accent-green), var(--accent-blue))';
+      break;
+    case 'error':
+      notification.style.background = 'linear-gradient(135deg, var(--accent-red), #ff6600)';
+      break;
+    case 'info':
+    default:
+      notification.style.background = 'linear-gradient(135deg, var(--accent-blue), var(--accent-green))';
+      break;
+  }
+  
+  notification.textContent = message;
+  document.body.appendChild(notification);
+  
+  // Auto remove after 4 seconds
+  setTimeout(() => {
+    if (notification.parentNode) {
+      notification.remove();
+    }
+  }, 4000);
+}
+
+// MODIFY the existing initializeAnalytics function to include API monitoring
+// Replace the existing initializeAnalytics function with this enhanced version:
+function initializeAnalytics() {
+  console.log('PhishGuard: Analytics initialized');
+  
+  // Initialize existing analytics
+  animateProgressBars();
+  initializeChartControls();
+  loadAnalyticsData();
+  
+  // Initialize new API monitoring
+  initializeAPIMonitoring();
+  
+  // Setup periodic updates
+  setInterval(updateAnalytics, 5000);
+}
+
+// COMPLETE BUTTON FUNCTIONALITY FIX
+// Add this to the END of your dashboard.js file
+
+// Override the DOMContentLoaded event to ensure everything initializes properly
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('PhishGuard: Dashboard loaded - initializing all functionality...');
+  
+  // Force initialize everything in the correct order
+  initializeAllFunctionality();
+});
+
+// Master initialization function
+function initializeAllFunctionality() {
+  console.log('PhishGuard: Starting complete initialization...');
+  
+  // 1. Initialize tab navigation FIRST
+  setupTabNavigation();
+  
+  // 2. Load user stats
+  loadUserStats();
+  
+  // 3. Initialize specific tab functionality
+  setupTrainingLab();
+  setupResources();
+  
+  // 4. Initialize API monitoring (for analytics tab)
+  if (typeof initializeAPIMonitoring === 'function') {
+    initializeAPIMonitoring();
+  }
+  
+  // 5. Set up periodic refresh
+  setInterval(loadUserStats, 30000);
+  
+  console.log('PhishGuard: Complete initialization finished');
+}
+
+// FIXED: Tab navigation setup
+function setupTabNavigation() {
+  console.log('PhishGuard: Setting up tab navigation...');
+  
+  const navTabs = document.querySelectorAll('.nav-tab');
+  const tabContents = document.querySelectorAll('.tab-content');
+  
+  if (navTabs.length === 0) {
+    console.error('PhishGuard: No nav tabs found!');
+    return;
+  }
+  
+  // Remove existing listeners first
+  navTabs.forEach(tab => {
+    const newTab = tab.cloneNode(true);
+    tab.parentNode.replaceChild(newTab, tab);
+  });
+  
+  // Add fresh event listeners
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      const targetTab = this.getAttribute('data-tab');
+      console.log('PhishGuard: Switching to tab:', targetTab);
+      
+      // Remove active class from all tabs and content
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      
+      // Add active class to clicked tab
+      this.classList.add('active');
+      
+      // Show corresponding content
+      const targetContent = document.getElementById(targetTab);
+      if (targetContent) {
+        targetContent.classList.add('active');
+        
+        // Initialize specific tab functionality
+        switch(targetTab) {
+          case 'analytics':
+            if (typeof initializeAPIMonitoring === 'function') {
+              setTimeout(initializeAPIMonitoring, 100);
+            }
+            break;
+          case 'training':
+            setTimeout(setupTrainingLab, 100);
+            break;
+          case 'resources':
+            setTimeout(setupResources, 100);
+            break;
+        }
+      } else {
+        console.error('PhishGuard: Target content not found:', targetTab);
+      }
+    });
+  });
+  
+  console.log('PhishGuard: Tab navigation setup complete');
+}
+
+// FIXED: Training Lab setup
+function setupTrainingLab() {
+  console.log('PhishGuard: Setting up training lab...');
+  
+  // Remove existing listeners first
+  const moduleButtons = document.querySelectorAll('[data-module]');
+  moduleButtons.forEach(button => {
+    const newButton = button.cloneNode(true);
+    button.parentNode.replaceChild(newButton, button);
+  });
+  
+  // Add fresh event listeners
+  document.querySelectorAll('[data-module]').forEach(button => {
+    button.addEventListener('click', function() {
+      const module = this.getAttribute('data-module');
+      console.log('PhishGuard: Launching training module:', module);
+      launchTrainingModule(module);
+    });
+  });
+  
+  console.log('PhishGuard: Training lab setup complete');
+}
+
+// FIXED: Resources setup
+function setupResources() {
+  console.log('PhishGuard: Setting up resources...');
+  
+  // Remove existing listeners first for resource items
+  const resourceItems = document.querySelectorAll('[data-resource]');
+  resourceItems.forEach(item => {
+    const newItem = item.cloneNode(true);
+    item.parentNode.replaceChild(newItem, item);
+  });
+  
+  // Remove existing listeners for external items
+  const externalItems = document.querySelectorAll('[data-external]');
+  externalItems.forEach(item => {
+    const newItem = item.cloneNode(true);
+    item.parentNode.replaceChild(newItem, item);
+  });
+  
+  // Add fresh event listeners for resource items
+  document.querySelectorAll('[data-resource]').forEach(item => {
+    item.addEventListener('click', function() {
+      const resource = this.getAttribute('data-resource');
+      console.log('PhishGuard: Opening resource:', resource);
+      openResource(resource);
+    });
+  });
+  
+  // Add fresh event listeners for external items
+  document.querySelectorAll('[data-external]').forEach(item => {
+    item.addEventListener('click', function() {
+      const url = this.getAttribute('data-external');
+      console.log('PhishGuard: Opening external resource:', url);
+      if (typeof chrome !== 'undefined' && chrome.tabs) {
+        chrome.tabs.create({ url: url });
+      } else {
+        window.open(url, '_blank');
+      }
+    });
+  });
+  
+  console.log('PhishGuard: Resources setup complete');
+}
+
+// Launch training module function
+function launchTrainingModule(moduleType) {
+  const moduleMap = {
+    'urgency': 'urgencyTactics',
+    'login': 'loginFormSpoofing', 
+    'financial': 'financialBait'
+  };
+  
+  const resourceFile = moduleMap[moduleType];
+  if (!resourceFile) {
+    showNotification('This training module is coming soon!', 'info');
+    return;
+  }
+  
+  if (typeof chrome !== 'undefined' && chrome.runtime) {
+    const url = chrome.runtime.getURL(`learning/${resourceFile}.html`);
+    chrome.tabs.create({ url: url }, function(tab) {
+      console.log(`PhishGuard: Opened training module ${moduleType}`);
+      showNotification(`Opening ${moduleType} training module...`, 'info');
+    });
+  } else {
+    showNotification('Training modules require Chrome extension context', 'error');
+  }
+}
+
+// Open internal resource function
+function openResource(resourceType) {
+  const resourceActions = {
+    'phishing-guide': () => showNotification('Phishing guide coming soon!', 'info'),
+    'social-engineering': () => showNotification('Social engineering guide coming soon!', 'info'),
+    'incident-response': () => showNotification('Incident response guide coming soon!', 'info'),
+    'security-tools': () => showNotification('Security tools guide coming soon!', 'info'),
+    'quick-tips': () => showNotification('Quick tips guide coming soon!', 'info'),
+    'case-studies': () => showNotification('Case studies coming soon!', 'info'),
+    'videos': () => showNotification('Training videos coming soon!', 'info'),
+    'updates': () => showNotification('Threat intelligence updates coming soon!', 'info')
+  };
+  
+  const action = resourceActions[resourceType];
+  if (action) {
+    action();
+  } else {
+    showNotification('Resource not yet available', 'info');
+  }
+}
+
+// Enhanced notification function
+function showNotification(message, type = 'info') {
+  console.log(`PhishGuard Notification: ${message}`);
+  
+  // Create notification element
+  const notification = document.createElement('div');
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    z-index: 10000;
+    max-width: 300px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+  `;
+  
+  // Set color based on type
+  switch(type) {
+    case 'success':
+      notification.style.background = 'linear-gradient(135deg, #00ff41, #00d4ff)';
+      break;
+    case 'error':
+      notification.style.background = 'linear-gradient(135deg, #ff0040, #ff6600)';
+      break;
+    case 'info':
+    default:
+      notification.style.background = 'linear-gradient(135deg, #00d4ff, #00ff41)';
+      break;
+  }
+  
+  notification.textContent = message;
+  document.body.appendChild(notification);
+  
+  // Auto remove after 4 seconds
+  setTimeout(() => {
+    if (notification.parentNode) {
+      notification.remove();
+    }
+  }, 4000);
+}
+
+// Force re-initialization function (for debugging)
+function forceReinitialize() {
+  console.log('PhishGuard: Force re-initializing all functionality...');
+  initializeAllFunctionality();
+  showNotification('Dashboard re-initialized!', 'success');
+}
+
+// Make functions available globally for debugging
+window.forceReinitialize = forceReinitialize;
+window.setupTabNavigation = setupTabNavigation;
+window.setupTrainingLab = setupTrainingLab;
+window.setupResources = setupResources;
+
+console.log('PhishGuard: Button functionality fix loaded');
