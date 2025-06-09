@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishGuard - Threat Intelligence</title>
+  <link rel="stylesheet" href="threatIntelligence.css">
+</head>
+<body>
+  <div class="header">
+    <span class="logo">🔍</span>
+    <h1>Threat Intelligence</h1>
+    <div class="subtitle">Advanced Cyber Threat Intelligence & Analysis</div>
+  </div>
+
+  <div class="container">
+    <!-- Breadcrumb Navigation -->
+    <div class="nav-breadcrumb">
+      <a href="../dashboard.html">🛡️ PhishGuard</a>
+      <span>></span>
+      <a href="../dashboard.html">Training Resources</a>
+      <span>></span>
+      <span style="color: var(--accent-blue);">Threat Intelligence</span>
+    </div>
+
+    <!-- Introduction -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">🧠</span>
+        Understanding Modern Threat Intelligence
+      </h2>
+      <div class="card-content">
+        <p>Threat Intelligence (TI) is evidence-based knowledge about existing or emerging threats that helps organizations make informed security decisions. In 2024, social engineering, cloud intrusions, and malware-free techniques surged, and nation-state actors intensified cyber espionage and added AI to their arsenal.</p>
+        
+        <h3>Current Threat Landscape 2024-2025:</h3>
+        <ul>
+          <li><strong>Manufacturing Overtakes Technology:</strong> Manufacturing has now overtaken technology as the most targeted sector, as we see a continued focus from adversaries on targeting supply chain critical infrastructure</li>
+          <li><strong>AI-Enhanced Attacks:</strong> 67.4% of 2024 attacks use AI-enhanced techniques, requiring specialized intelligence approaches</li>
+          <li><strong>Credential Abuse:</strong> Abusing valid accounts remained the preferred entry point into victim environments for cybercriminals in 2024, representing 30% of all incidents</li>
+          <li><strong>Nation-State Evolution:</strong> Microsoft tracks more than 1,500 unique threat groups—including more than 600 nation-state threat actor groups</li>
+        </ul>
+
+        <p>Understanding these evolving threats requires structured intelligence processes that can adapt to the rapidly changing cyber landscape while providing actionable insights for defense strategies.</p>
+      </div>
+    </div>
+
+    <!-- Current Statistics -->
+    <div class="stats-section">
+      <div class="stats-title">📊 2024-2025 Threat Intelligence Landscape</div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">30,000+</div>
+          <div class="stat-label">Vulnerabilities Disclosed</div>
+          <div class="stat-description">17% increase from 2023</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">1,500+</div>
+          <div class="stat-label">Tracked Threat Groups</div>
+          <div class="stat-description">Including 600+ nation-state actors</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">30%</div>
+          <div class="stat-label">Valid Account Abuse</div>
+          <div class="stat-description">Primary initial access method</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">442%</div>
+          <div class="stat-label">Voice/SMS Growth</div>
+          <div class="stat-description">Vishing and smishing attacks</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Threat Intelligence Lifecycle -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">🔄</span>
+        The Threat Intelligence Lifecycle
+      </h2>
+      <div class="card-content">
+        <p>The threat intelligence lifecycle is a continuous process that involves the collection, analysis, and application of data related to cyber threats. This systematic approach ensures organizations can proactively defend against evolving threats.</p>
+      </div>
+    </div>
+
+    <div class="lifecycle-grid">
+      <div class="lifecycle-stage" data-stage="1">
+        <div class="stage-header">
+          <div class="stage-number">1</div>
+          <div class="stage-info">
+            <h3>Planning & Direction</h3>
+            <p>Define intelligence requirements and objectives</p>
+          </div>
+          <div class="stage-icon">🎯</div>
+        </div>
+        
+        <div class="stage-content">
+          <div class="stage-description">
+            Organizations need to understand what awaits them in the following stages. They need to ask – who will benefit from the finished intelligence? Is it an analyst team, or the executive board?
+          </div>
+          
+          <div class="stage-activities">
+            <h4>Key Activities:</h4>
+            <ul>
+              <li>Identify Priority Intelligence Requirements (PIRs)</li>
+              <li>Define target audience and stakeholders</li>
+              <li>Establish collection priorities</li>
+              <li>Determine resource allocation</li>
+              <li>Set timelines and deliverables</li>
+            </ul>
+          </div>
+          
+          <div class="stage-questions">
+            <h4>Essential Questions:</h4>
+            <ul>
+              <li>What threats are we most concerned about?</li>
+              <li>Who needs this intelligence and in what format?</li>
+              <li>What are our critical assets and vulnerabilities?</li>
+              <li>How will success be measured?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="lifecycle-stage" data-stage="2">
+        <div class="stage-header">
+          <div class="stage-number">2</div>
+          <div class="stage-info">
+            <h3>Collection</h3>
+            <p>Gather raw intelligence from multiple sources</p>
+          </div>
+          <div class="stage-icon">📡</div>
+        </div>
+        
+        <div class="stage-content">
+          <div class="stage-description">
+            Systematic gathering of relevant threat data from internal and external sources to address defined intelligence requirements.
+          </div>
+          
+          <div class="collection-sources">
+            <h4>Intelligence Sources:</h4>
+            <div class="sources-grid">
+              <div class="source-category">
+                <h5>🌐 Open Source Intelligence (OSINT)</h5>
+                <ul>
+                  <li>Public threat reports</li>
+                  <li>Security blogs and forums</li>
+                  <li>Social media monitoring</li>
+                  <li>Government advisories</li>
+                </ul>
+              </div>
+              <div class="source-category">
+                <h5>🏢 Internal Sources</h5>
+                <ul>
+                  <li>Security logs and events</li>
+                  <li>Incident response data</li>
+                  <li>Vulnerability scans</li>
+                  <li>Network monitoring</li>
+                </ul>
+              </div>
+              <div class="source-category">
+                <h5>🤝 Commercial & Shared</h5>
+                <ul>
+                  <li>Threat intelligence feeds</li>
+                  <li>Industry sharing groups</li>
+                  <li>Vendor reports</li>
+                  <li>STIX/TAXII feeds</li>
+                </ul>
+              </div>
+              <div class="source-category">
+                <h5>🕵️ Human Intelligence (HUMINT)</h5>
+                <ul>
+                  <li>Dark web monitoring</li>
+                  <li>Underground forums</li>
+                  <li>Threat actor communications</li>
+                  <li>Expert interviews</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lifecycle-stage" data-stage="3">
+        <div class="stage-header">
+          <div class="stage-number">3</div>
+          <div class="stage-info">
+            <h3>Processing</h3>
+            <p>Transform raw data into structured formats</p>
+          </div>
+          <div class="stage-icon">⚙️</div>
+        </div>
+        
+        <div class="stage-content">
+          <div class="stage-description">
+            Convert raw intelligence into structured, machine-readable formats that enable efficient analysis and correlation.
+          </div>
+          
+          <div class="processing-activities">
+            <h4>Processing Activities:</h4>
+            <ul>
+              <li>Data normalization and standardization</li>
+              <li>Format conversion (STIX/TAXII)</li>
+              <li>Duplicate removal and deduplication</li>
+              <li>Data enrichment and contextualization</li>
+              <li>Quality assurance and validation</li>
+            </ul>
+          </div>
+          
+          <div class="stix-info">
+            <h4>🔗 STIX/TAXII Standards:</h4>
+            <p>STIX states the "what" of threat intelligence, while TAXII defines "how" that information is relayed. Unlike previous methods of sharing, STIX and TAXII are machine-readable and therefore easily automated.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lifecycle-stage" data-stage="4">
+        <div class="stage-header">
+          <div class="stage-number">4</div>
+          <div class="stage-info">
+            <h3>Analysis & Production</h3>
+            <p>Create actionable intelligence and insights</p>
+          </div>
+          <div class="stage-icon">🔬</div>
+        </div>
+        
+        <div class="stage-content">
+          <div class="stage-description">
+            The analysis phase is a largely qualitative and often human-oriented process aimed at contextualizing processed threat intelligence through the enrichment and application of known structural data or advanced correlation and data modeling.
+          </div>
+          
+          <div class="analysis-types">
+            <h4>Analysis Types:</h4>
+            <div class="analysis-grid">
+              <div class="analysis-type">
+                <h5>📊 Strategic Intelligence</h5>
+                <p>High-level threat landscape assessments for executive decision-making</p>
+              </div>
+              <div class="analysis-type">
+                <h5>⚡ Tactical Intelligence</h5>
+                <p>Specific IOCs and TTPs for immediate defensive actions</p>
+              </div>
+              <div class="analysis-type">
+                <h5>🎯 Operational Intelligence</h5>
+                <p>Campaign analysis and threat actor attribution</p>
+              </div>
+              <div class="analysis-type">
+                <h5>🔧 Technical Intelligence</h5>
+                <p>Detailed malware analysis and infrastructure mapping</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lifecycle-stage" data-stage="5">
+        <div class="stage-header">
+          <div class="stage-number">5</div>
+          <div class="stage-info">
+            <h3>Dissemination</h3>
+            <p>Deliver intelligence to relevant stakeholders</p>
+          </div>
+          <div class="stage-icon">📤</div>
+        </div>
+        
+        <div class="stage-content">
+          <div class="stage-description">
+            The final stage is the dissemination of the finished threat intelligence, and it involves getting the intel to the targeted audience through secure channels. Proper dissemination ensures the right information reaches the right people at the right time.
+          </div>
+          
+          <div class="dissemination-methods">
+            <h4>Dissemination Methods:</h4>
+            <ul>
+              <li>Automated feeds to security tools</li>
+              <li>Executive briefings and dashboards</li>
+              <li>Technical reports for SOC teams</li>
+              <li>Threat bulletins and alerts</li>
+              <li>Industry sharing platforms</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="lifecycle-stage" data-stage="6">
+        <div class="stage-header">
+          <div class="stage-number">6</div>
+          <div class="stage-info">
+            <h3>Feedback</h3>
+            <p>Evaluate effectiveness and improve processes</p>
+          </div>
+          <div class="stage-icon">🔄</div>
+        </div>
+        
+        <div class="stage-content">
+          <div class="stage-description">
+            Feedback will boost the outcome of the next iteration of the cycle. It will also improve your security operations, as well as the overall security strategy of the organization.
+          </div>
+          
+          <div class="feedback-metrics">
+            <h4>Key Metrics:</h4>
+            <ul>
+              <li>Intelligence utilization rates</li>
+              <li>Time to detection improvement</li>
+              <li>False positive reduction</li>
+              <li>Stakeholder satisfaction</li>
+              <li>Process efficiency gains</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pyramid of Pain -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">🏔️</span>
+        The Pyramid of Pain
+      </h2>
+      <div class="card-content">
+        <p>The Pyramid of Pain is a conceptual framework in cybersecurity that illustrates the different levels of indicators of compromise (IoCs), ranking them from the easiest to the most painful for adversaries to change. Understanding this framework helps prioritize threat intelligence efforts for maximum impact.</p>
+      </div>
+    </div>
+
+    <div class="pyramid-container">
+      <div class="pyramid-level" data-level="6">
+        <div class="pyramid-section">
+          <div class="level-icon">🎯</div>
+          <div class="level-content">
+            <h3>TTPs (Tactics, Techniques, Procedures)</h3>
+            <div class="pain-level extreme">Extreme Pain</div>
+            <p>Behavioral patterns and methodologies used by threat actors. TTPs illustrate the broader attack picture and how it connects to other stages of an attack or campaign.</p>
+            <div class="examples">
+              <strong>Examples:</strong> Spear phishing techniques, lateral movement patterns, persistence mechanisms
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pyramid-level" data-level="5">
+        <div class="pyramid-section">
+          <div class="level-icon">🛠️</div>
+          <div class="level-content">
+            <h3>Tools</h3>
+            <div class="pain-level high">High Pain</div>
+            <p>Software and utilities used by attackers. Changing tools requires significant effort and testing.</p>
+            <div class="examples">
+              <strong>Examples:</strong> Cobalt Strike, Mimikatz, custom malware families
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pyramid-level" data-level="4">
+        <div class="pyramid-section">
+          <div class="level-icon">🖥️</div>
+          <div class="level-content">
+            <h3>Network/Host Artifacts</h3>
+            <div class="pain-level medium">Medium Pain</div>
+            <p>Observable modifications to systems or network configurations.</p>
+            <div class="examples">
+              <strong>Examples:</strong> Registry keys, file paths, process names, network patterns
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pyramid-level" data-level="3">
+        <div class="pyramid-section">
+          <div class="level-icon">🌐</div>
+          <div class="level-content">
+            <h3>Domain Names</h3>
+            <div class="pain-level low-medium">Low-Medium Pain</div>
+            <p>DNS domains used for command and control or malicious hosting.</p>
+            <div class="examples">
+              <strong>Examples:</strong> C2 domains, phishing sites, malware download locations
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pyramid-level" data-level="2">
+        <div class="pyramid-section">
+          <div class="level-icon">📍</div>
+          <div class="level-content">
+            <h3>IP Addresses</h3>
+            <div class="pain-level low">Low Pain</div>
+            <p>Network addresses used in attacks. Easily changed through proxies or hosting services.</p>
+            <div class="examples">
+              <strong>Examples:</strong> C2 servers, scanning sources, malicious hosting IPs
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pyramid-level" data-level="1">
+        <div class="pyramid-section">
+          <div class="level-icon">#️⃣</div>
+          <div class="level-content">
+            <h3>Hash Values</h3>
+            <div class="pain-level trivial">Trivial Pain</div>
+            <p>Hash values of malware binaries or tools, once detected and shared, are perceived as trivial to modify for an adversary.</p>
+            <div class="examples">
+              <strong>Examples:</strong> MD5, SHA1, SHA256 file hashes
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STIX/TAXII Standards -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">🔗</span>
+        STIX/TAXII Standards
+      </h2>
+      <div class="card-content">
+        <p>STIX and TAXII are standards developed to improve the prevention and mitigation of cyber threats and attacks. These frameworks enable automated, standardized sharing of threat intelligence across organizations and platforms.</p>
+      </div>
+    </div>
+
+    <div class="standards-grid">
+      <div class="standard-card">
+        <div class="standard-header">
+          <div class="standard-icon">📋</div>
+          <h3>STIX (Structured Threat Information eXpression)</h3>
+        </div>
+        <div class="standard-content">
+          <p>STIX is a standardized language that uses a JSON-based lexicon to express and share threat intelligence information in a readable and consistent format.</p>
+          
+          <h4>Core STIX Objects:</h4>
+          <div class="stix-objects">
+            <div class="stix-object">
+              <strong>🎯 Attack Pattern:</strong> Describes techniques used by adversaries
+            </div>
+            <div class="stix-object">
+              <strong>🏃 Campaign:</strong> Grouping of adversarial behaviors targeting specific objectives
+            </div>
+            <div class="stix-object">
+              <strong>📊 Indicator:</strong> Contains patterns for detecting suspicious or malicious activity
+            </div>
+            <div class="stix-object">
+              <strong>🦠 Malware:</strong> Represents malicious code or software
+            </div>
+            <div class="stix-object">
+              <strong>👤 Threat Actor:</strong> Individuals or groups conducting malicious activities
+            </div>
+            <div class="stix-object">
+              <strong>🛠️ Tool:</strong> Legitimate software misused for malicious purposes
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="standard-card">
+        <div class="standard-header">
+          <div class="standard-icon">🚚</div>
+          <h3>TAXII (Trusted Automated eXchange of Intelligence Information)</h3>
+        </div>
+        <div class="standard-content">
+          <p>TAXII serves as the dedicated transport mechanism for sharing this information. TAXII complements STIX's structured language by facilitating automated and secure exchange of STIX content across different networks and platforms.</p>
+          
+          <h4>TAXII Services:</h4>
+          <div class="taxii-services">
+            <div class="taxii-service">
+              <strong>🔍 Discovery:</strong> Locate available TAXII services and collections
+            </div>
+            <div class="taxii-service">
+              <strong>📚 Collection Management:</strong> Manage data collections and subscriptions
+            </div>
+            <div class="taxii-service">
+              <strong>📥 Inbox:</strong> Receive threat intelligence content (push)
+            </div>
+            <div class="taxii-service">
+              <strong>📤 Poll:</strong> Request threat intelligence content (pull)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Threat Intelligence Types -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">📋</span>
+        Types of Threat Intelligence
+      </h2>
+    </div>
+
+    <div class="intel-types-grid">
+      <div class="intel-type-card strategic">
+        <div class="intel-header">
+          <div class="intel-icon">🏛️</div>
+          <h3>Strategic Intelligence</h3>
+          <div class="intel-audience">Executives & Leadership</div>
+        </div>
+        <div class="intel-content">
+          <div class="intel-description">
+            High-level intelligence focusing on long-term trends, geopolitical factors, and business risks.
+          </div>
+          <div class="intel-characteristics">
+            <h4>Characteristics:</h4>
+            <ul>
+              <li>Long-term perspective (6-12 months)</li>
+              <li>Business impact focused</li>
+              <li>Non-technical language</li>
+              <li>Risk-based assessments</li>
+            </ul>
+          </div>
+          <div class="intel-examples">
+            <strong>Examples:</strong> Industry threat reports, geopolitical risk assessments, regulatory compliance impacts
+          </div>
+        </div>
+      </div>
+
+      <div class="intel-type-card operational">
+        <div class="intel-header">
+          <div class="intel-icon">⚡</div>
+          <h3>Operational Intelligence</h3>
+          <div class="intel-audience">Security Managers</div>
+        </div>
+        <div class="intel-content">
+          <div class="intel-description">
+            Campaign-focused intelligence providing context about ongoing threats and adversary activities.
+          </div>
+          <div class="intel-characteristics">
+            <h4>Characteristics:</h4>
+            <ul>
+              <li>Medium-term focus (weeks to months)</li>
+              <li>Campaign attribution</li>
+              <li>Threat actor profiling</li>
+              <li>Attack pattern analysis</li>
+            </ul>
+          </div>
+          <div class="intel-examples">
+            <strong>Examples:</strong> APT campaign analysis, threat actor TTPs, attack timeline reconstruction
+          </div>
+        </div>
+      </div>
+
+      <div class="intel-type-card tactical">
+        <div class="intel-header">
+          <div class="intel-icon">🎯</div>
+          <h3>Tactical Intelligence</h3>
+          <div class="intel-audience">SOC Analysts</div>
+        </div>
+        <div class="intel-content">
+          <div class="intel-description">
+            Immediate, actionable intelligence with specific IOCs and defensive measures.
+          </div>
+          <div class="intel-characteristics">
+            <h4>Characteristics:</h4>
+            <ul>
+              <li>Short-term relevance (hours to days)</li>
+              <li>Machine-readable format</li>
+              <li>Automated integration</li>
+              <li>High-confidence indicators</li>
+            </ul>
+          </div>
+          <div class="intel-examples">
+            <strong>Examples:</strong> IP blacklists, malware signatures, IOC feeds, YARA rules
+          </div>
+        </div>
+      </div>
+
+      <div class="intel-type-card technical">
+        <div class="intel-header">
+          <div class="intel-icon">🔬</div>
+          <h3>Technical Intelligence</h3>
+          <div class="intel-audience">Malware Analysts</div>
+        </div>
+        <div class="intel-content">
+          <div class="intel-description">
+            Detailed technical analysis of malware, vulnerabilities, and attack infrastructure.
+          </div>
+          <div class="intel-characteristics">
+            <h4>Characteristics:</h4>
+            <ul>
+              <li>Deep technical detail</li>
+              <li>Reverse engineering focus</li>
+              <li>Infrastructure mapping</li>
+              <li>Vulnerability analysis</li>
+            </ul>
+          </div>
+          <div class="intel-examples">
+            <strong>Examples:</strong> Malware analysis reports, exploit code analysis, infrastructure mapping
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Current Threat Actors -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">🎭</span>
+        Major Threat Actor Categories 2024-2025
+      </h2>
+      <div class="card-content">
+        <p>Microsoft Threat Intelligence now tracks more than 1,500 unique threat groups—including more than 600 nation-state threat actor groups, 300 cybercrime groups, 200 influence operations groups. Understanding these categories helps prioritize threat intelligence collection and analysis.</p>
+      </div>
+    </div>
+
+    <div class="threat-actors-grid">
+      <div class="actor-category">
+        <div class="actor-header">
+          <div class="actor-icon">🏛️</div>
+          <h3>Nation-State Actors</h3>
+          <div class="actor-count">600+ Groups</div>
+        </div>
+        <div class="actor-content">
+          <div class="actor-description">
+            State-sponsored groups conducting espionage, sabotage, and influence operations.
+          </div>
+          <div class="actor-characteristics">
+            <h4>Characteristics:</h4>
+            <ul>
+              <li>Advanced persistent threats (APTs)</li>
+              <li>Long-term campaigns</li>
+              <li>Sophisticated TTPs</li>
+              <li>Zero-day exploitation</li>
+            </ul>
+          </div>
+          <div class="actor-targets">
+            <strong>Primary Targets:</strong> Government, critical infrastructure, intellectual property, military secrets
+          </div>
+        </div>
+      </div>
+
+      <div class="actor-category">
+        <div class="actor-header">
+          <div class="actor-icon">💰</div>
+          <h3>Cybercrime Groups</h3>
+          <div class="actor-count">300+ Groups</div>
+        </div>
+        <div class="actor-content">
+          <div class="actor-description">
+            Financially motivated actors conducting ransomware, fraud, and theft operations.
+          </div>
+          <div class="actor-characteristics">
+            <h4>Characteristics:</h4>
+            <ul>
+              <li>Profit-driven motives</li>
+              <li>Ransomware-as-a-Service</li>
+              <li>Fast attack cycles</li>
+              <li>Cryptocurrency operations</li>
+            </ul>
+          </div>
+          <div class="actor-targets">
+            <strong>Primary Targets:</strong> Financial data, business operations, personal information, payment systems
+          </div>
+        </div>
+      </div>
+
+      <div class="actor-category">
+        <div class="actor-header">
+          <div class="actor-icon">📢</div>
+          <h3>Influence Operations</h3>
+          <div class="actor-count">200+ Groups</div>
+        </div>
+        <div class="actor-content">
+          <div class="actor-description">
+            Groups focused on information warfare and psychological operations.
+          </div>
+          <div class="actor-characteristics">
+            <h4>Characteristics:</h4>
+            <ul>
+              <li>Disinformation campaigns</li>
+              <li>Social media manipulation</li>
+              <li>Political interference</li>
+              <li>Public opinion shaping</li>
+            </ul>
+          </div>
+          <div class="actor-targets">
+            <strong>Primary Targets:</strong> Elections, public opinion, social stability, democratic processes
+          </div>
+        </div>
+      </div>
+
+      <div class="actor-category">
+        <div class="actor-header">
+          <div class="actor-icon">🎯</div>
+          <h3>Hacktivist Groups</h3>
+          <div class="actor-count">400+ Groups</div>
+        </div>
+        <div class="actor-content">
+          <div class="actor-description">
+            Ideologically motivated actors conducting attacks to promote political or social causes.
+          </div>
+          <div class="actor-characteristics">
+            <h4>Characteristics:</h4>
+            <ul>
+              <li>Ideological motivation</li>
+              <li>Public campaigns</li>
+              <li>DDoS attacks</li>
+              <li>Data leaks</li>
+            </ul>
+          </div>
+          <div class="actor-targets">
+            <strong>Primary Targets:</strong> Government websites, corporate entities, controversial organizations
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Threat Intelligence Frameworks -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">🗂️</span>
+        Key Threat Intelligence Frameworks
+      </h2>
+    </div>
+
+    <div class="frameworks-grid">
+      <div class="framework-card">
+        <div class="framework-header">
+          <div class="framework-icon">⚔️</div>
+          <h3>MITRE ATT&CK</h3>
+        </div>
+        <div class="framework-content">
+          <p>A globally-accessible knowledge base of adversary tactics and techniques based on real-world observations.</p>
+          <div class="framework-features">
+            <h4>Key Features:</h4>
+            <ul>
+              <li>14 tactical categories</li>
+              <li>200+ techniques</li>
+              <li>400+ sub-techniques</li>
+              <li>Threat actor mapping</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="framework-card">
+        <div class="framework-header">
+          <div class="framework-icon">🔗</div>
+          <h3>Cyber Kill Chain</h3>
+        </div>
+        <div class="framework-content">
+          <p>A model describing the stages of a cyberattack from initial reconnaissance to achieving objectives.</p>
+          <div class="framework-features">
+            <h4>Seven Stages:</h4>
+            <ul>
+              <li>Reconnaissance</li>
+              <li>Weaponization</li>
+              <li>Delivery</li>
+              <li>Exploitation</li>
+              <li>Installation</li>
+              <li>Command & Control</li>
+              <li>Actions on Objectives</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="framework-card">
+        <div class="framework-header">
+          <div class="framework-icon">💎</div>
+          <h3>Diamond Model</h3>
+        </div>
+        <div class="framework-content">
+          <p>A framework focusing on the relationships between four key elements of every intrusion event.</p>
+          <div class="framework-features">
+            <h4>Four Elements:</h4>
+            <ul>
+              <li>Adversary (who)</li>
+              <li>Capability (what)</li>
+              <li>Infrastructure (how)</li>
+              <li>Victim (whom)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="framework-card">
+        <div class="framework-header">
+          <div class="framework-icon">🌐</div>
+          <h3>OWASP Threat Dragon</h3>
+        </div>
+        <div class="framework-content">
+          <p>A threat modeling tool that helps identify and mitigate potential security threats.</p>
+          <div class="framework-features">
+            <h4>Applications:</h4>
+            <ul>
+              <li>Threat modeling</li>
+              <li>Risk assessment</li>
+              <li>Security design</li>
+              <li>Vulnerability analysis</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Knowledge Quiz -->
+    <div class="quiz-section">
+      <div class="quiz-title">🧠 Threat Intelligence Knowledge Assessment</div>
+      
+      <div class="quiz-question">
+        <p><strong>Question 1:</strong> According to 2024 research, what percentage of cybersecurity incidents use AI-enhanced attack techniques?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" data-answer="wrong">45.2%</div>
+          <div class="quiz-option" data-answer="wrong">58.7%</div>
+          <div class="quiz-option" data-answer="correct">67.4%</div>
+          <div class="quiz-option" data-answer="wrong">73.1%</div>
+        </div>
+      </div>
+
+      <div class="quiz-question">
+        <p><strong>Question 2:</strong> Which sector has overtaken technology as the most targeted by cyber adversaries in 2024?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" data-answer="wrong">Financial Services</div>
+          <div class="quiz-option" data-answer="correct">Manufacturing</div>
+          <div class="quiz-option" data-answer="wrong">Healthcare</div>
+          <div class="quiz-option" data-answer="wrong">Government</div>
+        </div>
+      </div>
+
+      <div class="quiz-question">
+        <p><strong>Question 3:</strong> In the Pyramid of Pain, which level causes the most difficulty for attackers to change?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" data-answer="wrong">Hash Values</div>
+          <div class="quiz-option" data-answer="wrong">IP Addresses</div>
+          <div class="quiz-option" data-answer="wrong">Tools</div>
+          <div class="quiz-option" data-answer="correct">TTPs (Tactics, Techniques, Procedures)</div>
+        </div>
+      </div>
+
+      <div class="quiz-question">
+        <p><strong>Question 4:</strong> What is the primary initial access method used by cybercriminals in 2024?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" data-answer="wrong">Phishing emails</div>
+          <div class="quiz-option" data-answer="correct">Abusing valid accounts (30%)</div>
+          <div class="quiz-option" data-answer="wrong">Vulnerability exploitation</div>
+          <div class="quiz-option" data-answer="wrong">Malware downloads</div>
+        </div>
+      </div>
+
+      <div class="quiz-question">
+        <p><strong>Question 5:</strong> Which framework provides a structured language for expressing cyber threat intelligence?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" data-answer="wrong">MITRE ATT&CK</div>
+          <div class="quiz-option" data-answer="correct">STIX (Structured Threat Information eXpression)</div>
+          <div class="quiz-option" data-answer="wrong">Diamond Model</div>
+          <div class="quiz-option" data-answer="wrong">Cyber Kill Chain</div>
+        </div>
+      </div>
+
+      <div class="quiz-question">
+        <p><strong>Question 6:</strong> How many unique threat groups does Microsoft currently track according to 2024 data?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" data-answer="wrong">Over 1,000</div>
+          <div class="quiz-option" data-answer="correct">More than 1,500</div>
+          <div class="quiz-option" data-answer="wrong">About 800</div>
+          <div class="quiz-option" data-answer="wrong">Nearly 2,000</div>
+        </div>
+      </div>
+
+      <div class="progress-indicator">
+        <div style="color: var(--text-secondary); margin-bottom: 10px;">Threat Intelligence Mastery:</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%" id="progress-bar"></div>
+        </div>
+        <div style="color: var(--text-muted); font-size: 14px; margin-top: 5px;" id="progress-text">Test your threat intelligence knowledge</div>
+      </div>
+
+      <div class="score-display" id="score-display" style="display: none;">
+        <div class="score-number" id="score-number">0/6</div>
+        <div class="score-label">Threat Intelligence Assessment</div>
+      </div>
+    </div>
+
+    <!-- Practical Implementation Guide -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">🚀</span>
+        Building Your Threat Intelligence Program
+      </h2>
+      <div class="card-content">
+        <div class="implementation-phases">
+          <div class="phase-section">
+            <h3>Phase 1: Foundation (Months 1-3)</h3>
+            <ul>
+              <li>Establish intelligence requirements and stakeholder needs</li>
+              <li>Set up basic collection capabilities (OSINT, feeds)</li>
+              <li>Implement STIX/TAXII infrastructure</li>
+              <li>Train initial analyst team</li>
+            </ul>
+          </div>
+          
+          <div class="phase-section">
+            <h3>Phase 2: Enhancement (Months 4-6)</h3>
+            <ul>
+              <li>Integrate with security tools (SIEM, EDR)</li>
+              <li>Develop analysis processes and workflows</li>
+              <li>Establish dissemination channels</li>
+              <li>Create feedback mechanisms</li>
+            </ul>
+          </div>
+          
+          <div class="phase-section">
+            <h3>Phase 3: Maturation (Months 7-12)</h3>
+            <ul>
+              <li>Advanced analytics and threat hunting</li>
+              <li>Industry collaboration and sharing</li>
+              <li>Automated processing and enrichment</li>
+              <li>Continuous improvement based on feedback</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Best Practices -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">✨</span>
+        Threat Intelligence Best Practices
+      </h2>
+      <div class="card-content">
+        <div class="best-practices-grid">
+          <div class="practice-item">
+            <div class="practice-icon">🎯</div>
+            <div class="practice-content">
+              <h4>Focus on Actionability</h4>
+              <p>Ensure intelligence can be directly applied to improve security posture or decision-making</p>
+            </div>
+          </div>
+          <div class="practice-item">
+            <div class="practice-icon">⚡</div>
+            <div class="practice-content">
+              <h4>Prioritize Timeliness</h4>
+              <p>Intelligence loses value quickly - establish processes for rapid collection and dissemination</p>
+            </div>
+          </div>
+          <div class="practice-item">
+            <div class="practice-icon">🔍</div>
+            <div class="practice-content">
+              <h4>Maintain Source Diversity</h4>
+              <p>Use multiple intelligence sources to ensure comprehensive coverage and validation</p>
+            </div>
+          </div>
+          <div class="practice-item">
+            <div class="practice-icon">🤝</div>
+            <div class="practice-content">
+              <h4>Enable Sharing</h4>
+              <p>Participate in industry sharing groups and maintain reciprocal intelligence relationships</p>
+            </div>
+          </div>
+          <div class="practice-item">
+            <div class="practice-icon">📊</div>
+            <div class="practice-content">
+              <h4>Measure Effectiveness</h4>
+              <p>Track metrics like detection improvements, false positive reduction, and response times</p>
+            </div>
+          </div>
+          <div class="practice-item">
+            <div class="practice-icon">🔄</div>
+            <div class="practice-content">
+              <h4>Iterate Continuously</h4>
+              <p>Regularly review and improve processes based on feedback and changing requirements</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terminal Status -->
+    <div class="terminal">
+      <div class="terminal-header">[THREAT INTELLIGENCE MATRIX]</div>
+      <div class="terminal-line success">> Intelligence lifecycle: OPERATIONAL</div>
+      <div class="terminal-line success">> STIX/TAXII feeds: ACTIVE</div>
+      <div class="terminal-line success">> Pyramid of Pain assessment: ENABLED</div>
+      <div class="terminal-line">> Current threat landscape: Manufacturing sector most targeted</div>
+      <div class="terminal-line">> AI-enhanced attacks: 67.4% of incidents in 2024</div>
+      <div class="terminal-line warning">> ALERT: Valid account abuse primary attack vector (30%)</div>
+      <div class="terminal-line">> Remember: Focus on TTPs for maximum adversary impact</div>
+      <div class="terminal-line">> Next system update: Continuous threat actor tracking</div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-section">
+      <button id="take-quiz" class="cyber-button">🧠 Test Your Knowledge</button>
+      <button id="export-report" class="cyber-button secondary">📊 Generate Intelligence Report</button>
+      <button id="back-to-dashboard" class="cyber-button secondary">🏠 Back to Dashboard</button>
+    </div>
+  </div>
+
+  <script src="threatIntelligence.js"></script>
+</body>
+</html>
+          
