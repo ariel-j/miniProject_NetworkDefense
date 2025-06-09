@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishGuard - Incident Response Guide</title>
+  <link rel="stylesheet" href="incidentResponse.css">
+</head>
+<body>
+  <div class="header">
+    <span class="logo">🚨</span>
+    <h1>Incident Response Guide</h1>
+    <div class="subtitle">What to Do If You Fall for a Phishing Attack</div>
+  </div>
+
+  <div class="container">
+    <!-- Breadcrumb Navigation -->
+    <div class="nav-breadcrumb">
+      <a href="../dashboard.html">🛡️ PhishGuard</a>
+      <span>></span>
+      <a href="../dashboard.html">Knowledge Base</a>
+      <span>></span>
+      <span style="color: var(--accent-red);">Incident Response</span>
+    </div>
+
+    <!-- Emergency Alert -->
+    <div class="emergency-alert">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-content">
+        <h3>Currently Under Attack?</h3>
+        <p>If you suspect you're currently experiencing a cyber attack, follow the <strong>Immediate Response</strong> steps below right now.</p>
+        <button id="emergency-action" class="emergency-button">🚨 Start Emergency Response</button>
+      </div>
+    </div>
+
+    <!-- Introduction -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">🎯</span>
+        Why Incident Response Matters
+      </h2>
+      <div class="card-content">
+        <p>Even security-conscious individuals can fall victim to sophisticated phishing attacks. The key is responding quickly and effectively to minimize damage. With cybersecurity teams having just 62 minutes on average to prevent a breach after initial compromise, swift action is critical.</p>
+        
+        <h3>Response Statistics:</h3>
+        <ul>
+          <li><strong>62 minutes:</strong> Average time to contain a breach after detection (down from 79 minutes in 2022)</li>
+          <li><strong>98% recovery goal:</strong> Organizations aim to recover within 24 hours</li>
+          <li><strong>2% actual success:</strong> Only 2% achieve their target recovery time</li>
+          <li><strong>$4.45 million:</strong> Average cost of a data breach in 2024</li>
+        </ul>
+
+        <p>Having a structured response plan can reduce recovery time by up to 77% and significantly limit financial and reputational damage.</p>
+      </div>
+    </div>
+
+    <!-- Immediate Response Steps -->
+    <div class="response-phases">
+      <div class="phase-card critical" id="immediate-response">
+        <div class="phase-header">
+          <div class="phase-number">1</div>
+          <div class="phase-info">
+            <h3>Immediate Response (0-15 minutes)</h3>
+            <p>Critical first steps to limit damage</p>
+          </div>
+          <div class="phase-status">🚨 Critical</div>
+        </div>
+        
+        <div class="phase-content">
+          <div class="step-checklist">
+            <div class="step-item">
+              <input type="checkbox" id="step1-1">
+              <label for="step1-1">
+                <strong>Disconnect from network immediately</strong>
+                <span class="step-detail">Unplug Ethernet cable or disconnect Wi-Fi to prevent lateral movement</span>
+              </label>
+            </div>
+            
+            <div class="step-item">
+              <input type="checkbox" id="step1-2">
+              <label for="step1-2">
+                <strong>Document what happened</strong>
+                <span class="step-detail">Write down what you clicked, downloaded, or entered while details are fresh</span>
+              </label>
+            </div>
+            
+            <div class="step-item">
+              <input type="checkbox" id="step1-3">
+              <label for="step1-3">
+                <strong>Alert IT/Security team</strong>
+                <span class="step-detail">Contact your organization's security team or call IT helpdesk immediately</span>
+              </label>
+            </div>
+            
+            <div class="step-item">
+              <input type="checkbox" id="step1-4">
+              <label for="step1-4">
+                <strong>Do NOT turn off computer</strong>
+                <span class="step-detail">Keep system powered on for forensic analysis - just disconnect network</span>
+              </label>
+            </div>
+            
+            <div class="step-item">
+              <input type="checkbox" id="step1-5">
+              <label for="step1-5">
+                <strong>Take photo of screen</strong>
+                <span class="step-detail">Use phone to photograph any error messages, suspicious windows, or websites</span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="emergency-contacts">
+            <h4>🆘 Emergency Contacts</h4>
+            <div class="contact-grid">
+              <div class="contact-item">
+                <strong>Internal IT:</strong> [Your IT Help Desk Number]
+              </div>
+              <div class="contact-item">
+                <strong>Security Team:</strong> [Security Team Emergency Line]
+              </div>
+              <div class="contact-item">
+                <strong>Manager:</strong> [Direct Manager Contact]
+              </div>
+              <div class="contact-item">
+                <strong>FBI IC3:</strong> www.ic3.gov (for reporting)
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Assessment Phase -->
+      <div class="phase-card high">
+        <div class="phase-header">
+          <div class="phase-number">2</div>
+          <div class="phase-info">
+            <h3>Assessment & Analysis (15-60 minutes)</h3>
+            <p>Determine scope and impact of the incident</p>
+          </div>
+          <div class="phase-status">🔍 High Priority</div>
+        </div>
+        
+        <div class="phase-content">
+          <div class="assessment-grid">
+            <div class="assessment-section">
+              <h4>📊 Damage Assessment</h4>
+              <div class="step-checklist">
+                <div class="step-item">
+                  <input type="checkbox" id="step2-1">
+                  <label for="step2-1">Check if credentials were entered on fake sites</label>
+                </div>
+                <div class="step-item">
+                  <input type="checkbox" id="step2-2">
+                  <label for="step2-2">Identify what files or folders were accessed</label>
+                </div>
+                <div class="step-item">
+                  <input type="checkbox" id="step2-3">
+                  <label for="step2-3">Review browser history for malicious sites</label>
+                </div>
+                <div class="step-item">
+                  <input type="checkbox" id="step2-4">
+                  <label for="step2-4">Check downloads folder for suspicious files</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="assessment-section">
+              <h4>🔒 Account Security</h4>
+              <div class="step-checklist">
+                <div class="step-item">
+                  <input type="checkbox" id="step2-5">
+                  <label for="step2-5">List all accounts that might be compromised</label>
+                </div>
+                <div class="step-item">
+                  <input type="checkbox" id="step2-6">
+                  <label for="step2-6">Check for unauthorized login attempts</label>
+                </div>
+                <div class="step-item">
+                  <input type="checkbox" id="step2-7">
+                  <label for="step2-7">Review recent account activity</label>
+                </div>
+                <div class="step-item">
+                  <input type="checkbox" id="step2-8">
+                  <label for="step2-8">Identify shared accounts or systems</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="impact-calculator">
+            <h4>💰 Impact Assessment Tool</h4>
+            <div class="calculator-grid">
+              <div class="calc-input">
+                <label>Affected Systems:</label>
+                <select id="affected-systems">
+                  <option value="1">Single workstation</option>
+                  <option value="3">Multiple workstations</option>
+                  <option value="5">Server systems</option>
+                  <option value="7">Critical infrastructure</option>
+                </select>
+              </div>
+              <div class="calc-input">
+                <label>Data Sensitivity:</label>
+                <select id="data-sensitivity">
+                  <option value="1">Public information</option>
+                  <option value="3">Internal documents</option>
+                  <option value="5">Confidential data</option>
+                  <option value="7">Customer/financial data</option>
+                </select>
+              </div>
+              <div class="calc-result">
+                <div>Severity Level: <span id="severity-result">Medium</span></div>
+                <div>Recommended Response: <span id="response-recommendation">Standard procedures</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Containment Phase -->
+      <div class="phase-card medium">
+        <div class="phase-header">
+          <div class="phase-number">3</div>
+          <div class="phase-info">
+            <h3>Containment & Recovery (1-24 hours)</h3>
+            <p>Stop spread and begin recovery process</p>
+          </div>
+          <div class="phase-status">🛠️ Medium Priority</div>
+        </div>
+        
+        <div class="phase-content">
+          <div class="containment-sections">
+            <div class="containment-section">
+              <h4>🔐 Account Security Actions</h4>
+              <div class="action-grid">
+                <div class="action-item urgent">
+                  <div class="action-icon">🔑</div>
+                  <div class="action-content">
+                    <h5>Change All Passwords</h5>
+                    <p>Update passwords for all potentially compromised accounts</p>
+                    <div class="priority">Priority: Immediate</div>
+                  </div>
+                </div>
+                
+                <div class="action-item urgent">
+                  <div class="action-icon">🛡️</div>
+                  <div class="action-content">
+                    <h5>Enable MFA</h5>
+                    <p>Activate multi-factor authentication on all accounts</p>
+                    <div class="priority">Priority: Immediate</div>
+                  </div>
+                </div>
+                
+                <div class="action-item high">
+                  <div class="action-icon">📱</div>
+                  <div class="action-content">
+                    <h5>Revoke Active Sessions</h5>
+                    <p>Log out all devices and revoke active sessions</p>
+                    <div class="priority">Priority: High</div>
+                  </div>
+                </div>
+                
+                <div class="action-item high">
+                  <div class="action-icon">🔍</div>
+                  <div class="action-content">
+                    <h5>Monitor Accounts</h5>
+                    <p>Set up alerts for unusual activity</p>
+                    <div class="priority">Priority: High</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="containment-section">
+              <h4>💻 System Remediation</h4>
+              <div class="step-checklist">
+                <div class="step-item">
+                  <input type="checkbox" id="step3-1">
+                  <label for="step3-1">Run full antivirus/anti-malware scan</label>
+                </div>
+                <div class="step-item">
+                  <input type="checkbox" id="step3-2">
+                  <label for="step3-2">Update all software and operating systems</label>
+                </div>
+                <div class="step-item">
+                  <input type="checkbox" id="step3-3">
+                  <label for="step3-3">Clear browser cache and stored passwords</label>
+                </div>
+                <div class="step-item">
+                  <input type="checkbox" id="step3-4">
+                  <label for="step3-4">Review and remove suspicious browser extensions</label>
+                </div>
+                <div class="step-item">
+                  <input type="checkbox" id="step3-5">
+                  <label for="step3-5">Check for unauthorized remote access software</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recovery Phase -->
+      <div class="phase-card low">
+        <div class="phase-header">
+          <div class="phase-number">4</div>
+          <div class="phase-info">
+            <h3>Recovery & Monitoring (24-72 hours)</h3>
+            <p>Restore normal operations and establish monitoring</p>
+          </div>
+          <div class="phase-status">📈 Ongoing</div>
+        </div>
+        
+        <div class="phase-content">
+          <div class="recovery-grid">
+            <div class="recovery-section">
+              <h4>🔄 System Restoration</h4>
+              <ul>
+                <li>Restore from clean backups if necessary</li>
+                <li>Rebuild compromised systems from scratch</li>
+                <li>Implement additional security controls</li>
+                <li>Test all systems before returning to production</li>
+                <li>Gradually restore network connectivity</li>
+              </ul>
+            </div>
+            
+            <div class="recovery-section">
+              <h4>👀 Enhanced Monitoring</h4>
+              <ul>
+                <li>Monitor all account activities for 30 days</li>
+                <li>Set up credit monitoring if personal data involved</li>
+                <li>Review financial statements weekly</li>
+                <li>Watch for suspicious emails to colleagues</li>
+                <li>Document any unusual system behavior</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="monitoring-dashboard">
+            <h4>📊 Recovery Status Dashboard</h4>
+            <div class="status-grid">
+              <div class="status-item">
+                <div class="status-label">Systems Restored</div>
+                <div class="status-bar">
+                  <div class="status-fill" style="width: 0%" id="systems-progress"></div>
+                </div>
+                <div class="status-value">0%</div>
+              </div>
+              <div class="status-item">
+                <div class="status-label">Accounts Secured</div>
+                <div class="status-bar">
+                  <div class="status-fill" style="width: 0%" id="accounts-progress"></div>
+                </div>
+                <div class="status-value">0%</div>
+              </div>
+              <div class="status-item">
+                <div class="status-label">Monitoring Active</div>
+                <div class="status-bar">
+                  <div class="status-fill" style="width: 0%" id="monitoring-progress"></div>
+                </div>
+                <div class="status-value">0%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Communication Templates -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">📢</span>
+        Communication Templates
+      </h2>
+      <div class="card-content">
+        <div class="template-grid">
+          <div class="template-card">
+            <h4>📧 Email to IT Team</h4>
+            <div class="template-content">
+              <strong>Subject:</strong> URGENT: Potential Security Incident - [Your Name]<br><br>
+              <strong>Body:</strong><br>
+              I believe I may have fallen victim to a phishing attack. Here are the details:<br><br>
+              • Time of incident: [Date/Time]<br>
+              • What I clicked/downloaded: [Details]<br>
+              • Current status: System disconnected from network<br>
+              • Immediate assistance needed: Yes<br><br>
+              Please advise on next steps. I'm available at [phone number].
+            </div>
+            <button class="copy-template" data-template="email-it">📋 Copy Template</button>
+          </div>
+          
+          <div class="template-card">
+            <h4>📱 Message to Manager</h4>
+            <div class="template-content">
+              Hi [Manager Name], I need to report a potential security incident. I may have clicked on a malicious link/email. I've disconnected my computer and contacted IT. Will keep you updated on status and any impact to work. Thanks.
+            </div>
+            <button class="copy-template" data-template="message-manager">📋 Copy Template</button>
+          </div>
+          
+          <div class="template-card">
+            <h4>🏢 Incident Report Form</h4>
+            <div class="template-content">
+              <strong>Incident Report</strong><br><br>
+              <strong>Reporter:</strong> [Your Name]<br>
+              <strong>Date/Time:</strong> [Incident Date/Time]<br>
+              <strong>Type:</strong> Suspected Phishing Attack<br>
+              <strong>Description:</strong> [What happened]<br>
+              <strong>Systems Affected:</strong> [List systems]<br>
+              <strong>Data Potentially Compromised:</strong> [Details]<br>
+              <strong>Immediate Actions Taken:</strong> [Your response]<br>
+              <strong>Current Status:</strong> [System status]
+            </div>
+            <button class="copy-template" data-template="incident-report">📋 Copy Template</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prevention for Future -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">🛡️</span>
+        Lessons Learned & Prevention
+      </h2>
+      <div class="card-content">
+        <h3>Post-Incident Review Questions:</h3>
+        <div class="review-questions">
+          <div class="question-item">
+            <div class="question">🤔 What made this attack convincing?</div>
+            <textarea class="question-answer" placeholder="Reflect on why this attack was successful..."></textarea>
+          </div>
+          
+          <div class="question-item">
+            <div class="question">🔍 What warning signs did I miss?</div>
+            <textarea class="question-answer" placeholder="Identify red flags you overlooked..."></textarea>
+          </div>
+          
+          <div class="question-item">
+            <div class="question">⚡ How can I respond faster next time?</div>
+            <textarea class="question-answer" placeholder="Think about improving response time..."></textarea>
+          </div>
+          
+          <div class="question-item">
+            <div class="question">🛠️ What additional security measures should I implement?</div>
+            <textarea class="question-answer" placeholder="Plan security improvements..."></textarea>
+          </div>
+        </div>
+        
+        <div class="prevention-checklist">
+          <h4>🔒 Enhanced Security Checklist</h4>
+          <div class="checklist-grid">
+            <div class="checklist-item">
+              <input type="checkbox" id="prev-1">
+              <label for="prev-1">Install reputable anti-phishing browser extension</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="prev-2">
+              <label for="prev-2">Enable advanced threat protection on email</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="prev-3">
+              <label for="prev-3">Set up security alerts on all accounts</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="prev-4">
+              <label for="prev-4">Schedule regular security training</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="prev-5">
+              <label for="prev-5">Create incident response contact card</label>
+            </div>
+            <div class="checklist-item">
+              <input type="checkbox" id="prev-6">
+              <label for="prev-6">Test backup and recovery procedures</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Response Quiz -->
+    <div class="quiz-section">
+      <div class="quiz-title">🧠 Incident Response Knowledge Check</div>
+      
+      <div class="quiz-question">
+        <p><strong>Question 1:</strong> What should you do FIRST when you realize you've fallen for a phishing attack?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" data-answer="wrong">Turn off your computer immediately</div>
+          <div class="quiz-option" data-answer="correct">Disconnect from the network but keep system on</div>
+          <div class="quiz-option" data-answer="wrong">Try to undo what you just did</div>
+          <div class="quiz-option" data-answer="wrong">Change your passwords immediately</div>
+        </div>
+      </div>
+
+      <div class="quiz-question">
+        <p><strong>Question 2:</strong> How much time do cybersecurity teams typically have to contain a breach after detection?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" data-answer="wrong">24 hours</div>
+          <div class="quiz-option" data-answer="wrong">4 hours</div>
+          <div class="quiz-option" data-answer="correct">62 minutes</div>
+          <div class="quiz-option" data-answer="wrong">15 minutes</div>
+        </div>
+      </div>
+
+      <div class="quiz-question">
+        <p><strong>Question 3:</strong> What percentage of organizations achieve their target recovery time of 24 hours?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" data-answer="wrong">25%</div>
+          <div class="quiz-option" data-answer="wrong">15%</div>
+          <div class="quiz-option" data-answer="wrong">8%</div>
+          <div class="quiz-option" data-answer="correct">2%</div>
+        </div>
+      </div>
+
+      <div class="quiz-question">
+        <p><strong>Question 4:</strong> During the assessment phase, what should you prioritize?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" data-answer="wrong">Fixing the problem immediately</div>
+          <div class="quiz-option" data-answer="correct">Understanding the scope and impact</div>
+          <div class="quiz-option" data-answer="wrong">Notifying all employees</div>
+          <div class="quiz-option" data-answer="wrong">Restarting all systems</div>
+        </div>
+      </div>
+
+      <div class="progress-indicator">
+        <div style="color: var(--text-secondary); margin-bottom: 10px;">Response Readiness:</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%" id="progress-bar"></div>
+        </div>
+        <div style="color: var(--text-muted); font-size: 14px; margin-top: 5px;" id="progress-text">Test your incident response knowledge</div>
+      </div>
+    </div>
+
+    <!-- Emergency Contact Card -->
+    <div class="contact-card">
+      <h3>🆘 Emergency Response Card</h3>
+      <p>Print this card and keep it easily accessible</p>
+      
+      <div class="card-content-print">
+        <div class="card-section">
+          <h4>IMMEDIATE ACTIONS (Do This NOW)</h4>
+          <ol>
+            <li>Disconnect from network (unplug/disable Wi-Fi)</li>
+            <li>Document what happened</li>
+            <li>Alert IT/Security team</li>
+            <li>Keep system powered on</li>
+            <li>Take photos with phone</li>
+          </ol>
+        </div>
+        
+        <div class="card-section">
+          <h4>EMERGENCY CONTACTS</h4>
+          <div class="contact-info">
+            <div>IT Help Desk: ________________</div>
+            <div>Security Team: ________________</div>
+            <div>Manager: ________________</div>
+            <div>FBI IC3: www.ic3.gov</div>
+          </div>
+        </div>
+        
+        <div class="card-section">
+          <h4>REMEMBER</h4>
+          <ul>
+            <li>Don't panic - quick response limits damage</li>
+            <li>Document everything</li>
+            <li>Get help immediately</li>
+            <li>Learn from the experience</li>
+          </ul>
+        </div>
+      </div>
+      
+      <button id="print-card" class="cyber-button">🖨️ Print Emergency Card</button>
+    </div>
+
+    <!-- Terminal Status -->
+    <div class="terminal">
+      <div class="terminal-header">[INCIDENT RESPONSE PROTOCOLS]</div>
+      <div class="terminal-line success">> Response procedures: LOADED</div>
+      <div class="terminal-line success">> Emergency contacts: CONFIGURED</div>
+      <div class="terminal-line">> Remember: Speed is critical - 62 minutes average containment time</div>
+      <div class="terminal-line">> Remember: Document everything for forensic analysis</div>
+      <div class="terminal-line warning">> ALERT: Only 2% of organizations meet recovery targets</div>
+      <div class="terminal-line">> Practice makes perfect - conduct regular incident response drills</div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-section">
+      <button id="take-quiz" class="cyber-button">Test Response Knowledge</button>
+      <button id="create-plan" class="cyber-button secondary">Create Personal Response Plan</button>
+      <button id="back-to-dashboard" class="cyber-button secondary">Back to Dashboard</button>
+    </div>
+  </div>
+
+  <script src="incidentResponse.js"></script>
+</body>
+</html>
