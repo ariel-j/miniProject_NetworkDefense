@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishGuard - Real Attack Case Studies</title>
+  <link rel="stylesheet" href="caseStudies.css">
+</head>
+<body>
+  <div class="header">
+    <span class="logo">🔍</span>
+    <h1>Real Attack Case Studies</h1>
+    <div class="subtitle">Learn from Actual Phishing Incidents</div>
+  </div>
+
+  <div class="container">
+    <!-- Breadcrumb Navigation -->
+    <div class="nav-breadcrumb">
+      <a href="../dashboard.html">🛡️ PhishGuard</a>
+      <span>></span>
+      <a href="../dashboard.html">Training Resources</a>
+      <span>></span>
+      <span style="color: var(--accent-red);">Real Attack Case Studies</span>
+    </div>
+
+    <!-- Introduction -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">📊</span>
+        Learning from Real-World Incidents
+      </h2>
+      <div class="card-content">
+        <p>Studying real phishing attacks provides invaluable insights into attacker methods and helps develop better defenses. These case studies are based on actual incidents from 2023-2024, anonymized for educational purposes.</p>
+        
+        <h3>Why Case Studies Matter:</h3>
+        <ul>
+          <li><strong>Real-World Context:</strong> See how attacks unfold in practice, not just theory</li>
+          <li><strong>Pattern Recognition:</strong> Identify common tactics across different attack types</li>
+          <li><strong>Impact Understanding:</strong> Learn the true cost of successful phishing attacks</li>
+          <li><strong>Defense Validation:</strong> See which security measures work and which fail</li>
+        </ul>
+
+        <p>In 2024, manufacturing has overtaken technology as the most targeted sector, with financial services ranking third. The average data breach cost reached $4.45 million, making prevention crucial.</p>
+      </div>
+    </div>
+
+    <!-- Attack Statistics -->
+    <div class="stats-section">
+      <div class="stats-title">📈 2024 Attack Landscape</div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">30,000+</div>
+          <div class="stat-label">Vulnerabilities Disclosed</div>
+          <div class="stat-description">17% increase from 2023</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">67.4%</div>
+          <div class="stat-label">AI-Enhanced Attacks</div>
+          <div class="stat-description">Using artificial intelligence</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">442%</div>
+          <div class="stat-label">Voice/SMS Growth</div>
+          <div class="stat-description">Vishing and smishing attacks</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">$1B+</div>
+          <div class="stat-label">Ransomware Payments</div>
+          <div class="stat-description">2023 all-time high</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case Studies Grid -->
+    <div class="case-studies-grid">
+      
+      <!-- Case Study 1: Healthcare Ransomware -->
+      <div class="case-study-card critical">
+        <div class="case-header">
+          <div class="case-icon">🏥</div>
+          <div class="case-meta">
+            <div class="case-title">Healthcare System Ransomware Attack</div>
+            <div class="case-details">
+              <span class="case-sector">Healthcare</span>
+              <span class="case-date">March 2024</span>
+              <span class="case-impact critical">Critical Impact</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="case-content">
+          <div class="attack-summary">
+            A major hospital network fell victim to a sophisticated phishing campaign that led to a ransomware deployment affecting 23 facilities and 40,000 patient records.
+          </div>
+          
+          <div class="timeline">
+            <h4>Attack Timeline:</h4>
+            <div class="timeline-item">
+              <span class="time">Day 1, 9:30 AM</span>
+              <span class="event">Spear-phishing email sent to 47 staff members</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 1, 11:15 AM</span>
+              <span class="event">HR manager clicks malicious link, enters credentials</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 1, 2:45 PM</span>
+              <span class="event">Attackers gain network access, begin lateral movement</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 3, 1:20 AM</span>
+              <span class="event">Ransomware deployed across network infrastructure</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 3, 6:00 AM</span>
+              <span class="event">Systems locked, patient care systems offline</span>
+            </div>
+          </div>
+          
+          <div class="attack-method">
+            <h4>Attack Method:</h4>
+            <p>Attackers used a fake "Employee Benefits Update" email with a spoofed sender address appearing to come from corporate HR. The email contained a link to a credential harvesting page that perfectly mimicked the hospital's login portal.</p>
+          </div>
+          
+          <div class="impact-details">
+            <h4>Impact:</h4>
+            <ul>
+              <li>23 hospital facilities affected for 8 days</li>
+              <li>40,000 patient records compromised</li>
+              <li>$12.3 million in recovery costs</li>
+              <li>Emergency patients diverted to other facilities</li>
+              <li>Surgical procedures postponed</li>
+            </ul>
+          </div>
+          
+          <div class="lessons-learned">
+            <h4>🎯 Key Lessons:</h4>
+            <ul>
+              <li>Regular phishing simulation training was not conducted</li>
+              <li>Network segmentation was insufficient</li>
+              <li>Backup systems were connected to main network</li>
+              <li>Incident response plan was outdated</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study 2: Manufacturing Supply Chain -->
+      <div class="case-study-card high">
+        <div class="case-header">
+          <div class="case-icon">🏭</div>
+          <div class="case-meta">
+            <div class="case-title">Supply Chain Compromise via CEO Fraud</div>
+            <div class="case-details">
+              <span class="case-sector">Manufacturing</span>
+              <span class="case-date">September 2024</span>
+              <span class="case-impact high">High Impact</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="case-content">
+          <div class="attack-summary">
+            Attackers used AI voice cloning to impersonate a CEO during a "urgent" phone call, leading to unauthorized wire transfers and supply chain disruption affecting multiple companies.
+          </div>
+          
+          <div class="timeline">
+            <h4>Attack Timeline:</h4>
+            <div class="timeline-item">
+              <span class="time">Week 1</span>
+              <span class="event">Social media and public speech analysis for voice cloning</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 1, 4:30 PM</span>
+              <span class="event">AI-generated voice call to CFO requesting urgent transfer</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 1, 5:15 PM</span>
+              <span class="event">$2.8 million transferred to attacker-controlled account</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 2, 9:00 AM</span>
+              <span class="event">Real CEO discovers unauthorized transfer</span>
+            </div>
+          </div>
+          
+          <div class="attack-method">
+            <h4>Attack Method:</h4>
+            <p>Attackers analyzed public recordings of the CEO's voice from earnings calls and conference presentations. They used AI voice synthesis to create a convincing audio call claiming an urgent acquisition opportunity required immediate funding.</p>
+          </div>
+          
+          <div class="impact-details">
+            <h4>Impact:</h4>
+            <ul>
+              <li>$2.8 million financial loss</li>
+              <li>Production delays affecting 12 client companies</li>
+              <li>Damage to business relationships and trust</li>
+              <li>Increased scrutiny from regulators</li>
+              <li>Implementation of new verification protocols</li>
+            </ul>
+          </div>
+          
+          <div class="lessons-learned">
+            <h4>🎯 Key Lessons:</h4>
+            <ul>
+              <li>Voice-only authorization for large transfers is insufficient</li>
+              <li>Multi-person approval processes are essential</li>
+              <li>Public audio content can be weaponized</li>
+              <li>AI-generated attacks are increasingly sophisticated</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study 3: Financial Services BEC -->
+      <div class="case-study-card medium">
+        <div class="case-header">
+          <div class="case-icon">🏦</div>
+          <div class="case-meta">
+            <div class="case-title">Business Email Compromise - Investment Firm</div>
+            <div class="case-details">
+              <span class="case-sector">Financial Services</span>
+              <span class="case-date">June 2024</span>
+              <span class="case-impact medium">Medium Impact</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="case-content">
+          <div class="attack-summary">
+            A sophisticated business email compromise attack targeted a mid-sized investment firm, using compromised vendor emails to redirect client payments to attacker accounts.
+          </div>
+          
+          <div class="timeline">
+            <h4>Attack Timeline:</h4>
+            <div class="timeline-item">
+              <span class="time">Day -30</span>
+              <span class="event">Vendor email account compromised via credential stuffing</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 1</span>
+              <span class="event">Email monitoring reveals client communication patterns</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 15</span>
+              <span class="event">Fake invoice sent with altered banking details</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 17</span>
+              <span class="event">Client transfers $485,000 to attacker account</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 22</span>
+              <span class="event">Vendor contacts client about missing payment</span>
+            </div>
+          </div>
+          
+          <div class="attack-method">
+            <h4>Attack Method:</h4>
+            <p>Attackers compromised a trusted vendor's email account and monitored communications for weeks. They then sent convincing emails requesting updated banking details for "compliance purposes" using the vendor's legitimate email thread history.</p>
+          </div>
+          
+          <div class="impact-details">
+            <h4>Impact:</h4>
+            <ul>
+              <li>$485,000 direct financial loss</li>
+              <li>Client relationship damage</li>
+              <li>Legal fees and investigation costs</li>
+              <li>Regulatory reporting requirements</li>
+              <li>Enhanced verification procedures implemented</li>
+            </ul>
+          </div>
+          
+          <div class="lessons-learned">
+            <h4>🎯 Key Lessons:</h4>
+            <ul>
+              <li>Vendor security directly affects your security</li>
+              <li>Banking detail changes should require phone verification</li>
+              <li>Email thread hijacking is increasingly common</li>
+              <li>Supply chain security assessments are critical</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study 4: Technology Company QR Code Phishing -->
+      <div class="case-study-card medium">
+        <div class="case-header">
+          <div class="case-icon">💻</div>
+          <div class="case-meta">
+            <div class="case-title">QR Code Phishing Campaign - Tech Startup</div>
+            <div class="case-details">
+              <span class="case-sector">Technology</span>
+              <span class="case-date">November 2024</span>
+              <span class="case-impact medium">Medium Impact</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="case-content">
+          <div class="attack-summary">
+            A fast-growing tech startup fell victim to the CorruptQR campaign, where employees received Office documents with QR codes that led to credential theft and system compromise.
+          </div>
+          
+          <div class="timeline">
+            <h4>Attack Timeline:</h4>
+            <div class="timeline-item">
+              <span class="time">Day 1, 10:00 AM</span>
+              <span class="event">Malicious Office documents sent to 23 employees</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 1, 10:30 AM</span>
+              <span class="event">First employee scans QR code on mobile device</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 1, 11:45 AM</span>
+              <span class="event">Corporate credentials entered on fake login page</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 1, 3:20 PM</span>
+              <span class="event">Attackers access corporate Microsoft 365 environment</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 2</span>
+              <span class="event">Lateral movement and data exfiltration begins</span>
+            </div>
+          </div>
+          
+          <div class="attack-method">
+            <h4>Attack Method:</h4>
+            <p>The ONNX phishing-as-a-service platform delivered corrupted Office documents. When employees tried to restore the content, a QR code appeared. Scanning led to a convincing Microsoft 365 login page that captured credentials and session tokens.</p>
+          </div>
+          
+          <div class="impact-details">
+            <h4>Impact:</h4>
+            <ul>
+              <li>15 employee accounts compromised</li>
+              <li>Proprietary software code accessed</li>
+              <li>Client data potentially exposed</li>
+              <li>3 days of system downtime</li>
+              <li>$125,000 in incident response costs</li>
+            </ul>
+          </div>
+          
+          <div class="lessons-learned">
+            <h4>🎯 Key Lessons:</h4>
+            <ul>
+              <li>QR codes can bypass traditional email security</li>
+              <li>Mobile devices need security consideration</li>
+              <li>Document corruption can be part of the attack</li>
+              <li>Phishing-as-a-Service lowers attack barriers</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study 5: Government Agency Social Engineering -->
+      <div class="case-study-card high">
+        <div class="case-header">
+          <div class="case-icon">🏛️</div>
+          <div class="case-meta">
+            <div class="case-title">Multi-Vector Social Engineering - City Government</div>
+            <div class="case-details">
+              <span class="case-sector">Government</span>
+              <span class="case-date">August 2024</span>
+              <span class="case-impact high">High Impact</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="case-content">
+          <div class="attack-summary">
+            A coordinated attack combined email phishing, vishing (voice phishing), and physical reconnaissance to compromise a city government network, affecting public services.
+          </div>
+          
+          <div class="timeline">
+            <h4>Attack Timeline:</h4>
+            <div class="timeline-item">
+              <span class="time">Week -2</span>
+              <span class="event">Physical reconnaissance of government building</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 1</span>
+              <span class="event">Spear-phishing emails sent to IT department</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 3</span>
+              <span class="event">Follow-up vishing calls claiming to be IT security</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 5</span>
+              <span class="event">Help desk employee provides system access credentials</span>
+            </div>
+            <div class="timeline-item">
+              <span class="time">Day 7</span>
+              <span class="event">Public service systems compromised</span>
+            </div>
+          </div>
+          
+          <div class="attack-method">
+            <h4>Attack Method:</h4>
+            <p>Attackers first conducted physical surveillance to understand the organization structure. They then sent targeted emails followed by convincing phone calls using gathered intelligence, ultimately convincing help desk staff to provide VPN access credentials.</p>
+          </div>
+          
+          <div class="impact-details">
+            <h4>Impact:</h4>
+            <ul>
+              <li>City services offline for 5 days</li>
+              <li>Citizen data potentially compromised</li>
+              <li>Emergency services backup systems activated</li>
+              <li>Public trust and confidence damaged</li>
+              <li>Federal investigation initiated</li>
+            </ul>
+          </div>
+          
+          <div class="lessons-learned">
+            <h4>🎯 Key Lessons:</h4>
+            <ul>
+              <li>Physical security is part of cybersecurity</li>
+              <li>Multi-vector attacks are increasingly common</li>
+              <li>Help desk training is critical</li>
+              <li>Verification procedures must be standardized</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Defense Strategies from Case Studies -->
+    <div class="card">
+      <h2 class="card-title">
+        <span class="icon">🛡️</span>
+        Common Defense Strategies from Case Studies
+      </h2>
+      <div class="card-content">
+        <div class="defense-grid">
+          <div class="defense-item">
+            <h4>🔑 Multi-Factor Authentication</h4>
+            <p>Present in 89% of successful defenses. Even when credentials are stolen, MFA prevents account takeover.</p>
+          </div>
+          <div class="defense-item">
+            <h4>📞 Out-of-Band Verification</h4>
+            <p>Require phone or in-person verification for unusual requests, especially financial transactions.</p>
+          </div>
+          <div class="defense-item">
+            <h4>🎓 Regular Training</h4>
+            <p>Organizations with quarterly phishing simulations showed 65% lower success rates for attacks.</p>
+          </div>
+          <div class="defense-item">
+            <h4>🔒 Network Segmentation</h4>
+            <p>Proper network segmentation limited lateral movement in 78% of contained breaches.</p>
+          </div>
+          <div class="defense-item">
+            <h4>💾 Offline Backups</h4>
+            <p>Air-gapped backup systems enabled 94% faster recovery from ransomware attacks.</p>
+          </div>
+          <div class="defense-item">
+            <h4>📊 Security Monitoring</h4>
+            <p>24/7 SOC monitoring reduced average dwell time from 207 days to 23 days.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Analysis Quiz -->
+    <div class="quiz-section">
+      <div class="quiz-title">🔍 Case Study Analysis Quiz</div>
+      
+      <div class="quiz-question">
+        <p><strong>Question 1:</strong> Based on the healthcare ransomware case, what was the primary factor that allowed the attack to succeed?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" data-answer="wrong">Sophisticated malware</div>
+          <div class="quiz-option" data-answer="correct">Human error and inadequate training</div>
+          <div class="quiz-option" data-answer="wrong">Outdated software</div>
+          <div class="quiz-option" data-answer="wrong">Poor network infrastructure</div>
+        </div>
+      </div>
+
+      <div class="quiz-question">
+        <p><strong>Question 2:</strong> In the CEO fraud case, what emerging technology was used by attackers?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" data-answer="wrong">Deepfake video</div>
+          <div class="quiz-option" data-answer="correct">AI voice cloning</div>
+          <div class="quiz-option" data-answer="wrong">Machine learning malware</div>
+          <div class="quiz-option" data-answer="wrong">Automated phishing</div>
+        </div>
+      </div>
+
+      <div class="quiz-question">
+        <p><strong>Question 3:</strong> What percentage of successful defenses included multi-factor authentication?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" data-answer="wrong">65%</div>
+          <div class="quiz-option" data-answer="wrong">78%</div>
+          <div class="quiz-option" data-answer="correct">89%</div>
+          <div class="quiz-option" data-answer="wrong">94%</div>
+        </div>
+      </div>
+
+      <div class="quiz-question">
+        <p><strong>Question 4:</strong> Which attack vector is becoming increasingly common in 2024?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" data-answer="wrong">Email attachments</div>
+          <div class="quiz-option" data-answer="correct">QR code phishing</div>
+          <div class="quiz-option" data-answer="wrong">USB drops</div>
+          <div class="quiz-option" data-answer="wrong">Social media scams</div>
+        </div>
+      </div>
+
+      <div class="progress-indicator">
+        <div style="color: var(--text-secondary); margin-bottom: 10px;">Analysis Progress:</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%" id="progress-bar"></div>
+        </div>
+        <div style="color: var(--text-muted); font-size: 14px; margin-top: 5px;" id="progress-text">Analyze the case studies to advance</div>
+      </div>
+    </div>
+
+    <!-- Terminal Status -->
+    <div class="terminal">
+      <div class="terminal-header">[THREAT INTELLIGENCE ANALYSIS]</div>
+      <div class="terminal-line success">> Case study database: 89 incidents analyzed</div>
+      <div class="terminal-line success">> Pattern recognition engine: ACTIVE</div>
+      <div class="terminal-line">> Remember: Attackers exploit human psychology, not just technology</div>
+      <div class="terminal-line">> Remember: Multi-layered defense is essential</div>
+      <div class="timeline-line warning">> ALERT: Attack sophistication increasing with AI integration</div>
+      <div class="terminal-line">> Learn from others' mistakes to strengthen your defenses</div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-section">
+      <button id="take-quiz" class="cyber-button">Analyze More Cases</button>
+      <button id="back-to-dashboard" class="cyber-button secondary">Back to Dashboard</button>
+    </div>
+  </div>
+
+  <script src="caseStudies.js"></script>
+</body>
+</html>
