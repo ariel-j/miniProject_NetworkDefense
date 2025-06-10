@@ -394,21 +394,37 @@ async function checkSafeBrowsing(url) {
   }
 }
 
-// PhishTank API check
+// PhishTank API check - FIXED VERSION
 async function checkPhishTank(url) {
   apiStats.phishTank.requests++;
   
   try {
-    const formData = new FormData();
+    // CHANGE: Use URLSearchParams instead of FormData
+    const formData = new URLSearchParams();
     formData.append('url', url);
     formData.append('format', 'json');
     
     const response = await fetch(CONFIG.apis.phishTank.endpoint, {
       method: 'POST',
+      headers: {
+        // ADD: Proper Content-Type and User-Agent headers
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'User-Agent': 'PhishGuard/1.0'
+      },
       body: formData
     });
     
     if (!response.ok) {
+      // IMPROVED: Better error handling for no API key
+      if (response.status === 403 || response.status === 509) {
+        console.log('PhishGuard: PhishTank rate limited or no API key, this is normal for free usage');
+        // Return a neutral result instead of throwing error
+        return {
+          isPhishing: false,
+          confidence: 0,
+          reason: 'PhishTank: API key required for higher limits'
+        };
+      }
       throw new Error(`PhishTank API error: ${response.status}`);
     }
     
@@ -432,7 +448,13 @@ async function checkPhishTank(url) {
     
   } catch (error) {
     apiStats.phishTank.errors++;
-    throw error;
+    console.error('PhishGuard: PhishTank error:', error);
+    // Return neutral result instead of throwing
+    return {
+      isPhishing: false,
+      confidence: 0,
+      reason: `PhishTank error: ${error.message}`
+    };
   }
 }
 
