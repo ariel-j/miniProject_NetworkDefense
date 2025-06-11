@@ -13,6 +13,7 @@ function initialize() {
     return;
   }
   
+  checkCurrentUrlForPhishing();
   // Basic page analysis
   analyzePageContent();
 }
@@ -47,6 +48,37 @@ function analyzePageContent() {
   }
 }
 
+async function checkCurrentUrlForPhishing() {
+  try {
+    console.log('PhishGuard: Checking current URL for phishing threats...');
+    
+    const response = await chrome.runtime.sendMessage({
+      action: 'analyzeUrl',
+      url: window.location.href
+    });
+    
+    console.log('PhishGuard: URL analysis result:', response);
+    
+    if (response && response.isPhishing) {
+      showPhishingWarning(response);
+    }
+    
+  } catch (error) {
+    console.error('PhishGuard: Error checking URL:', error);
+  }
+}
+
+function showPhishingWarning(result) {
+  const warning = document.createElement('div');
+  warning.innerHTML = `
+    <div style="position: fixed; top: 0; left: 0; right: 0; background: red; color: white; 
+                padding: 15px; text-align: center; z-index: 999999; font-weight: bold;">
+      ⚠️ PHISHING ALERT: ${result.reason} (${Math.round(result.confidence * 100)}% confidence)
+      <button onclick="this.parentElement.parentElement.remove()" style="margin-left: 20px;">X</button>
+    </div>
+  `;
+  document.body.insertBefore(warning, document.body.firstChild);
+}
 // Check login form security
 function checkLoginFormSecurity(form) {
   const action = form.getAttribute('action');
